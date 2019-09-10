@@ -5,7 +5,7 @@
       dismissible
       variant="warning"
       @dismissed="dismissCountDown=0"
-      @dismissed-count-down="countDownChanged"
+      @dismiss-count-down="countDownChanged"
       >
       This alert will dismissed in {{ dismissCountDown }} seconds.
     </b-alert>
