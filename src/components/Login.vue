@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div class="container">
+      <!-- <div class="container">
       <form class="form-signin">
         <h2 class="form-signin-heading">LOGIN</h2>
         <label for="inputEmail" class="sr-only">Email</label>
@@ -13,15 +13,46 @@
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" @click="login">LOGIN</button>
-        <!-- <div v-show="isShow">
-          <p>email: {{email}}</p>
-          <p>password: {{password}}</p> -->
-        <!-- </div> -->
         <div class="checkbox">
             <b-link to="/signup" style="color: black">Sign up</b-link>
         </div>
-      </form>
-      </div>
+        </form>
+        </div> -->
+      <h1>LOGIN</h1>
+      <b-alert v-model="fail" variant="warning" dismissible="">Wrong email or password!</b-alert>
+      <b-form @submit="login" class="form-login">
+        <b-form-group
+          id="input-group-1"
+          label=""
+          label-for="input-1"
+        >
+          <b-form-input
+            id="input-1"
+            v-model="email"
+            type="email"
+            required
+            placeholder="Enter Email"
+            :state="validation"
+          ></b-form-input>
+          <b-form-invalid-feedback :state="validation">
+            Please enter a valid email address.
+          </b-form-invalid-feedback>
+        </b-form-group>
+        <b-form-group
+          id="input-group-2"
+          label=""
+          label-for="input-2"
+        >
+        <b-form-input
+          id="input-2"
+          v-model="password"
+          type="password"
+          required
+          placeholder="Passwrod"
+          ></b-form-input>
+        </b-form-group>
+        <b-button variant="primary" type="submit">LOGIN</b-button>
+      </b-form>
     </div>
 </template>
 
@@ -38,7 +69,8 @@ export default {
       lastName: '',
       email: '',
       password: '',
-      confirmedPassword: ''
+      confirmedPassword: '',
+      fail: null
     }
   },
   methods: {
@@ -47,11 +79,22 @@ export default {
       this.axios.post('/api/LoginServlet', {
         password: this.password,
         username: this.email
-      }).then(function (response) {
+      }).then((response) => {
         console.log(response.data)
-      }).catch(function (error) {
+        if (response.data.login_ACK === -1) {
+          this.fail = true
+        } else {
+          this.$router.push('/helloworld')
+        }
+      }).catch((error) => {
         console.log(error)
       })
+    }
+  },
+  computed: {
+    validation () {
+      var pattern = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+      return pattern.test(this.email)
     }
   }
 }
@@ -59,12 +102,12 @@ export default {
 
 <style scoped>
 
-.form-signin {
+ .form-login {
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
 }
-.form-signin .form-signin-heading,
+/*.form-signin .form-signin-heading,
 .form-signin .checkbox {
   margin-bottom: 10px;
 }
@@ -87,7 +130,7 @@ export default {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-}
+} */
 /* .form-signin input[type="password"] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
