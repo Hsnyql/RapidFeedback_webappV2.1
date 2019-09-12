@@ -2,24 +2,25 @@
     <div>
       <div class="container">
       <form class="form-signin">
-        <h2 class="form-signin-heading">LOGIN</h2>
+        <h2 class="form-signin-heading">SIGNUP</h2>
+        <label for="inputFirstName" class="sr-only">First Name</label>
+        <input type="firstName" id="inputFirstname" class="form-control" placeholder="First Name" required autofocus v-model="firstName">
+        <label for="inputMiddleName" class="sr-only">Middle Name</label>
+        <input type="middleName" id="inputMiddleName" class="form-control" placeholder="Middle Name" v-model="middleName">
+        <label for="inputLastname" class="sr-only">Last Name</label>
+        <input type="lastName" id="inputLastName" class="form-control" placeholder="Last Name" required v-model="lastName">
         <label for="inputEmail" class="sr-only">Email</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus v-model="email">
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required v-model="email">
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required v-model="password">
+        <label for="confirmPassword" class="sr-only">Confirm Password</label>
+        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm Password" required v-model="confirmedPassword">
         <div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> remember me
           </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" @click="login">LOGIN</button>
-        <!-- <div v-show="isShow">
-          <p>email: {{email}}</p>
-          <p>password: {{password}}</p> -->
-        <!-- </div> -->
-        <div class="checkbox">
-            <b-link to="/signup" style="color: black">Sign up</b-link>
-        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" @click="signup">SIGNUP</button>
       </form>
       </div>
     </div>
@@ -35,6 +36,7 @@ export default {
       // preserves its current state and we are modifying
       // its initial state.
       firstName: '',
+      middleName: '',
       lastName: '',
       email: '',
       password: '',
@@ -42,11 +44,14 @@ export default {
     }
   },
   methods: {
-    login () {
+    signup () {
       // To access address from other domain, we need to add proxyTable in ./config/index.js
-      this.axios.post('/api/LoginServlet', {
+      this.axios.post('/api/SignupServlet', {
+        firstName: this.firstName,
+        middleName: this.middleName,
+        lastName: this.lastName,
         password: this.password,
-        username: this.email
+        email: this.email
       }).then(function (response) {
         console.log(response.data)
       }).catch(function (error) {
