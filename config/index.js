@@ -10,7 +10,22 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: { //设置地址代理，跨域请求外部链接
+      '/vue-demo': {
+        target: 'https://easy-mock.com/mock/5d6deb8714ac4c3b89822564/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/vue-demo': '/vue-demo'
+        }
+      },
+      '/api':{
+        target: 'http://localhost:8080/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/RapidFeedback'
+        }
+      }
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
