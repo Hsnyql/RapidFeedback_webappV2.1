@@ -6,6 +6,12 @@ import Vue from 'vue'
 import './plugins/bootstrap-vue'
 import App from './App'
 import router from './router'
+import Vue2Sidebar from 'vue2-sidebar'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+
+Vue.use(Vue2Sidebar)
+Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false
 

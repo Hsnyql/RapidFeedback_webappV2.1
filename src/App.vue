@@ -1,17 +1,32 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <Header/>
+    <SideNav/>
+    <ScanHome/>
   </div>
 </template>
 
 <script>
+import SideNav from '@/components/nav'
+import Header from '@/components/Header'
+import ScanHome from '@/components/ScanHome.vue'
+import ChartCard from '@/components/ChartCard.vue'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    SideNav,
+    Header,
+    ScanHome,
+    ChartCard
+  }
 }
 </script>
 
-<style>
+<style lang="scss">
+@import './assets/custom.scss';
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~bootstrap-vue/src/index.scss';
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
