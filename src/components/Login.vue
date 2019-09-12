@@ -33,6 +33,8 @@
             required
             placeholder="Enter Email"
             :state="validation"
+            autofocus
+            :formatter="format"
           ></b-form-input>
           <b-form-invalid-feedback :state="validation">
             Please enter a valid email address.
@@ -53,6 +55,7 @@
         </b-form-group>
         <b-button variant="primary" type="submit">LOGIN</b-button>
       </b-form>
+      <b-link to="/signup">sign up</b-link>
     </div>
 </template>
 
@@ -89,6 +92,9 @@ export default {
       }).catch((error) => {
         console.log(error)
       })
+    },
+    format (value, event) {
+      return value.toLowerCase()
     }
   },
   computed: {
