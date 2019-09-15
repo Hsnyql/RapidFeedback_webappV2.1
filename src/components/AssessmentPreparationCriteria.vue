@@ -26,9 +26,9 @@
 </template>
 
 <script>
-    export default {
-        name: "AssessmentPreparation_Criteria"
-    }
+export default {
+  name: 'AssessmentPreparationCriteria'
+}
 </script>
 
 <style scoped>
