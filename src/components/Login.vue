@@ -1,12 +1,12 @@
 <template>
     <b-container fluid>
+        <b-row align-h="center"><h1>Login Page</h1></b-row>
+        <b-row align-h="center">
+          <b-alert v-model="noEmail" variant="danger" dismissible>Wrong email!</b-alert>
+          <b-alert v-model="wrongPassword" variant="danger" dismissble>Wrong password!</b-alert>
+        </b-row>
         <b-row align-h="center">
             <b-col cols="6">
-                <b-row><h1>Login Page</h1></b-row>
-                <b-row>
-                  <b-alert v-model="noEmail" variant="danger" dismissible>Wrong email!</b-alert>
-                  <b-alert v-model="wrongPassword" variant="danger" dismissble>Wrong password!</b-alert>
-                </b-row>
                 <b-row>
                     <b-col>
                         <b-form @submit="login" @reset="clear">
