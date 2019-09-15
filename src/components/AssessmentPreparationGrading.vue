@@ -8,7 +8,7 @@
         </b-col>
         <b-col cols="4">
           <b-button variant="primary">Save</b-button>
-          <b-button variant="primary" to="">Next</b-button>
+          <b-button variant="primary" to="/AssessmentPreparation/Student">Next</b-button>
         </b-col>
       </b-row>
     </b-container>
