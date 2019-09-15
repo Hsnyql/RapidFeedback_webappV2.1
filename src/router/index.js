@@ -9,6 +9,7 @@ import AssessmentPreparationMain from '@/components/AssessmentPreparationMain'
 import storetest from '@/components/storetest'
 import AssessmentPreparationAbout from '../components/AssessmentPreparationAbout'
 import AssessmentPreparationCriteria from '../components/AssessmentPreparationCriteria'
+import AssessmentPreparationGrading from '../components/AssessmentPreparationGrading'
 
 Vue.use(VueRouter)
 
@@ -21,7 +22,8 @@ const routes = [
   {path: '/AssessmentPreparation/Menu', component: AssessmentPreparationMain},
   {path: '/storetest', component: storetest},
   {path: '/AssessmentPreparation/About', component: AssessmentPreparationAbout},
-  {path: '/AssessmentPreparation/Criteria', component: AssessmentPreparationCriteria}
+  {path: '/AssessmentPreparation/Criteria', component: AssessmentPreparationCriteria},
+  {path: '/AssessmentPreparation/Grading', component: AssessmentPreparationGrading}
 ]
 
 export default new VueRouter({
