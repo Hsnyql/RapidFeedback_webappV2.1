@@ -11,7 +11,7 @@
                 <b-nav pills>
                     <b-nav-item to="/Login">Login</b-nav-item>
                     <b-nav-item to="/Signup">Signup</b-nav-item>
-                    <b-nav-item to="/AssessmentPreparationMenu">Assessment Preparation</b-nav-item>
+                    <b-nav-item to="/AssessmentPreparation/Menu">Assessment Preparation</b-nav-item>
                     <b-nav-item >Real-Time Assessment</b-nav-item>
                     <b-nav-item >Review</b-nav-item>
                     <b-nav-item >Report</b-nav-item>

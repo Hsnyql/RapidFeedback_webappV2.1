@@ -5,7 +5,7 @@
                 <b-row>
                     <b-col>
                         <b-nav vertical>
-                            <b-nav-item>Add Assessment</b-nav-item>
+                            <b-nav-item to="/AssessmentPreparation/About">Add Assessment</b-nav-item>
                         </b-nav>
                     </b-col>
                 </b-row>
@@ -57,7 +57,7 @@
 
 <script>
 export default {
-  name: 'AssessmentPreparation_Main'
+  name: 'AssessmentPreparationMain'
 }
 </script>
 

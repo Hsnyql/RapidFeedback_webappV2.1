@@ -51,9 +51,9 @@
 </template>
 
 <script>
-    export default {
-        name: "AssessmentPreparation_About"
-    }
+export default {
+  name: 'AssessmentPreparationAbout'
+}
 </script>
 
 <style scoped>
