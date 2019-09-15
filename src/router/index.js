@@ -1,33 +1,23 @@
+
 import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import test from '@/components/test'
+import VueRouter from 'vue-router'
+
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
+// eslint-disable-next-line camelcase
+import AssessmentPreparation_Main from '@/components/AssessmentPreparation_Main'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Login',
-      component: Login
-    },
-    {
-      path: '/helloworld',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component: test
-    },
-    {
-      path: '/signup',
-      name: 'Signup',
-      component: Signup
-    }
-  ]
+const blank = {template: ''}
+
+const routes = [
+  {path: '/', component: blank},
+  {path: '/Login', component: Login},
+  {path: '/Signup', component: Signup},
+  {path: '/AssessmentPreparationMenu', component: AssessmentPreparation_Main}
+]
+
+export default new VueRouter({
+  routes
 })
