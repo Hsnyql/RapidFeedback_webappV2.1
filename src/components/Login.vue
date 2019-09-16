@@ -52,22 +52,25 @@ export default {
       this.axios.post('/api/LoginServlet', {
         username: this.email,
         password: this.password
-      }).then((response) => {
-        console.log(response.data)
-        var ack = response.data.login_ACK
-        if (response.data.login_ACK > 0) {
-          store.token = response.data.token
-          store.firstName = response.data.firstName
-          store.projectList = response.data.projectList
-          // TODO router link
-          this.$router.push('/storetest')
-        } else if (ack === 0) {
-          this.wrongPassword = true
-        } else if (ack === -1) {
-          this.noEmail = true
-        }
-        console.log(store.token)
       })
+        .then(response => {
+          console.log(response)
+          var ack = response.data.login_ACK
+          if (ack > 0) {
+            store.token = response.data.token
+            store.firstName = response.data.firstName
+            store.projectList = response.data.projectList
+            // TODO router link
+            this.$router.push('/storetest')
+          } else if (ack === 0) {
+            this.wrongPassword = true
+          } else if (ack === -1) {
+            this.noEmail = true
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
     clear () {
       this.email = ''
