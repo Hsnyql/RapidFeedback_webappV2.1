@@ -14,7 +14,7 @@ const data = {
 
 const login = {
   'token': '@id',
-  'firstName': '@name',
+  'firstName': '@first',
   'projectList': '@string',
   'login_ACK': '@ack'
 }
