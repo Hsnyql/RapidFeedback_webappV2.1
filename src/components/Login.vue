@@ -49,7 +49,8 @@ export default {
   },
   methods: {
     login () {
-      this.axios.post('/api/LoginServlet', {
+      this.axios.post('/api/login', {
+      // this.axios.post('/api/LoginServlet', {
         username: this.email,
         password: this.password
       })
@@ -71,6 +72,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
+      console.log(store)
     },
     clear () {
       this.email = ''
