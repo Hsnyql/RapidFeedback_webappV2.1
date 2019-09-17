@@ -14,12 +14,9 @@ import AssessmentPreparationStudent from '../components/AssessmentPreparationStu
 
 Vue.use(VueRouter)
 
-const blank = {template: ''}
-
 const routes = [
   {path: '/storetest', component: storetest},
-  {path: '/', component: blank},
-  {path: '/Login', component: Login},
+  {path: '/', component: Login},
   {path: '/Signup', component: Signup},
   {path: '/AssessmentPreparation/Menu', component: AssessmentPreparationMain},
   {path: '/AssessmentPreparation/About', component: AssessmentPreparationAbout},
