@@ -2,26 +2,28 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Login from '@/components/Login'
-import Signup from '@/components/Signup'
+import Login from '../components/Login'
+import Signup from '../components/Signup'
 // eslint-disable-next-line camelcase
-import AssessmentPreparationMain from '@/components/AssessmentPreparationMain'
-import storetest from '@/components/storetest'
+import storetest from '../components/storetest'
+
+import AssessmentPreparationMain from '../components/AssessmentPreparationMain'
 import AssessmentPreparationAbout from '../components/AssessmentPreparationAbout'
 import AssessmentPreparationCriteria from '../components/AssessmentPreparationCriteria'
+import AssessmentPreparationGrading from '../components/AssessmentPreparationGrading'
+import AssessmentPreparationStudent from '../components/AssessmentPreparationStudent'
 
 Vue.use(VueRouter)
 
-// const blank = {template: ''}
-
 const routes = [
-  // {path: '/', component: blank},
+  {path: '/storetest', component: storetest},
   {path: '/', component: Login},
   {path: '/Signup', component: Signup},
   {path: '/AssessmentPreparation/Menu', component: AssessmentPreparationMain},
-  {path: '/storetest', component: storetest},
   {path: '/AssessmentPreparation/About', component: AssessmentPreparationAbout},
-  {path: '/AssessmentPreparation/Criteria', component: AssessmentPreparationCriteria}
+  {path: '/AssessmentPreparation/Criteria', component: AssessmentPreparationCriteria},
+  {path: '/AssessmentPreparation/Grading', component: AssessmentPreparationGrading},
+  {path: '/AssessmentPreparation/Student', component: AssessmentPreparationStudent}
 ]
 
 export default new VueRouter({
