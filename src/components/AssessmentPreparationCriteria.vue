@@ -19,7 +19,7 @@
                 <b-button variant="primary" to="/AssessmentPreparation/About">Back</b-button>
             </b-col>
             <b-col cols="4">
-                <b-button variant="primary">Next</b-button>
+                <b-button variant="primary" to="/AssessmentPreparation/Grading">Next</b-button>
             </b-col>
         </b-row>
     </b-container>
