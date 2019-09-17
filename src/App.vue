@@ -9,7 +9,7 @@
         <b-row align-h="center">
             <b-col>
                 <b-nav pills>
-                    <b-nav-item to="/Login">Login</b-nav-item>
+                    <b-nav-item to="/">Login</b-nav-item>
                     <b-nav-item to="/Signup">Signup</b-nav-item>
                     <b-nav-item to="/AssessmentPreparation/Menu">Assessment Preparation</b-nav-item>
                     <b-nav-item >Real-Time Assessment</b-nav-item>
@@ -21,6 +21,11 @@
         </b-row>
         <b-row align-h="center">
             <b-col><router-view></router-view></b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-button @click="test" size="lg">test</b-button>
+          </b-col>
         </b-row>
     </b-container>
 </template>
@@ -41,6 +46,13 @@ export default {
     // changeStatus: function (status) {
     //     this.loginStatus = status
     // }
+    test () {
+      this.axios.post('/api/test').then(response => {
+        console.log(response)
+      }).catch(error => {
+        console.log(error)
+      })
+    }
   }
 }
 </script>

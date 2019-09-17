@@ -1,12 +1,12 @@
 <template>
     <b-container fluid>
+        <b-row align-h="center"><h1>Login Page</h1></b-row>
+        <b-row align-h="center">
+          <b-alert v-model="noEmail" variant="danger" dismissible>Wrong email!</b-alert>
+          <b-alert v-model="wrongPassword" variant="danger" dismissible>Wrong password!</b-alert>
+        </b-row>
         <b-row align-h="center">
             <b-col cols="6">
-                <b-row><h1>Login Page</h1></b-row>
-                <b-row>
-                  <b-alert v-model="noEmail" variant="danger" dismissible>Wrong email!</b-alert>
-                  <b-alert v-model="wrongPassword" variant="danger" dismissble>Wrong password!</b-alert>
-                </b-row>
                 <b-row>
                     <b-col>
                         <b-form @submit="login" @reset="clear">
@@ -49,25 +49,31 @@ export default {
   },
   methods: {
     login () {
-      this.axios.post('/api/LoginServlet', {
+      var url = '/api/login'
+      // var url = '/api/LoginServlet'
+      this.axios.post(url, {
         username: this.email,
         password: this.password
-      }).then((response) => {
-        console.log(response.data)
-        var ack = response.data.login_ACK
-        if (response.data.login_ACK > 0) {
-          store.token = response.data.token
-          store.firstName = response.data.firstName
-          store.projectList = response.data.projectList
-          // TODO router link
-          this.$router.push('/storetest')
-        } else if (ack === 0) {
-          this.wrongPassword = true
-        } else if (ack === -1) {
-          this.noEmail = true
-        }
-        console.log(store.token)
       })
+        .then(response => {
+          console.log(response.data)
+          var ack = response.data.login_ACK
+          if (ack > 0) {
+            store.token = response.data.token
+            store.firstName = response.data.firstName
+            store.projectList = response.data.projectList
+            // TODO router link
+            this.$router.push('/storetest')
+          } else if (ack === 0) {
+            this.wrongPassword = true
+          } else if (ack === -1) {
+            this.noEmail = true
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
+      console.log(store)
     },
     clear () {
       this.email = ''

@@ -73,15 +73,19 @@ export default {
           firstName: this.firstName,
           middleName: this.middleName,
           lastName: this.lastName
-        }).then((response) => {
-          console.log(response.data)
-          if (response.data.register_ACK) {
-            // TODO: router
-            this.$router.push('/Login')
-          } else {
-            this.registerFail = true
-          }
         })
+          .then((response) => {
+            console.log(response.data)
+            if (response.data.register_ACK) {
+            // TODO: router
+              this.$router.push('/Login')
+            } else {
+              this.registerFail = true
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          })
       }
     },
     clear () {
