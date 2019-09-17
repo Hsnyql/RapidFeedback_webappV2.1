@@ -14,6 +14,8 @@ import AssessmentPreparationStudent from '../components/AssessmentPreparationStu
 
 Vue.use(VueRouter)
 
+
+
 const routes = [
 
   {path: '/storetest', component: storetest},
