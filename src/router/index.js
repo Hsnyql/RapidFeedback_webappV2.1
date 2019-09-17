@@ -2,11 +2,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Login from '@/components/Login'
-import Signup from '@/components/Signup'
+import Login from '../components/Login'
+import Signup from '../components/Signup'
 // eslint-disable-next-line camelcase
-import AssessmentPreparationMain from '@/components/AssessmentPreparationMain'
-import storetest from '@/components/storetest'
+import storetest from '../components/storetest'
+
+import AssessmentPreparationMain from '../components/AssessmentPreparationMain'
 import AssessmentPreparationAbout from '../components/AssessmentPreparationAbout'
 import AssessmentPreparationCriteria from '../components/AssessmentPreparationCriteria'
 import AssessmentPreparationGrading from '../components/AssessmentPreparationGrading'
@@ -14,10 +15,7 @@ import AssessmentPreparationStudent from '../components/AssessmentPreparationStu
 
 Vue.use(VueRouter)
 
-
-
 const routes = [
-
   {path: '/storetest', component: storetest},
   {path: '/', component: Login},
   {path: '/Signup', component: Signup},
