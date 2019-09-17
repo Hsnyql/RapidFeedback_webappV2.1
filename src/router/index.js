@@ -12,11 +12,11 @@ import AssessmentPreparationCriteria from '../components/AssessmentPreparationCr
 
 Vue.use(VueRouter)
 
-const blank = {template: ''}
+// const blank = {template: ''}
 
 const routes = [
-  {path: '/', component: blank},
-  {path: '/Login', component: Login},
+  // {path: '/', component: blank},
+  {path: '/', component: Login},
   {path: '/Signup', component: Signup},
   {path: '/AssessmentPreparation/Menu', component: AssessmentPreparationMain},
   {path: '/storetest', component: storetest},

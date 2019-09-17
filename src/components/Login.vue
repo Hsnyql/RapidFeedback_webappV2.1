@@ -49,8 +49,9 @@ export default {
   },
   methods: {
     login () {
-      this.axios.post('/api/login', {
-      // this.axios.post('/api/LoginServlet', {
+      var url = '/api/login'
+      // var url = '/api/LoginServlet'
+      this.axios.post(url, {
         username: this.email,
         password: this.password
       })
