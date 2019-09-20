@@ -31,7 +31,9 @@
                         <h5>About</h5>
                         <hr>
                         <p>Project Details</p>
-                        <p>{{description}}</p>
+                        <p>Subject Name: {{project.subjectName}}</p>
+                        <p>Subject Code: {{project.subjectCode}}</p>
+                        <p>description: {{project.description}}</p>
                     </b-col>
                 </b-row>
                 <b-row>
@@ -45,7 +47,7 @@
                     <b-col>
                         <h5>Marker Management</h5>
                         <hr>
-                        <p v-bind:to="markerPath">Click the subtitle to manage markers</p>
+                        <p>Click the subtitle to manage markers</p>
                     </b-col>
                 </b-row>
                 <b-row>
@@ -61,6 +63,7 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
 import {store} from '@/store.js'
 
 export default {
@@ -68,18 +71,34 @@ export default {
   data () {
     return {
       // eslint-disable-next-line no-eval
-      projectList: eval(store.projectList),
-      description: '',
-      markerPath: ''
+      projectList: eval(localStorage.getItem('projectList'))
     }
   },
   methods: {
     choose (name) {
-      this.projectList.forEach(project => {
-        if (project.projectName === name) {
-          this.description = project.description
+      // console.log(name)
+      store.projectName = name
+      // console.log('store ' + store.projectName)
+      this.projectList.forEach(item => {
+        if (item.projectName === name) {
+          store.project = item
         }
       })
+      // console.log(store.project)
+    }
+  },
+  computed: {
+    subjectName () {
+      return store.project.subjectName
+    },
+    subjectCode () {
+      return store.project.subjectCode
+    },
+    description () {
+      return store.project.description
+    },
+    project () {
+      return store.project
     }
   }
 }

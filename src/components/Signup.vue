@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import {signupCheck} from '@/api.js'
 export default {
   name: 'Signup',
   data () {
@@ -67,25 +68,22 @@ export default {
       if (this.password !== this.confirmedPassword) {
         this.confirmFail = true
       } else {
-        this.axios.post('/api/RegisterServlet', {
+        var param = {
           email: this.email,
           password: this.password,
           firstName: this.firstName,
           middleName: this.middleName,
           lastName: this.lastName
-        })
-          .then((response) => {
-            console.log(response.data)
-            if (response.data.register_ACK) {
+        }
+        signupCheck(param).then((res) => {
+          console.log(res)
+          if (res.register_ACK) {
             // TODO: router
-              this.$router.push('/')
-            } else {
-              this.registerFail = true
-            }
-          })
-          .catch(error => {
-            console.log(error)
-          })
+            this.$router.push('/')
+          } else {
+            this.registerFail = true
+          }
+        })
       }
     },
     clear () {

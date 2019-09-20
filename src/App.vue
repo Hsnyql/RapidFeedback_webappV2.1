@@ -15,7 +15,7 @@
                     <b-nav-item >Real-Time Assessment</b-nav-item>
                     <b-nav-item >Review</b-nav-item>
                     <b-nav-item >Report</b-nav-item>
-                    <b-nav-item >Logout</b-nav-item>
+                    <b-nav-item @click="signout" to="/">Logout</b-nav-item>
                 </b-nav>
             </b-col>
         </b-row>
@@ -52,6 +52,9 @@ export default {
       }).catch(error => {
         console.log(error)
       })
+    },
+    signout () {
+      localStorage.clear()
     }
   }
 }

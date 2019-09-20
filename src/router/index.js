@@ -12,6 +12,7 @@ import AssessmentPreparationAbout from '../components/AssessmentPreparationAbout
 import AssessmentPreparationCriteria from '../components/AssessmentPreparationCriteria'
 import AssessmentPreparationGrading from '../components/AssessmentPreparationGrading'
 import AssessmentPreparationStudent from '../components/AssessmentPreparationStudent'
+import FirstPage from '@/components/FirstPage'
 
 Vue.use(VueRouter)
 
@@ -24,7 +25,8 @@ const routes = [
   {path: '/AssessmentPreparation/About', component: AssessmentPreparationAbout},
   {path: '/AssessmentPreparation/Criteria', component: AssessmentPreparationCriteria},
   {path: '/AssessmentPreparation/Grading', component: AssessmentPreparationGrading},
-  {path: '/AssessmentPreparation/Student', component: AssessmentPreparationStudent}
+  {path: '/AssessmentPreparation/Student', component: AssessmentPreparationStudent},
+  {path: '/firstpage', component: FirstPage}
 ]
 
 export default new VueRouter({

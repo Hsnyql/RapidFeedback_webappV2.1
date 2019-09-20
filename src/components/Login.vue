@@ -33,7 +33,8 @@
 </template>
 
 <script>
-import {store} from '@/store.js'
+// import {store} from '@/store.js'
+import {loginCheck} from '@/api.js'
 
 export default {
   name: 'Login',
@@ -49,32 +50,22 @@ export default {
   },
   methods: {
     login () {
-      // var url = '/api/login'
-      var url = '/api/LoginServlet'
-      this.axios.post(url, {
+      var param = {
         username: this.email,
         password: this.password
+      }
+      loginCheck(param).then(res => {
+        if (res.login_ACK > 0) {
+          localStorage.setItem('token', res.token)
+          localStorage.setItem('firstName', res.firstName)
+          localStorage.setItem('projectList', res.projectList)
+          this.$router.push('/firstpage')
+        } else if (res.login_ACK === 0) {
+          this.wrongPassword = true
+        } else {
+          this.noEmail = true
+        }
       })
-        .then(response => {
-          console.log(response.data)
-          var ack = response.data.login_ACK
-          if (ack > 0) {
-            store.token = response.data.token
-            store.firstName = response.data.firstName
-            store.projectList = response.data.projectList
-            // TODO router link
-            // this.$router.push('/storetest')
-            this.$router.push('/AssessmentPreparation/Menu')
-          } else if (ack === 0) {
-            this.wrongPassword = true
-          } else if (ack === -1) {
-            this.noEmail = true
-          }
-        })
-        .catch(error => {
-          console.log(error)
-        })
-      console.log(store)
     },
     clear () {
       this.email = ''

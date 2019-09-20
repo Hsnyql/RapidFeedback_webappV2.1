@@ -53,6 +53,7 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import {store} from '@/store'
+import {assessmentAbout} from '@/api'
 
 export default {
   name: 'AssessmentPreparationAbout',
@@ -70,23 +71,23 @@ export default {
   },
   methods: {
     save () {
-      this.axios.post('/api//UpdateProject_About_Servlet', {
-        token: store.token,
+      var param = {
+        token: localStorage.getItem('token'),
         projectName: this.projectName,
         subjectName: this.subjectName,
         subjectCode: this.subjectCode,
         description: this.description
+      }
+      assessmentAbout(param).then(response => {
+        console.log(response.data)
+        if (response.data.pdateProject_ACK) {
+          this.savetime()
+        }
       })
-        .then(response => {
-          console.log(response.data)
-          if (response.data.pdateProject_ACK) {
-            this.savetime()
-          }
-        })
     },
     savetime () {
       this.axios.post('/api/UpdateProject_Time_Servlet', {
-        token: store.token,
+        token: localStorage.getItem('token'),
         projectName: this.projectName,
         durationMin: this.durationMin,
         durationSec: this.durationSec,
