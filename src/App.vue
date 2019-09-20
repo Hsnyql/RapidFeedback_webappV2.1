@@ -24,7 +24,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <b-button @click="test" size="lg">test</b-button>
+            <!-- <b-button @click="test" size="lg">test</b-button> -->
           </b-col>
         </b-row>
     </b-container>

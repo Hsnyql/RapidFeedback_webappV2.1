@@ -5,9 +5,9 @@
     <!-- <p>projectList {{projectList}}</p> -->
     <b-button variant="primary" @click="test">foreach</b-button>
     <ol>
-      <li v-for="item in projectList.studentInfo" v-bind:key="item">
+      <!-- <li v-for="item in projectList.studentInfo" v-bind:key="item">
         {{ item}}
-      </li>
+      </li> -->
     </ol>
   </div>
 </template>

@@ -78,7 +78,7 @@ export default {
             console.log(response.data)
             if (response.data.register_ACK) {
             // TODO: router
-              this.$router.push('/Login')
+              this.$router.push('/')
             } else {
               this.registerFail = true
             }

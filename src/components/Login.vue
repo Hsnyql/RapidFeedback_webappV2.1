@@ -63,7 +63,8 @@ export default {
             store.firstName = response.data.firstName
             store.projectList = response.data.projectList
             // TODO router link
-            this.$router.push('/storetest')
+            // this.$router.push('/storetest')
+            this.$router.push('/AssessmentPreparation/Menu')
           } else if (ack === 0) {
             this.wrongPassword = true
           } else if (ack === -1) {
