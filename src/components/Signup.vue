@@ -76,7 +76,7 @@ export default {
           lastName: this.lastName
         }
         signupCheck(param).then((res) => {
-          console.log(res)
+          // console.log(res)
           if (res.register_ACK) {
             // TODO: router
             this.$router.push('/')
