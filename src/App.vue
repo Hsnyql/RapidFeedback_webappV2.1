@@ -24,7 +24,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <!-- <b-button @click="test" size="lg">test</b-button> -->
+            <b-button @click="test" size="lg">test</b-button>
           </b-col>
         </b-row>
     </b-container>
@@ -47,11 +47,7 @@ export default {
     //     this.loginStatus = status
     // }
     test () {
-      this.axios.post('/api/test').then(response => {
-        console.log(response)
-      }).catch(error => {
-        console.log(error)
-      })
+      console.log(localStorage.getItem('projectList'))
     },
     signout () {
       localStorage.clear()

@@ -5,6 +5,7 @@ export const store = Vue.observable({
   firstName: null,
   projectList: null,
   projectName: null,
+  project: null
   // eslint-disable-next-line no-eval
-  project: eval(localStorage.getItem('projectList'))[0]
+  // project: eval(localStorage.getItem('projectList'))[0]
 })

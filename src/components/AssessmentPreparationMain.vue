@@ -71,12 +71,15 @@ export default {
   data () {
     return {
       // eslint-disable-next-line no-eval
-      projectList: eval(localStorage.getItem('projectList'))
+      projectList: eval(localStorage.getItem('projectList')),
+      // projectList: localStorage.getItem('projectList')
+      clicked: false
     }
   },
   methods: {
     choose (name) {
       // console.log(name)
+      this.clicked = true
       store.projectName = name
       // console.log('store ' + store.projectName)
       this.projectList.forEach(item => {
@@ -89,7 +92,7 @@ export default {
   },
   computed: {
     subjectName () {
-      return store.project.subjectName
+      return ' '
     },
     subjectCode () {
       return store.project.subjectCode
@@ -100,7 +103,12 @@ export default {
     project () {
       return store.project
     }
+  },
+  created: function () {
+    // eslint-disable-next-line no-eval
+    store.project = eval(localStorage.projectList)[0]
   }
+
 }
 </script>
 

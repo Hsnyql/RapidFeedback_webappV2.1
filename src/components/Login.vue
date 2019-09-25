@@ -59,6 +59,8 @@ export default {
           localStorage.setItem('token', res.token)
           localStorage.setItem('firstName', res.firstName)
           localStorage.setItem('projectList', res.projectList)
+          // eslint-disable-next-line no-eval
+          // store.project = eval(localStorage.projectList)[0]
           this.$router.push('/firstpage')
         } else if (res.login_ACK === 0) {
           this.wrongPassword = true
