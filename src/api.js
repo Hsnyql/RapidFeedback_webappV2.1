@@ -46,11 +46,11 @@ export const assessmentAbout = param => {
   })
 }
 
-export const assessmentTime = param => {
-  return axios.post('/UpdateProject_Time_Servlet', param).then(res => {
-    return res.data
-  })
-}
+// export const assessmentTime = param => {
+//   return axios.post('/UpdateProject_Time_Servlet', param).then(res => {
+//     return res.data
+//   })
+// }
 
 export const deleteProject = param => {
   return axios.post('/DeleteProjectServlet', param).then(res => {

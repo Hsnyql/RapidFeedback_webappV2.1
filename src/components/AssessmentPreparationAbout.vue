@@ -53,7 +53,7 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import {store} from '@/store'
-import {assessmentAbout, assessmentTime} from '@/api'
+import {assessmentAbout} from '@/api'
 
 export default {
   name: 'AssessmentPreparationAbout',
@@ -76,30 +76,17 @@ export default {
         projectName: this.projectName,
         subjectName: this.subjectName,
         subjectCode: this.subjectCode,
-        description: this.description
+        description: this.description,
+        durationSec: this.durationSec + 60 * this.durationMin,
+        warningSec: this.warningSec + 60 * this.warningMin
       }
-      assessmentAbout(param).then(response => {
-        console.log(response.data)
-        if (response.data.pdateProject_ACK) {
-          this.savetime()
+      assessmentAbout(param).then(res => {
+        console.log(res)
+        if (res.updateProject_ACK) {
+          console.log('succeed')
+          this.$router.push('/AssessmentPreparation/Criteria')
         }
       })
-    },
-    savetime () {
-      assessmentTime({
-        token: localStorage.getItem('token'),
-        projectName: this.projectName,
-        durationMin: this.durationMin,
-        durationSec: this.durationSec,
-        warningMin: this.warningMin,
-        warningSec: this.warningSec
-      })
-        .then(res => {
-          console.log(res)
-          if (res.updateProject_AC) {
-            console.log('success')
-          }
-        })
     }
   }
 }
