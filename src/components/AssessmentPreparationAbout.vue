@@ -73,6 +73,9 @@ export default {
     save () {
       var param = {
         token: localStorage.getItem('token'),
+        id: this.id,
+        // eslint-disable-next-line no-eval
+        principalId: this.principalId,
         projectName: this.projectName,
         subjectName: this.subjectName,
         subjectCode: this.subjectCode,
@@ -80,6 +83,9 @@ export default {
         durationSec: this.durationSec + 60 * this.durationMin,
         warningSec: this.warningSec + 60 * this.warningMin
       }
+
+      console.log(param)
+
       assessmentAbout(param).then(res => {
         console.log(res)
         if (res.updateProject_ACK) {
@@ -87,6 +93,22 @@ export default {
           this.$router.push('/AssessmentPreparation/Criteria')
         }
       })
+    }
+  },
+  computed: {
+    id () {
+      if (store.project === null) {
+        return 0
+      } else {
+        return store.projectId
+      }
+    },
+    principalId () {
+      if (store.project === null) {
+        return localStorage.getItem('id')
+      } else {
+        return store.project.principalId
+      }
     }
   }
 }

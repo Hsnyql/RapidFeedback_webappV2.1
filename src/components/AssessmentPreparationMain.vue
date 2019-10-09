@@ -5,7 +5,7 @@
                 <b-row>
                     <b-col>
                         <b-nav vertical>
-                            <b-nav-item to="/AssessmentPreparation/About">Add Assessment</b-nav-item>
+                            <b-nav-item to="/AssessmentPreparation/About" @click="clear">Add Assessment</b-nav-item>
                         </b-nav>
                     </b-col>
                 </b-row>
@@ -14,7 +14,7 @@
                         <b-list-group>
                             <!-- <b-list-group-item>Project 1</b-list-group-item>
                             <b-list-group-item>Project 2</b-list-group-item> -->
-                            <b-list-group-item v-for="item in projectList" v-bind:key="item.projectName" @click="choose(item.projectName)">
+                            <b-list-group-item v-for="item in projectList" v-bind:key="item.projectName" @click="choose(item.id)">
                             <!-- <b-list-group-item v-for="item in test" :key="item"> -->
                               {{ item.projectName }}
                             </b-list-group-item>
@@ -77,36 +77,62 @@ export default {
     }
   },
   methods: {
-    choose (name) {
+    choose (id) {
       // console.log(name)
       this.clicked = true
-      store.projectName = name
+      store.projectId = id
       // console.log('store ' + store.projectName)
       this.projectList.forEach(item => {
-        if (item.projectName === name) {
+        if (item.projectId === id) {
           store.project = item
         }
       })
       // console.log(store.project)
+    },
+    clear () {
+      store.projectId = null
+      store.project = null
     }
   },
   computed: {
     subjectName () {
-      return ' '
+      if (store.project === null) {
+        return ' '
+      } else {
+        return store.project.subjectName
+      }
     },
     subjectCode () {
-      return store.project.subjectCode
+      if (store.project === null) {
+        return ' '
+      } else {
+        return store.project.subjectCode
+      }
     },
     description () {
-      return store.project.description
+      if (store.project === null) {
+        return ' '
+      } else {
+        return store.project.description
+      }
     },
     project () {
-      return store.project
+      if (store.project === null) {
+        return ' '
+      } else {
+        return store.project
+      }
     }
   },
   created: function () {
-    // eslint-disable-next-line no-eval
-    store.project = eval(localStorage.projectList)[0]
+    if (store.project === null) {
+      if (localStorage.getItem('projectList') != null) {
+      // eslint-disable-next-line no-eval
+        store.project = eval(localStorage.projectList)[0]
+      } else {
+        store.project = null
+      }
+    }
   }
 
 }

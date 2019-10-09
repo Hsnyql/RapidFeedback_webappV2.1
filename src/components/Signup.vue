@@ -68,16 +68,16 @@ export default {
       if (this.password !== this.confirmedPassword) {
         this.confirmFail = true
       } else {
-        var param = {
-          email: this.email,
-          password: this.password,
-          firstName: this.firstName,
-          middleName: this.middleName,
-          lastName: this.lastName
-        }
-        signupCheck(param).then((res) => {
+        // var param = {
+        //   email: this.email,
+        //   password: this.password,
+        //   firstName: this.firstName,
+        //   middleName: this.middleName,
+        //   lastName: this.lastName
+        // }
+        signupCheck(this.email, this.password, this.firstName, this.middleName, this.lastName).then((res) => {
           // console.log(res)
-          if (res.register_ACK) {
+          if (res > 0) {
             // TODO: router
             this.$router.push('/')
           } else {

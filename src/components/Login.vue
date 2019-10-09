@@ -50,15 +50,16 @@ export default {
   },
   methods: {
     login () {
-      var param = {
-        username: this.email,
-        password: this.password
-      }
-      loginCheck(param).then(res => {
+      // var param = {
+      //   username: this.email,
+      //   password: this.password
+      // }
+      loginCheck(this.email, this.password).then(res => {
         if (res.login_ACK > 0) {
           localStorage.setItem('token', res.token)
           localStorage.setItem('firstName', res.firstName)
           localStorage.setItem('projectList', res.projectList)
+          localStorage.setItem('id', res.login_ACK)
           // eslint-disable-next-line no-eval
           // store.project = eval(localStorage.projectList)[0]
           this.$router.push('/firstpage')
