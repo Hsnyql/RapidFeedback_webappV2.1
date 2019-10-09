@@ -13,6 +13,7 @@ import AssessmentPreparationCriteria from '../components/AssessmentPreparationCr
 import AssessmentPreparationGrading from '../components/AssessmentPreparationGrading'
 import AssessmentPreparationStudent from '../components/AssessmentPreparationStudent'
 import FirstPage from '@/components/FirstPage'
+import fileUpload from '@/components/fileUpload'
 
 Vue.use(VueRouter)
 
@@ -26,7 +27,8 @@ const routes = [
   {path: '/AssessmentPreparation/Criteria', component: AssessmentPreparationCriteria},
   {path: '/AssessmentPreparation/Grading', component: AssessmentPreparationGrading},
   {path: '/AssessmentPreparation/Student', component: AssessmentPreparationStudent},
-  {path: '/firstpage', component: FirstPage}
+  {path: '/firstpage', component: FirstPage},
+  {path: '/file', component: fileUpload}
 ]
 
 export default new VueRouter({
