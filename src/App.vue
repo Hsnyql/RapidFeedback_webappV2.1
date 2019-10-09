@@ -15,6 +15,7 @@
                     <b-nav-item >Real-Time Assessment</b-nav-item>
                     <b-nav-item >Review</b-nav-item>
                     <b-nav-item >Report</b-nav-item>
+                    <b-nav-item to="/file">excel read test</b-nav-item>
                     <b-nav-item @click="signout" to="/">Logout</b-nav-item>
                 </b-nav>
             </b-col>
