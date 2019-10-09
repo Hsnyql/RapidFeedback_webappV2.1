@@ -4,94 +4,45 @@ const baseURL = '/api'
 
 axios.defaults.baseURL = baseURL
 
-const token = localStorage.getItem('token')
-
-export const loginCheck = (username, password) => {
-  var param = {
-    username: username,
-    password: password
-  }
+export const loginCheck = param => {
   return axios.post('/LoginServlet', param).then(res => {
     return res.data
   })
 }
 
-export const signupCheck = (email, password, firstName, middleName, lastName) => {
-  var param = {
-    email: email,
-    password: password,
-    firstName: firstName,
-    middleName: middleName,
-    lastName: lastName
-  }
+export const signupCheck = param => {
   return axios.post('/RegisterServlet', param).then(res => {
-    return res.data.id
+    return res.data
   })
 }
 
-export const addStudent = (projectName, studentList) => {
-  var param = {
-    token: token,
-    projectName: projectName,
-    studentList: studentList
-  }
-  // what's in studentList
-  //   studentNumber: studentNumber,
-  //   firstName: firstName,
-  //   middleName: middleName,
-  //   lastName: lastName,
-  //   email: email// student's email
+export const addStudent = param => {
   return axios.post('/AddStudentServelet', param).then(res => {
-    return res.data.updateStudent_ACK
+    return res.data
   })
 }
 
-export const deleteStudent = (projectId, studentId) => {
-  var param = {
-    token: token,
-    projectId: projectId,
-    studentId: studentId
-  }
+export const deleteStudent = param => {
   return axios.post('/DeleteStudentServlet', param).then(res => {
-    return res.data.updateStudent_ACK
+    return res.data
   })
 }
 
-export const editStudent = (studentId, firstName,
-  middleName, lastName, studentNumber, email) => {
-  var param = {
-    token: token,
-    studentId: studentId,
-    firstName: firstName,
-    middleName: middleName,
-    lastName: lastName,
-    studentNumber: studentNumber,
-    email: email // student's email
-  }
+export const editStudent = param => {
   return axios.post('/EditStudentServlet', param).then(res => {
-    return res.data.updateStudent_ACK
+    return res.data
   })
 }
 
-export const editCriteria = (projectId, criteriaList) => {
-  var param = {
-    token: token,
-    projectId: projectId,
-    criteriaList: criteriaList
-  }
+export const editCriteria = param => {
   return axios.post('/CriteriaListServlet', param).then(res => {
-    return res.data.updateProject_ACK
+    return res.data
   })
 }
 
-export const assessmentAbout = (projectId, criteriaList) => {
-  var param = {
-    token: token,
-    projectId: projectId,
-    criteriaList: criteriaList
-  }
+export const assessmentAbout = param => {
   return axios.post('/UpdateProject_About_Servlet', param).then(res => {
-    return res.data.updateProject_ACK
+    return res.data
   })
 }
 
@@ -101,54 +52,40 @@ export const assessmentAbout = (projectId, criteriaList) => {
 //   })
 // }
 
-export const deleteProject = (projectId) => {
-  var param = {
-    token: token,
-    projectId: projectId
-  }
+export const deleteProject = param => {
   return axios.post('/DeleteProjectServlet', param).then(res => {
-    return res.data.updateProject_ACK
+    return res.data
   })
 }
 
-export const groupStudent = (projectId, studentId, group) => {
-  var param = {
-    token: token,
-    projectId: projectId,
-    studentId: studentId,
-    group: group
-  }
+export const getMark = param => {
+  return axios.post('/GetMarkServlet', param).then(res => {
+    return res.data
+  })
+}
+
+export const groupStudent = param => {
   return axios.post('/GroupStudentServlet', param).then(res => {
-    return res.data.updateStudent_ACK
+    return res.data
   })
 }
 
-// export const importStudent = param => {
-//   return axios.post('/ImportStudentsServlet', param).then(res => {
-//     return res.data
-//   })
-// }
+export const importStudent = param => {
+  return axios.post('/ImportStudentsServlet', param).then(res => {
+    return res.data
+  })
+}
 
-export const inviteAssessor = (projectId, markerId) => {
-  var param = {
-    token: token,
-    projectId: projectId,
-    markerId: markerId
-  }
+export const inviteAssessor = param => {
   return axios.post('/InviteAssessorServlet', param).then(res => {
     return res.data
   })
 }
 
 // TODO check axios.delete method
-export const deleteAssessor = (projectId, markerId) => {
-  var param = {
-    token: token,
-    projectId: projectId,
-    markerId: markerId
-  }
+export const deleteAssessor = param => {
   return axios.delete('/InviteAssessorServlet', param).then(res => {
-    return res.data.invite_ACK
+    return res.data
   })
 }
 
@@ -158,51 +95,8 @@ export const sendMark = param => {
   })
 }
 
-export const assessment = (projectId, studentId, markerId, remark, assessmentList) => {
-  var param = {
-    token: token,
-    projectId: projectId,
-    studentId: studentId,
-    markerId: markerId, // actual type: Mark
-    remark: remark,
-    assessmentList: assessmentList// ArrayList<Assessment>
-  }
-  return axios.post('/AssessmentServlet', param).then(res => {
-    return res.data.mark_ACK
-  })
-}
-
-export const finalResult = (projectId, studentId, finalScore, fianlRemark) => {
-  var param = {
-    token: token,
-    projectId: projectId,
-    studentId: studentId,
-    finalScore: finalScore,
-    finalRemark: fianlRemark
-  }
-  return axios.post('/FinalResultServlet', param).then(res => {
-    return res.data.mark_ACK
-  })
-}
-
-export const sendEmail = (projectId, studentId, sendBoth) => {
-  var param = {
-    token: token,
-    projectId: projectId,
-    studentId: studentId,
-    sendBoth: sendBoth
-  }
+export const sendEmail = param => {
   return axios.post('/SendEmailServlet', param).then(res => {
-    return res.data.sendMail_ACK
-  })
-}
-
-export const syncProject = (userId) => {
-  var param = {
-    token: token,
-    userId: userId
-  }
-  return axios.post('/SyncProjectListServlet', param).then(res => {
     return res.data
   })
 }
