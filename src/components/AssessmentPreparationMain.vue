@@ -87,11 +87,14 @@ export default {
           store.project = item
         }
       })
+      console.log('choose: ', id)
+      console.log('store.projectid: ', store.projectId)
       // console.log(store.project)
     },
     clear () {
       store.projectId = null
       store.project = null
+      console.log(store.project)
     }
   },
   computed: {
@@ -125,6 +128,7 @@ export default {
     }
   },
   created: function () {
+    console.log(localStorage.getItem('projectList'))
     if (store.project === null) {
       if (localStorage.getItem('projectList') != null) {
       // eslint-disable-next-line no-eval
@@ -133,6 +137,7 @@ export default {
         store.project = null
       }
     }
+    console.log(store.project)
   }
 
 }
