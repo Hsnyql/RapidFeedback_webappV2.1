@@ -4,6 +4,8 @@ const baseURL = '/api'
 
 axios.defaults.baseURL = baseURL
 
+const token = localStorage.getItem('token')
+
 export const loginCheck = (username, password) => {
   var param = {
     username: username,
@@ -27,7 +29,7 @@ export const signupCheck = (email, password, firstName, middleName, lastName) =>
   })
 }
 
-export const addStudent = (token, projectName, studentList) => {
+export const addStudent = (projectName, studentList) => {
   var param = {
     token: token,
     projectName: projectName,
@@ -44,7 +46,7 @@ export const addStudent = (token, projectName, studentList) => {
   })
 }
 
-export const deleteStudent = (token, projectId, studentId) => {
+export const deleteStudent = (projectId, studentId) => {
   var param = {
     token: token,
     projectId: projectId,
@@ -55,7 +57,7 @@ export const deleteStudent = (token, projectId, studentId) => {
   })
 }
 
-export const editStudent = (token, studentId, firstName,
+export const editStudent = (studentId, firstName,
   middleName, lastName, studentNumber, email) => {
   var param = {
     token: token,
@@ -71,7 +73,7 @@ export const editStudent = (token, studentId, firstName,
   })
 }
 
-export const editCriteria = (token, projectId, criteriaList) => {
+export const editCriteria = (projectId, criteriaList) => {
   var param = {
     token: token,
     projectId: projectId,
@@ -82,7 +84,7 @@ export const editCriteria = (token, projectId, criteriaList) => {
   })
 }
 
-export const assessmentAbout = (token, projectId, criteriaList) => {
+export const assessmentAbout = (projectId, criteriaList) => {
   var param = {
     token: token,
     projectId: projectId,
@@ -99,7 +101,7 @@ export const assessmentAbout = (token, projectId, criteriaList) => {
 //   })
 // }
 
-export const deleteProject = (token, projectId) => {
+export const deleteProject = (projectId) => {
   var param = {
     token: token,
     projectId: projectId
@@ -109,7 +111,7 @@ export const deleteProject = (token, projectId) => {
   })
 }
 
-export const groupStudent = (token, projectId, studentId, group) => {
+export const groupStudent = (projectId, studentId, group) => {
   var param = {
     token: token,
     projectId: projectId,
@@ -127,7 +129,7 @@ export const groupStudent = (token, projectId, studentId, group) => {
 //   })
 // }
 
-export const inviteAssessor = (token, projectId, markerId) => {
+export const inviteAssessor = (projectId, markerId) => {
   var param = {
     token: token,
     projectId: projectId,
@@ -139,7 +141,7 @@ export const inviteAssessor = (token, projectId, markerId) => {
 }
 
 // TODO check axios.delete method
-export const deleteAssessor = (token, projectId, markerId) => {
+export const deleteAssessor = (projectId, markerId) => {
   var param = {
     token: token,
     projectId: projectId,
@@ -156,7 +158,7 @@ export const sendMark = param => {
   })
 }
 
-export const assessment = (token, projectId, studentId, markerId, remark, assessmentList) => {
+export const assessment = (projectId, studentId, markerId, remark, assessmentList) => {
   var param = {
     token: token,
     projectId: projectId,
@@ -170,7 +172,7 @@ export const assessment = (token, projectId, studentId, markerId, remark, assess
   })
 }
 
-export const finalResult = (token, projectId, studentId, finalScore, fianlRemark) => {
+export const finalResult = (projectId, studentId, finalScore, fianlRemark) => {
   var param = {
     token: token,
     projectId: projectId,
@@ -183,7 +185,7 @@ export const finalResult = (token, projectId, studentId, finalScore, fianlRemark
   })
 }
 
-export const sendEmail = (token, projectId, studentId, sendBoth) => {
+export const sendEmail = (projectId, studentId, sendBoth) => {
   var param = {
     token: token,
     projectId: projectId,
@@ -195,7 +197,7 @@ export const sendEmail = (token, projectId, studentId, sendBoth) => {
   })
 }
 
-export const syncProject = (token, userId) => {
+export const syncProject = (userId) => {
   var param = {
     token: token,
     userId: userId
