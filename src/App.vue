@@ -26,9 +26,11 @@
                 </b-nav>
             </b-col>
         </b-row> -->
+        <div id="content-wrapper">
         <b-row align-h="center">
             <b-col><router-view></router-view></b-col>
         </b-row>
+        </div>
         <b-row>
           <b-col>
             <b-button @click="test" size="lg">test</b-button>
@@ -120,6 +122,9 @@ export default {
   .content{
     border-left: 1px solid black;
     height: 100%;
+  }
+  #content-wrapper {
+    min-height: 400px;
   }
   /*.divider{*/
   /*  !*position: absolute;*!*/

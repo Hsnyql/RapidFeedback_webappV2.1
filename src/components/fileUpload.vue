@@ -1,13 +1,19 @@
 <template>
-  <div>
-    <b-form-file v-model="file" ref="file-input" class="mb-2"></b-form-file>
+  <b-container fluid id="wrapper">
+    <b-row>
+      <b-form-file v-model="file" ref="file-input" class="mb-2"></b-form-file>
+    </b-row>
+    <b-row align-h="left" align-content="center">
+      <b-button @click="clearFiles" class="mr-2">Reset via method</b-button>
+      <b-button @click="file = null" class="mr-2">Reset via v-model</b-button>
+      <b-button variant="primary" @click="readExcel" class="mr-2">Upload</b-button>
+    </b-row>
+    <b-row>
+      <p class="mt-2">Selected file: <b>{{ file ? file.name : '' }}</b></p>
+      <p>{{list}}</p>
+    </b-row>
 
-    <b-button @click="clearFiles" class="mr-2">Reset via method</b-button>
-    <b-button @click="file = null">Reset via v-model</b-button>
-    <b-button @click="readExcel">read</b-button>
-    <p class="mt-2">Selected file: <b>{{ file ? file.name : '' }}</b></p>
-    <p>{{list}}</p>
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -63,3 +69,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  #wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+</style>

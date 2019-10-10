@@ -1,6 +1,6 @@
 <template>
     <b-container fluid>
-        <b-row align-h="center"><h1>Signup Page</h1></b-row>
+        <b-row align-h="center"><h1>Sign Up</h1></b-row>
         <b-row align-h="center">
           <b-alert v-model="confirmFail" variant="danger" dismissible>Passwords are not same</b-alert>
           <b-alert v-model="registerFail" variant="danger" dismissible>Email is already used. Please use another email</b-alert>

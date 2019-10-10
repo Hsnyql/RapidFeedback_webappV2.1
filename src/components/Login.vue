@@ -16,12 +16,13 @@
                             <b-form-group id="password" label="Password:" label-for="password-input">
                                 <b-form-input id="password-input" type="password" required placeholder="Enter Password" v-model="password"></b-form-input>
                             </b-form-group>
-                            <b-row align-h="center" class="btns">
+                            <b-row align-h="center" align-v="center" class="btns">
                               <b-col cols="3">
                                 <b-button id="submitbtn" type="submit" variant="primary">Submit</b-button>
                               </b-col>
                               <b-col cols="3">
-                                <b-button id="clearbtn" type="reset" variant="danger">Clear</b-button>
+                                <!-- <b-button id="clearbtn" type="reset" variant="danger">Clear</b-button> -->
+                                <b-button id="registerbtn" to="/Signup" variant="danger">Register</b-button>
                               </b-col>
                             </b-row>
                         </b-form>
@@ -81,6 +82,10 @@ export default {
 </script>
 
 <style scoped>
+#registerbtn {
+  align-content: center;
+  padding-top: 10px;
+}
 @media screen and (min-width:786px) {
 
   #account-input, #password-input{
@@ -88,16 +93,16 @@ export default {
     height: 60px;
     padding: 5px;
   }
+
   .btns{
     height: 30px;
     margin-top: 30px;
     margin-bottom: 170px;
   }
 
-  #submitbtn, #clearbtn{
+  #submitbtn, #clearbtn, #registerbtn{
     height: 50px;
     width: 100px;
   }
-
 }
 </style>

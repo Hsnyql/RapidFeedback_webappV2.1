@@ -2,15 +2,15 @@
     <b-container fluid>
         <b-row>
             <b-col cols="2">
-                <b-row>
+                <!-- <b-row>
                     <b-col>
                         <b-nav vertical>
                             <b-nav-item to="/AssessmentPreparation/About" @click="clear">Add Assessment</b-nav-item>
                         </b-nav>
                     </b-col>
-                </b-row>
+                </b-row> -->
                 <b-row>
-                    <b-col>
+                    <b-col cols="6">
                         <b-list-group>
                             <!-- <b-list-group-item>Project 1</b-list-group-item>
                             <b-list-group-item>Project 2</b-list-group-item> -->
@@ -22,15 +22,19 @@
                     </b-col>
                 </b-row>
             </b-col>
-            <b-col>
+          </b-row>
+
+          <b-row align-h="center">
+            <b-col cols="8">
                 <b-row align-h="center">
-                    <h1>Please Select or Add a Project</h1>
+                      <h1>Please Select or Add a Project
+                        <b-badge id="add-btn" to="/AssessmentPreparation/About" pill variant="warning" @click="clear">Add</b-badge>
+                      </h1>
                 </b-row>
                 <b-row>
                     <b-col @click="nextpage('/AssessmentPreparation/About')">
-                        <h5>About</h5>
+                        <h5>Project Details</h5>
                         <hr>
-                        <p>Project Details</p>
                         <p>Subject Name: {{project.subjectName}}</p>
                         <p>Subject Code: {{project.subjectCode}}</p>
                         <p>description: {{project.description}}</p>
@@ -150,5 +154,10 @@ export default {
 </script>
 
 <style scoped>
+
+#add-btn{
+  font: 0.5em sans-serif;
+  color: #fff;
+}
 
 </style>
