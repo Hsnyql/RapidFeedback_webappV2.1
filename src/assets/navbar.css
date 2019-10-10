@@ -1,0 +1,113 @@
+element.style {
+    margin-bottom: 10px;
+    padding: 1;
+}
+
+@media screen and (min-height: 700px)
+.uomcontent .button-small {
+    font-size: .75rem;
+    padding: .625rem .9375rem;
+}
+@media screen and (min-height: 700px)
+.uomcontent .button-small {
+    font-size: .9375rem;
+    padding: 1.0625rem 2.5rem;
+}
+.uomcontent .button-small {
+    border-radius: 5px;
+    font-size: .8125rem;
+    padding: .9375rem 1.25rem;
+    background-color: #0076de;
+    border: 0;
+    border-bottom: 5px solid #005bab;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin: 20px 0;
+    outline-color: #000;
+    outline-offset: 1px;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    vertical-align: bottom;
+    border-radius: 2px;
+    font-size: .75rem;
+    padding: .625rem .9375rem;
+    border-bottom: 0;
+    margin: 0;
+    position: relative;
+}
+.uomcontent a {
+    color: #0076de;
+    text-decoration: underline;
+}
+.button-small {
+    color: #fff !important;
+}
+a {
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+* {
+    box-sizing: border-box;
+}
+user agent stylesheet
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+}
+Style Attribute {
+    margin-bottom: 10px;
+    margin-top: 25px;
+    padding: 0;
+    background-color: #FFFFFF;
+    color: #fff;
+}
+.uomcontent [role=main] .center {
+    text-align: center;
+}
+.uomcontent .center {
+    padding: 0 0 3.75rem;
+    margin: 0 auto;
+    text-align: center;
+}
+@media screen and (min-width: 769px)
+.uomcontent [role=main] {
+    font-weight: 300;
+}
+.uomcontent, .uomcontent .sans {
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+}
+.uomcontent {
+    background-color: #fff;
+    font-weight: 400;
+}
+@media screen and (min-width: 769px)
+body {
+    line-height: 1.68;
+}
+body {
+    background-color: #0c304a;
+    color: #000;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+}
+body {
+    font-size: 1em;
+    line-height: 1.5789;
+    text-rendering: optimizeLegibility;
+    min-height: 100%;
+}
+html {
+    font-family: sans-serif;
+    line-height: 1.15;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+user agent stylesheet
+html {
+    color: -internal-root-color;
+}

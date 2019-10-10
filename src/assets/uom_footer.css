@@ -1,0 +1,36 @@
+.uomcontent .page-footer{
+    background-color: #094183;
+      /* margin: 0 auto;
+      padding: 15px;
+      padding: .9375rem;
+      padding-bottom: 60px;
+      padding-bottom: 3.75rem;
+      margin-left: auto;
+      margin-right: auto; */
+  }
+  
+  .uomcontent .unimelb-lge {
+      margin: 15px auto;
+      margin: 0.9375rem auto;
+      width: 270px;
+      width: 16.875rem;
+      outline-color: #fff;
+      display: block;
+  }
+  
+  /* .uomcontent .page-footer ul.page-footer-section.nav{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin: 0 auto;
+    text-align: center !important;
+  } */
+  
+  /* .uomcontent .page-footer .people-links{
+    color: #82a1bd !important;
+    font-size: 1.25rem;
+    font-family: Roboto,Helvetica,Arial,sans-serif
+  } */
+  

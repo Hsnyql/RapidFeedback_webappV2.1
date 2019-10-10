@@ -1,0 +1,56 @@
+{
+     "assistant ": [
+          "yuqielu23@gmail.com "
+     ],
+     "commentList ": [],
+     "criteria ": [
+          {
+               "markIncrement ": "null ",
+               "maximunMark ": 0,
+               "name ": "make ",
+               "subsectionList ": [],
+               "weighting ": 0
+          }
+     ],
+     "description ": " ",
+     "durationMin ": 2,
+     "durationSec ": 0,
+     "projectName ": "ghhg ",
+     "studentInfo ": [
+          {
+               "email ": "1@1.com ",
+               "firstName ": "sfsddf ",
+               "group ": 10,
+               "middleName ": "dsfdsfds ",
+               "number ": "sfdsd ",
+               "sendEmail ": false,
+               "surname ": "fsdfsdfdsf ",
+               "totalMark ": -999
+          },
+          {
+               "email ": "1@sdf.com ",
+               "firstName ": "SDF ",
+               "group ": 10,
+               "middleName ": "SDF ",
+               "number ": "SDF ",
+               "sendEmail ": false,
+               "surname ": "SDFSD ",
+               "totalMark ": -999
+          },
+          {
+               "email ": "1@2.com ",
+               "firstName ": "dsfs ",
+               "group ": 10,
+               "middleName ": "sdfsd ",
+               "number ": "sdf ",
+               "sendEmail ": false,
+               "surname ": "dsfs ",
+               "totalMark ": -999
+          }
+     ],
+     "subjectCode ": " ",
+     "subjectName ": "nkj ",
+     "username ": "yuqielu23@gmail.com ",
+     "warningMin ": 0,
+     "warningSec ": 0
+}
