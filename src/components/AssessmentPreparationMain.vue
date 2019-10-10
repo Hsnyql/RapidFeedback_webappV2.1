@@ -27,7 +27,7 @@
                     <h1>Please Select or Add a Project</h1>
                 </b-row>
                 <b-row>
-                    <b-col>
+                    <b-col @click="nextpage('/AssessmentPreparation/About')">
                         <h5>About</h5>
                         <hr>
                         <p>Project Details</p>
@@ -37,7 +37,7 @@
                     </b-col>
                 </b-row>
                 <b-row>
-                    <b-col>
+                    <b-col @click="nextpage('/AssessmentPreparation/Criteria')">
                         <h5>Criteria</h5>
                         <hr>
                         <p>Criteria Details</p>
@@ -51,7 +51,7 @@
                     </b-col>
                 </b-row>
                 <b-row>
-                    <b-col>
+                    <b-col @click="nextpage('/AssessmentPreparation/Student')">
                         <h5>Student Management</h5>
                         <hr>
                         <p>Click the subtitle to manage students</p>
@@ -85,6 +85,9 @@ export default {
         }
       })
       // console.log(store.project)
+    },
+    nextpage (path) {
+      this.$router.push(path)
     }
   },
   computed: {

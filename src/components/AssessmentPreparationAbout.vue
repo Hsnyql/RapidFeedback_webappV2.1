@@ -59,18 +59,26 @@ export default {
   name: 'AssessmentPreparationAbout',
   data () {
     return {
-      projectName: '',
-      subjectName: '',
-      subjectCode: '',
-      description: '',
-      durationMin: 0,
-      durationSec: 0,
-      warningMin: 0,
-      warningSec: 0
+      projectName: store.project.projectName,
+      subjectName: store.project.subjectName,
+      subjectCode: store.project.subjectCode,
+      description: store.project.description,
+      durationMin: store.project.durationMin,
+      durationSec: store.project.durationSec,
+      warningMin: store.project.warningMin,
+      warningSec: store.project.warningSec
     }
   },
   methods: {
     save () {
+      store.project.projectName = this.projectName
+      store.project.subjectName = this.subjectName
+      store.project.subjectCode = this.subjectCode
+      store.project.description = this.description
+      store.project.durationMin = this.durationMin
+      store.project.durationSec = this.durationSec
+      store.project.warningMin = this.warningMin
+      store.project.warningSec = this.warningSec
       var param = {
         token: localStorage.getItem('token'),
         projectName: this.projectName,
@@ -79,8 +87,8 @@ export default {
         description: this.description
       }
       assessmentAbout(param).then(response => {
-        console.log(response.data)
-        if (response.data.pdateProject_ACK) {
+        console.log(response)
+        if (response.pdateProject_ACK) {
           this.savetime()
         }
       })
@@ -96,7 +104,7 @@ export default {
       })
         .then(res => {
           console.log(res)
-          if (res.updateProject_AC) {
+          if (res.updateProject_ACK) {
             console.log('success')
           }
         })
