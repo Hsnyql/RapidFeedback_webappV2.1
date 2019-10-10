@@ -92,7 +92,7 @@ export default {
       // console.log(store.project)
     },
     clear () {
-      store.projectId = null
+      store.projectId = 0
       store.project = null
       console.log(store.project)
     }

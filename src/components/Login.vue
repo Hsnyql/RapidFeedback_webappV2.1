@@ -59,6 +59,7 @@ export default {
           localStorage.setItem('token', res.token)
           localStorage.setItem('firstName', res.firstName)
           localStorage.setItem('projectList', res.projectList)
+          localStorage.setItem('id', res.Login_ACK)
           this.$router.push('/firstpage')
         } else if (res.login_ACK === 0) {
           this.wrongPassword = true

@@ -12,6 +12,8 @@
 
 <script>
 import XLSX from 'xlsx'
+import {addStudent} from '@/api'
+import {store} from '@/store'
 
 export default {
   data () {
@@ -24,6 +26,7 @@ export default {
     clearFiles () {
       this.$refs['file-input'].reset()
     },
+    // TODO: this is not a todo, this method is suitable for uploading criteria
     readExcel () {
       const fileReader = new FileReader()
       fileReader.onload = (ev) => {
@@ -35,6 +38,21 @@ export default {
           const wsname = workbook.SheetNames[0]// 取第一张表
           const ws = XLSX.utils.sheet_to_json(workbook.Sheets[wsname])// 生成json表格内容
           console.log(ws)
+          var param = {
+            token: localStorage.getItem('token'),
+            projectId: store.projectId,
+            studentList: ws
+          }
+          addStudent(param).then(res => {
+            console.log(res)
+            if (res.updateStudent_ACK) {
+              console.log('succeed')
+              // TODO: page after adding student
+              this.$router.push('/')
+            } else {
+
+            }
+          })
           this.list = ws
         } catch (e) {
           return false

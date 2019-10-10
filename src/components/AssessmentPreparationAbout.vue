@@ -79,7 +79,9 @@ export default {
         subjectCode: this.subjectCode,
         description: this.description,
         durationSec: this.durationSec + 60 * this.durationMin,
-        warningSec: this.warningSec + 60 * this.warningMin
+        warningSec: this.warningSec + 60 * this.warningMin,
+        id: store.projectId,
+        principalId: localStorage.getItem('id')
       }
       assessmentAbout(param).then(res => {
         console.log(res)
