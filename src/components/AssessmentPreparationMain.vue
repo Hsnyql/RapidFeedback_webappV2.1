@@ -37,7 +37,7 @@
                     </b-col>
                 </b-row>
                 <b-row>
-                    <b-col>
+                    <b-col @click="nextpage('/AssessmentPreparation/Criteria')">
                         <h5>Criteria</h5>
                         <hr>
                         <p>Criteria Details</p>
@@ -45,13 +45,15 @@
                 </b-row>
                 <b-row>
                     <b-col>
+                      <!-- TODO: redirect to marker invitation page -->
                         <h5>Marker Management</h5>
                         <hr>
                         <p>Click the subtitle to manage markers</p>
                     </b-col>
                 </b-row>
                 <b-row>
-                    <b-col>
+                  <!--  -->
+                    <b-col @click="nextpage('/AssessmentPreparation/Student')">
                         <h5>Student Management</h5>
                         <hr>
                         <p>Click the subtitle to manage students</p>
