@@ -70,13 +70,13 @@ export default {
   name: 'AssessmentPreparationCriteria',
   data () {
     return {
-      selected: [], // must be an array
+      selected: [], //  must be an array
       criteria: [
         {text: 1, value: 'Criteria 1'},
         {text: 2, value: 'Criteria 2'},
         {text: 3, value: 'Criteria 3'},
         {text: 4, value: 'Criteria 4'}
-      ]
+      ] //  Sample data for display
     }
   }
 }
