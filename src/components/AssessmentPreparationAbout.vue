@@ -88,7 +88,7 @@ export default {
       }
       assessmentAbout(param).then(response => {
         console.log(response)
-        if (response.pdateProject_ACK) {
+        if (response.updateProject_ACK) {
           this.savetime()
         }
       })
