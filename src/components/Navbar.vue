@@ -16,11 +16,17 @@
 </template>
 
 <script>
+import {store} from '@/store'
 export default {
   name: 'Navbar',
   methods: {
     signout () {
       localStorage.clear()
+      store.projectList = []
+      store.projectName = null
+      store.token = null
+      store.firstName = null
+      store.project = null
     }
   }
 }

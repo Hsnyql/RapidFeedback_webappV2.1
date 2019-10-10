@@ -59,26 +59,18 @@ export default {
   name: 'AssessmentPreparationAbout',
   data () {
     return {
-      projectName: store.project.projectName,
-      subjectName: store.project.subjectName,
-      subjectCode: store.project.subjectCode,
-      description: store.project.description,
-      durationMin: store.project.durationMin,
-      durationSec: store.project.durationSec,
-      warningMin: store.project.warningMin,
-      warningSec: store.project.warningSec
+      projectName: '',
+      subjectName: '',
+      subjectCode: '',
+      description: '',
+      durationMin: 0,
+      durationSec: 0,
+      warningMin: 0,
+      warningSec: 0
     }
   },
   methods: {
     save () {
-      store.project.projectName = this.projectName
-      store.project.subjectName = this.subjectName
-      store.project.subjectCode = this.subjectCode
-      store.project.description = this.description
-      store.project.durationMin = this.durationMin
-      store.project.durationSec = this.durationSec
-      store.project.warningMin = this.warningMin
-      store.project.warningSec = this.warningSec
       var param = {
         token: localStorage.getItem('token'),
         projectName: this.projectName,
@@ -106,9 +98,45 @@ export default {
           console.log(res)
           if (res.updateProject_ACK) {
             console.log('success')
+            var project = {
+              projectName: this.projectName,
+              subjectName: this.subjectName,
+              subjectCode: this.subjectCode,
+              description: this.description,
+              durationMin: this.durationMin,
+              durationSec: this.durationSec,
+              warningMin: this.warningMin,
+              warningSec: this.warningSec
+            }
+            store.project = project
+            store.projectList.push(project)
+            localStorage.setItem('projectList', JSON.stringify(store.projectList))
+            // store.project.projectName = this.projectName
+            // store.project.subjectName = this.subjectName
+            // store.project.subjectCode = this.subjectCode
+            // store.project.description = this.description
+            // store.project.durationMin = this.durationMin
+            // store.project.durationSec = this.durationSec
+            // store.project.warningMin = this.warningMin
+            // store.project.warningSec = this.warningSec
           }
         })
     }
+  },
+  created () {
+    if (store.project !== null) {
+      this.projectName = store.project.projectName
+      this.subjectName = store.project.subjectName
+      this.subjectCode = store.project.subjectCode
+      this.description = store.project.description
+      this.durationMin = store.project.durationMin
+      this.durationSec = store.project.durationSec
+      this.warningMin = store.project.warningMin
+      this.warningSec = store.project.warningSec
+    }
+    console.log(store.project)
+    console.log(store.projectList)
+    console.log(this.projectName)
   }
 }
 </script>

@@ -4,5 +4,6 @@ export const store = Vue.observable({
   token: null,
   firstName: null,
   project: null,
-  projectName: null
+  projectName: null,
+  projectList: []
 })

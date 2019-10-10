@@ -5,7 +5,8 @@
                 <b-row>
                     <b-col>
                         <b-nav vertical>
-                            <b-nav-item to="/AssessmentPreparation/About">Add Assessment</b-nav-item>
+                          <b-button @click="deleteTrigger">delete</b-button>
+                          <b-button @click="clear">Add Assessment</b-button>
                         </b-nav>
                     </b-col>
                 </b-row>
@@ -31,9 +32,9 @@
                         <h5>About</h5>
                         <hr>
                         <p>Project Details</p>
-                        <p>Subject Name: {{project.subjectName}}</p>
-                        <p>Subject Code: {{project.subjectCode}}</p>
-                        <p>description: {{project.description}}</p>
+                        <p>Subject Name: {{subjectName}}</p>
+                        <p>Subject Code: {{subjectCode}}</p>
+                        <p>description: {{description}}</p>
                     </b-col>
                 </b-row>
                 <b-row>
@@ -65,55 +66,117 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import {store} from '@/store.js'
+import {deleteProject} from '@/api'
 
 export default {
   name: 'AssessmentPreparationMain',
   data () {
     return {
-      // eslint-disable-next-line no-eval
-      projectList: eval(localStorage.getItem('projectList'))
+      deleting: false
     }
   },
   methods: {
     choose (name) {
       // console.log(name)
-      store.projectName = name
-      // console.log('store ' + store.projectName)
-      this.projectList.forEach(item => {
-        if (item.projectName === name) {
-          store.project = item
-        }
-      })
-      // console.log(store.project)
+      if (this.deleting) {
+        this.deletePro(name)
+      } else {
+        store.projectName = name
+        // console.log('store ' + store.projectName)
+        this.projectList.forEach(item => {
+          if (item.projectName === name) {
+            store.project = item
+          }
+        })
+      }
+      console.log(store.project)
+      console.log(store.projectList)
+    },
+    clear () {
+      store.project = null
+      store.projectName = null
+      this.deleting = false
+      console.log(store.project)
+      console.log(store.projectList)
+      this.$router.push('/AssessmentPreparation/About')
     },
     nextpage (path) {
       this.$router.push(path)
+    },
+    deleteTrigger () {
+      this.deleting = true
+    },
+    deletePro (projectName) {
+      var param = {
+        token: localStorage.token,
+        projectName: projectName
+      }
+      deleteProject(param).then(res => {
+        console.log(res)
+        if (res.updateProject_ACK) {
+          var temp = null
+          this.projectList.forEach(item => {
+            if (item.projectName === projectName) {
+              temp = item
+            }
+          })
+          if (store.project === temp) {
+            store.project = null
+          }
+          let i = store.projectList.indexOf(temp)
+          store.projectList.splice(i, 1)
+          localStorage.setItem('projectList', JSON.stringify(store.projectList))
+        } else {
+          // TODO: failure alert
+          console.log('fail')
+        }
+      })
+      this.deleting = false
     }
   },
   computed: {
     subjectName () {
-      return store.project.subjectName
+      if (store.project === null) {
+        return ' '
+      } else {
+        return store.project.subjectName
+      }
     },
     subjectCode () {
-      return store.project.subjectCode
+      if (store.project === null) {
+        return ' '
+      } else {
+        return store.project.subjectCode
+      }
     },
     description () {
-      return store.project.description
+      if (store.project === null) {
+        return ' '
+      } else {
+        return store.project.description
+      }
     },
-    project () {
-      return store.project
+    projectList () {
+      return store.projectList
     }
+    // project () {
+    //   return store.project
+    // }
   },
   created: function () {
-    if (store.project === null) {
-      if (localStorage.getItem('projectList') != null) {
-      // eslint-disable-next-line no-eval
-        store.project = eval(localStorage.projectList)[0]
-        store.projectName = store.project.projectName
-      } else {
-        store.project = null
-      }
+    console.log(store.project)
+    console.log(store.projectList)
+    // eslint-disable-next-line no-eval
+    store.projectList = eval(localStorage.projectList)
+    if (store.projectList.length > 0) {
+      store.project = store.projectList[0]
+      store.projectName = store.project.projectName
+    } else {
+      store.project = null
+      store.projectName = null
     }
+    console.log(store.project)
+    console.log(store.projectList)
   }
 }
 </script>
