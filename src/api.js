@@ -89,6 +89,7 @@ export const deleteAssessor = param => {
   })
 }
 
+// seems to be deleted in api
 export const sendMark = param => {
   return axios.post('/MarkServlet', param).then(res => {
     return res.data
@@ -97,6 +98,24 @@ export const sendMark = param => {
 
 export const sendEmail = param => {
   return axios.post('/SendEmailServlet', param).then(res => {
+    return res.data
+  })
+}
+
+export const assessment = param => {
+  return axios.post('/AssessmentServlet', param).then(res => {
+    return res.data
+  })
+}
+
+export const finalResult = param => {
+  return axios.post('/FinalResultServlet', param).then(res => {
+    return res.data
+  })
+}
+
+export const syncProject = param => {
+  return axios.post('/SyncProjectListServlet', param).then(res => {
     return res.data
   })
 }
