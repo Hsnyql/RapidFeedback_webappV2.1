@@ -14,9 +14,9 @@
                         <b-list-group>
                             <!-- <b-list-group-item>Project 1</b-list-group-item>
                             <b-list-group-item>Project 2</b-list-group-item> -->
-                            <b-list-group-item v-for="item in projectList" v-bind:key="item.projectName" @click="choose(item.id)">
+                            <b-list-group-item v-for="item in projectList" v-bind:key="item.id" @click="choose(item)">
                             <!-- <b-list-group-item v-for="item in test" :key="item"> -->
-                              {{ item.projectName }}
+                              {{ item.name }}
                             </b-list-group-item>
                         </b-list-group>
                     </b-col>
@@ -27,7 +27,7 @@
                     <h1>Please Select or Add a Project</h1>
                 </b-row>
                 <b-row>
-                    <b-col>
+                    <b-col @click="nextpage('/AssessmentPreparation/About')">
                         <h5>About</h5>
                         <hr>
                         <p>Project Details</p>
@@ -77,17 +77,19 @@ export default {
     }
   },
   methods: {
-    choose (id) {
+    choose (project) {
       // console.log(name)
       this.clicked = true
-      store.projectId = id
+      store.project = project
       // console.log('store ' + store.projectName)
-      this.projectList.forEach(item => {
-        if (item.projectId === id) {
-          store.project = item
-        }
-      })
-      console.log('choose: ', id)
+      // this.projectList.forEach(item => {
+      //   if (item.projectId === id) {
+      //     store.project = item
+      //   }
+      // })
+      // console.log('choose: ', id)
+      store.projectId = project.id
+      console.log('project:', store.project)
       console.log('store.projectid: ', store.projectId)
       // console.log(store.project)
     },
@@ -95,6 +97,9 @@ export default {
       store.projectId = 0
       store.project = null
       console.log(store.project)
+    },
+    nextpage (path) {
+      this.$router.push(path)
     }
   },
   computed: {
@@ -133,6 +138,7 @@ export default {
       if (localStorage.getItem('projectList') != null) {
       // eslint-disable-next-line no-eval
         store.project = eval(localStorage.projectList)[0]
+        store.projectId = store.project.projectId
       } else {
         store.project = null
       }
