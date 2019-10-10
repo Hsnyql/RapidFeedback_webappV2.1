@@ -34,6 +34,7 @@
             <b-button @click="test" size="lg">test</b-button>
           </b-col>
         </b-row> -->
+        <!-- TODO: margin -->
         <b-row class="footer">
           <b-col>
             <UomFooter></UomFooter>
