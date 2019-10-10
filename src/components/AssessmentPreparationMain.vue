@@ -100,6 +100,17 @@ export default {
     project () {
       return store.project
     }
+  },
+  created: function () {
+    if (store.project === null) {
+      if (localStorage.getItem('projectList') != null) {
+      // eslint-disable-next-line no-eval
+        store.project = eval(localStorage.projectList)[0]
+        store.projectName = store.project.projectName
+      } else {
+        store.project = null
+      }
+    }
   }
 }
 </script>
