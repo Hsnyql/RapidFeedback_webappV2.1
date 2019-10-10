@@ -81,7 +81,7 @@ export default {
         durationSec: this.durationSec + 60 * this.durationMin,
         warningSec: this.warningSec + 60 * this.warningMin,
         id: store.projectId,
-        principalId: localStorage.getItem('id')
+        principalId: this.principalId
       }
       assessmentAbout(param).then(res => {
         console.log(res)
@@ -90,6 +90,16 @@ export default {
           this.$router.push('/AssessmentPreparation/Criteria')
         }
       })
+    }
+  },
+  computed: {
+    // TODO: check if normal marker could edit project
+    principalId () {
+      if (store.project === null) {
+        return localStorage.getItem('id')
+      } else {
+        return store.project.principalId
+      }
     }
   }
 }
