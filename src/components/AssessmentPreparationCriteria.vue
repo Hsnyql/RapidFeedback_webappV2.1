@@ -27,11 +27,9 @@
                     <b-form-checkbox
                             v-for="criterion in criteria"
                             v-model="selected"
-                            :key = "criterion.text"
-                            :value="criterion.value"
-                            name="availableCriteriaList"
-                    >
-                        {{criterion.value}}
+                            :key="criterion.id"
+                            :value="criterion.criteriaName">
+                        {{criterion.criteriaName}}
                     </b-form-checkbox>
 <!--                        <b-form-checkbox-group-->
 <!--                                v-model="selected"-->
@@ -72,10 +70,10 @@ export default {
     return {
       selected: [], //  must be an array
       criteria: [
-        {text: 1, value: 'Criteria 1'},
-        {text: 2, value: 'Criteria 2'},
-        {text: 3, value: 'Criteria 3'},
-        {text: 4, value: 'Criteria 4'}
+        {id: 1, criteriaName: 'Criteria 1'},
+        {id: 2, criteriaName: 'Criteria 2'},
+        {id: 3, criteriaName: 'Criteria 3'},
+        {id: 4, criteriaName: 'Criteria 4'}
       ] //  Sample data for display
     }
   }
