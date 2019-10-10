@@ -18,6 +18,7 @@
                                 <b-form-input id="subjectcode-input" type="text" required
                                               placeholder="Enter Subject Code" v-model="subjectCode"></b-form-input>
                             </b-form-group>
+                            <!-- TODO: time duration in mins and secs -->
                             <b-form-group id="Duration" label="Duration:" label-for="duration-input">
                                 <b-form-input id="duration-input" type="number" required
                                               placeholder="Enter Duration" v-model="durationMin"></b-form-input>

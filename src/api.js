@@ -82,7 +82,7 @@ export const inviteAssessor = param => {
   })
 }
 
-// TODO check axios.delete method
+// TODO: check axios.delete method
 export const deleteAssessor = param => {
   return axios.delete('/InviteAssessorServlet', param).then(res => {
     return res.data
