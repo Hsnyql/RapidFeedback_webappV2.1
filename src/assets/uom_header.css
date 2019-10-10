@@ -1,0 +1,25 @@
+.header {
+    background: #094183;
+  }
+  
+  .headerImg {
+    /*padding-left: 20px;*/
+    align-content: center;
+  }
+  
+  .headerTitle{
+    align-content: center;
+    text-align: center !important;
+  }
+  
+  .headerTitle h1{
+    /*position: absolute;
+    bottom: 10%;*/
+    font-size: 2.8125rem;
+    font-size: 45px;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    margin-top: 35px;
+    margin-right: 23%;
+    color: white;
+  }
+  
