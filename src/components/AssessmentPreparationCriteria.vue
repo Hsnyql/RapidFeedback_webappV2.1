@@ -28,16 +28,27 @@
                              @hidden="resetModal"
                              @ok="recordNewCriterion">
                         <form ref="form" @submit.stop.prevent="handleSubmit">
-                            <b-form-group :state="nameState"
+                            <b-form-group :state="inputState"
                                           label="New Criterion Name:"
                                           label-for="criterionName-input"
                                           invalid-feedback="New Criterion Name is Required">
                                 <b-form-input id="criterionName-input"
                                               v-model="newCriterionName"
-                                              :state="nameState"
+                                              :state="inputState"
                                               required></b-form-input>
                             </b-form-group>
                         </form>
+<!--                        <b-alert :show="dismissCountDown"-->
+<!--                                 dismissible variant="warning"-->
+<!--                                 @dismissed="dissmissCountDown=0"-->
+<!--                                 @dismiss-count-down="countDownChanged">-->
+<!--                            <p>Please enter a VALID New Criterion Name!</p>-->
+<!--                            <b-progress variant="warning"-->
+<!--                                        :max="dismissSecs"-->
+<!--                                        :value="dissmissCountDown"-->
+<!--                                        height="4px"></b-progress>-->
+<!--                        </b-alert>-->
+<!--                        <p v-if="errorFound">Please enter a VALID New Criterion Name!</p>-->
                     </b-modal>
                 </b-row>
                 <b-row>
@@ -92,8 +103,11 @@ export default {
   name: 'AssessmentPreparationCriteria',
   data () {
     return {
+      // dismissSecs: 10,
+      // dismissCountDown: 0,
+      errorFound: false,
       newCriterionName: '',
-      nameState: null,
+      inputState: null,
       selected: [], //  must be an array
       criteria: [
         {id: 1, criterionName: 'Criteria 1'},
@@ -106,7 +120,15 @@ export default {
   methods: {
     checkFormValidity () {
       const valid = this.$refs.form.checkValidity()
-      this.nameState = valid ? 'valid' : 'invalid'
+      console.log('NameState before: ', this.nameState)
+      this.nameState = valid
+      console.log('NameState after: ', this.nameState)
+      // if (this.nameState === 'valid') {
+      //   valid = true
+      // } else {
+      //   valid = false
+      // }
+      console.log('Valid: ', valid)
       return valid
     },
     resetModal () {
@@ -119,6 +141,7 @@ export default {
     },
     handleSubmit () {
       if (!this.checkFormValidity()) {
+        // this.errorFound = this.checkFormValidity()
         return
       }
       let newCriterion = {id: this.criteria.length + 1, criterionName: this.newCriterionName}
@@ -127,6 +150,12 @@ export default {
       this.$nextTick(() => {
         this.$refs.modal.hide()
       })
+    },
+    countDownChanged (dissmissCountDown) {
+      this.dissmissCountDown = dissmissCountDown
+    },
+    showAlert () {
+      this.dissmissCountDown = this.dismissSecs
     }
   }
 }
