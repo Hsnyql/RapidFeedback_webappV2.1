@@ -17,6 +17,15 @@
                  @ok="recordNewStudent">
           <form ref="form" @submit.stop.prevent="addNewStudent">
             <b-form-group :state="inputState"
+                          label="Student Number:"
+                          label-for="studentNumber-input"
+                          invalid-feedback="Student nimber is Required">
+              <b-form-input id="studentNumber-input"
+                            v-model="newNumber"
+                            :state="inputState"
+                            required></b-form-input>
+            </b-form-group>
+            <b-form-group :state="inputState"
                           label="First Name:"
                           label-for="firstName-input"
                           invalid-feedback="First Name is Required">
@@ -102,7 +111,7 @@
                  title="Rapid Feedback"
                  @ok="removeStudent">
           <b-row><p>Please confirm to remove the following students from this project:</p></b-row>
-          <b-row v-for="student in selectedStudents" :key="student.id">
+          <b-row v-for="student in selectedStudents" :key="student.number">
             <p>{{fullName(student)}}</p>
           </b-row>
         </b-modal>
@@ -112,16 +121,18 @@
       <b-col><hr>
         <b-row v-if="addedStudents.length===0"><p>Please add students!</p></b-row>
         <b-row>
-          <b-col cols="2"><h5 v-if="addedStudents.length!==0"> Selection</h5></b-col>
-          <b-col cols="2"><h5 v-if="addedStudents.length!==0">Group</h5></b-col>
+          <b-col cols="1"><h5 v-if="addedStudents.length!==0"> Selection</h5></b-col>
+          <b-col cols="1"><h5 v-if="addedStudents.length!==0">Group</h5></b-col>
+          <b-col cols="2"><h5 v-if="addedStudents.length!==0">Student Number</h5></b-col>
           <b-col cols="4"><h5 v-if="addedStudents.length!==0">Student Name</h5></b-col>
           <b-col cols="4"><h5 v-if="addedStudents.length!==0">Student Email</h5></b-col>
         </b-row>
-        <b-row v-for="student in addedStudents" v-bind:key="student.id">
-          <b-col cols="2"><b-form-checkbox
+        <b-row v-for="student in addedStudents" v-bind:key="student.number">
+          <b-col cols="1"><b-form-checkbox
                   v-model="selectedStudents"
                   :value="student"></b-form-checkbox></b-col>
-          <b-col cols="2"><p>{{showGroup(student)}}</p></b-col>
+          <b-col cols="1"><p>{{showGroup(student)}}</p></b-col>
+          <b-col cols="2"><p>{{student.number}}</p></b-col>
           <b-col cols="4"><p>{{fullName(student)}}</p></b-col>
           <b-col cols="4"><p>{{student.email}}</p></b-col>
         </b-row>
@@ -134,10 +145,10 @@
         <b-row><p>Selected:</p></b-row>
         <b-row><p>{{selectedStudents}}</p></b-row>
         <b-row v-for="student in selectedStudents" v-bind:key = student.id>
-          <p>[ID: {{student.id}},
+          <p>[ID: {{student.number}},
             firstName: {{student.firstName}},
             middleName: {{student.middleName}},
-            lastName: {{student.lastName}},
+            lastName: {{student.surname}},
             email: {{student.email}}]</p>
         </b-row>
       </b-col>
@@ -154,6 +165,7 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
 import {store} from '@/store'
 import XLSX from 'xlsx'
 // eslint-disable-next-line no-unused-vars
@@ -166,14 +178,15 @@ export default {
       newFirstName: '',
       newMiddleName: '',
       newLastName: '',
+      newNumber: '',
       newEmail: '',
       inputState: null,
       selectedStudents: [],
       addedStudents: [
-        {id: 1, firstName: 'firstName1', middleName: '', lastName: 'lastName1', email: 'student1@email.com', group: 0},
-        {id: 2, firstName: 'firstName2', middleName: 'middleName2', lastName: 'lastName2', email: 'student2@email.com', group: 0},
-        {id: 3, firstName: 'firstName3', middleName: 'middleName3', lastName: 'lastName3', email: 'student3@email.com', group: 0},
-        {id: 4, firstName: 'firstName4', middleName: '', lastName: 'lastName4', email: 'student4@email.com', group: 0}
+        // {number: 1, firstName: 'firstName1', middleName: '', surname: 'lastName1', email: 'student1@email.com', group: 0},
+        // {number: 2, firstName: 'firstName2', middleName: 'middleName2', surname: 'lastName2', email: 'student2@email.com', group: 0},
+        // {number: 3, firstName: 'firstName3', middleName: 'middleName3', surname: 'lastName3', email: 'student3@email.com', group: 0},
+        // {number: 4, firstName: 'firstName4', middleName: '', surname: 'surname4', email: 'student4@email.com', group: 0}
       ]
     }
   },
@@ -183,10 +196,10 @@ export default {
     populate () {
       this.addedStudents = []
       for (let i = 0; i < 10; i++) {
-        let newStudent = {id: i + 1,
+        let newStudent = {number: i + 1,
           firstName: 'firstName' + (i + 1).toString(),
           middleName: 'middleName' + (i + 1).toString(),
-          lastName: 'lastName' + (i + 1).toString(),
+          surname: 'lastName' + (i + 1).toString(),
           email: 'firstName' + (i + 1).toString() + '@email.com',
           group: 0}
         this.addedStudents.push(newStudent)
@@ -207,21 +220,22 @@ export default {
           const wsname = workbook.SheetNames[0]// 取第一张表
           const ws = XLSX.utils.sheet_to_json(workbook.Sheets[wsname])// 生成json表格内容
           console.log(ws)
-          var param = {
-            token: localStorage.getItem('token'),
-            projectId: store.projectId,
-            studentList: ws
-          }
-          importStudent(param).then(res => {
-            console.log(res)
-            if (res.updateStudent_ACK) {
-              console.log('succeed')
-              // TODO: page after adding student
-              this.$router.push('/')
-            } else {
+          // var param = {
+          //   token: localStorage.getItem('token'),
+          //   projectId: store.projectId,
+          //   studentList: ws
+          // }
+          // importStudent(param).then(res => {
+          //   console.log(res)
+          //   if (res.updateStudent_ACK) {
+          //     console.log('succeed')
+          //     // TODO: page after adding student
+          //     this.$router.push('/')
+          //   } else {
 
-            }
-          })
+          //   }
+          // })
+          this.addedStudents = this.addedStudents.concat(ws)
           this.list = ws
         } catch (e) {
           return false
@@ -231,7 +245,13 @@ export default {
     },
     addSingle () {
       var param = {
-
+        token: localStorage.token,
+        projectName: store.project.projectName,
+        studentID: this.newNumber,
+        firstName: this.newFirstName,
+        middleName: this.newMiddleName,
+        lastName: this.newLastName,
+        email: this.newEmail
       }
       addStudent(param).then(res => {
         console.log(res)
@@ -286,20 +306,23 @@ export default {
         }
       }
     },
-    delete () {
+    delete (index) {
       var param = {
-
+        token: localStorage.token,
+        projectName: store.project.projectName,
+        studentID: this.selectedStudents[index].number
       }
-      deleteStudent(param).then(res => {
-        console.log(res)
-      })
+      console.log('send: ' + param)
+      let res = deleteStudent(param)
+      console.log(res)
+      return res.updateStudent_ACK
     },
     fullName (student) {
       let fullName = null
       if (student.middleName === '') {
         fullName = student.firstName + ' ' + student.lastName
       } else {
-        fullName = student.firstName + ' ' + student.middleName + ' ' + student.lastName
+        fullName = student.firstName + ' ' + student.middleName + ' ' + student.surname
       }
       return fullName
     },
@@ -324,6 +347,7 @@ export default {
       return valid
     },
     resetModal () {
+      this.newNumber = ''
       this.newFirstName = ''
       this.newMiddleName = ''
       this.newLastName = ''
@@ -345,10 +369,10 @@ export default {
           return
         }
       }
-      let newStudent = {id: this.addedStudents.length + 1,
+      let newStudent = {number: this.newNumber,
         firstName: this.newFirstName,
         middleName: this.newMiddleName,
-        lastName: this.newLastName,
+        surname: this.newLastName,
         email: this.newEmail,
         group: 0}
       // this.students.push(newStudent)
@@ -367,9 +391,10 @@ export default {
       }
     },
     loadSelection () {
+      this.newNumber = this.selectedStudents[0].number
       this.newFirstName = this.selectedStudents[0].firstName
       this.newMiddleName = this.selectedStudents[0].middleName
-      this.newLastName = this.selectedStudents[0].lastName
+      this.newLastName = this.selectedStudents[0].surname
       this.newEmail = this.selectedStudents[0].email
       this.inputState = null
     },
@@ -384,13 +409,14 @@ export default {
       }
       let index = null
       for (let i = 0; i < this.addedStudents.length; i++) {
-        if (this.selectedStudents[0].id === this.addedStudents[i].id) {
+        if (this.selectedStudents[0].number === this.addedStudents[i].number) {
           index = i
         }
       }
+      this.addedStudents[index].number = this.newNumber
       this.addedStudents[index].firstName = this.newFirstName
       this.addedStudents[index].middleName = this.newMiddleName
-      this.addedStudents[index].lastName = this.newLastName
+      this.addedStudents[index].surname = this.newLastName
       this.addedStudents[index].email = this.email
       this.$nextTick(() => {
         this.$refs.modal.hide()
@@ -413,7 +439,12 @@ export default {
       }
       indices.sort()
       for (let i = 0; i < indices.length; i++) {
-        this.addedStudents.splice(indices[i] - i, 1)
+        if (this.delete(indices[i])) {
+          this.addedStudents.splice(indices[i] - i, 1)
+          this.selectedStudents.splice(i, 1)
+        } else {
+          return
+        }
       }
       this.selectedStudents = []
     }
