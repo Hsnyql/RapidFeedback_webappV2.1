@@ -97,7 +97,12 @@ export default {
         projectName: store.projectName,
         markedCriteriaList: this.criteria
       }
-      editCriteria(param)
+      editCriteria(param).then(res => {
+        if (res.updateProject_ACK) {
+          store.project.criteria = this.criteria
+          store.criteriaList = this.criteria
+        }
+      })
     }
   }
 }
