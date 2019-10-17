@@ -56,9 +56,9 @@
                     <b-form-checkbox
                             v-for="criterion in criteria"
                             v-model="selected"
-                            :key="criterion.id"
-                            :value="criterion.criterionName">
-                        {{criterion.criterionName}}
+                            :key="criterion.name"
+                            :value="criterion">
+                        {{criterion.name}}
                     </b-form-checkbox>
 <!--                        <b-form-checkbox-group-->
 <!--                                v-model="selected"-->
@@ -82,7 +82,7 @@
                         <b-button variant="primary" to="/AssessmentPreparation/About">Back</b-button>
                     </b-col>
                     <b-col cols="4">
-                        <b-button variant="primary" to="/AssessmentPreparation/Grading">Next</b-button>
+                        <b-button variant="primary" @click="saveSelected" to="/AssessmentPreparation/Grading">Next</b-button>
                     </b-col>
                 </b-row>
             </b-col>
@@ -99,6 +99,8 @@
 </template>
 
 <script>
+import {store} from '@/store'
+
 export default {
   name: 'AssessmentPreparationCriteria',
   data () {
@@ -109,12 +111,16 @@ export default {
       newCriterionName: '',
       inputState: null,
       selected: [], //  must be an array
+      // criteria: [
+      //   {id: 1, criterionName: 'Criteria 1'},
+      //   {id: 2, criterionName: 'Criteria 2'},
+      //   {id: 3, criterionName: 'Criteria 3'},
+      //   {id: 4, criterionName: 'Criteria 4'}
+      // ] //  Sample data for display
       criteria: [
-        {id: 1, criterionName: 'Criteria 1'},
-        {id: 2, criterionName: 'Criteria 2'},
-        {id: 3, criterionName: 'Criteria 3'},
-        {id: 4, criterionName: 'Criteria 4'}
-      ] //  Sample data for display
+        {name: 'criterion 1', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0},
+        {name: 'criterion 2', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0}
+      ]
     }
   },
   methods: {
@@ -144,9 +150,11 @@ export default {
         // this.errorFound = this.checkFormValidity()
         return
       }
-      let newCriterion = {id: this.criteria.length + 1, criterionName: this.newCriterionName}
+      // let newCriterion = {id: this.criteria.length + 1, criterionName: this.newCriterionName}
+      let newCriterion = {name: this.newCriterionName, markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0}
       this.criteria.push(newCriterion)
-      this.selected.push(newCriterion)
+      // this.selected.push(newCriterion)
+      // store.project.criteriaList = this.criteria
       this.$nextTick(() => {
         this.$refs.modal.hide()
       })
@@ -156,6 +164,11 @@ export default {
     },
     showAlert () {
       this.dissmissCountDown = this.dismissSecs
+    },
+    saveSelected () {
+      store.criteriaList = this.selected
+      // store.project.criteriaList = this.selected
+      console.log(store.criteriaList)
     }
   }
 }
