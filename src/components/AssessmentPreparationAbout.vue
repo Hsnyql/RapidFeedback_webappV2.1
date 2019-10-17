@@ -32,7 +32,7 @@
                                               placeholder="Enter Project Description" v-model="description"></b-form-input>
                             </b-form-group>
                         </b-col>
-                        <b-col>
+                        <!-- <b-col>
                             <b-row align-h="center">
                                 <b-col cols="4">
                                     <b-button variant="primary" to="/AssessmentPreparation/Menu" @click="save">Save</b-button>
@@ -42,8 +42,16 @@
                                 </b-col>
                                 <b-col></b-col>
                             </b-row>
-                        </b-col>
+                        </b-col> -->
                     </b-row>
+                    <b-row align-h="between">
+                    <b-col cols="4">
+                        <b-button variant="primary" to="/AssessmentPreparation/Menu">Back</b-button>
+                    </b-col>
+                    <b-col cols="4">
+                        <b-button variant="primary" to="/AssessmentPreparation/Criteria">Next</b-button>
+                    </b-col>
+                </b-row>
                 </b-form>
             </b-col>
         </b-row>
@@ -109,8 +117,8 @@ export default {
               warningSec: this.warningSec
             }
             store.project = project
-            store.projectList.push(project)
-            localStorage.setItem('projectList', JSON.stringify(store.projectList))
+            // store.projectList.push(project)
+            // localStorage.setItem('projectList', JSON.stringify(store.projectList))
             // store.project.projectName = this.projectName
             // store.project.subjectName = this.subjectName
             // store.project.subjectCode = this.subjectCode
