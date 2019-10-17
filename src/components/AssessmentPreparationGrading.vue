@@ -68,6 +68,7 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import {store} from '@/store'
+import {editCriteria} from '@/api'
 export default {
   name: 'AssessmentPreparationGrading',
   data () {
@@ -89,6 +90,14 @@ export default {
   methods: {
     test () {
       console.log(this.criteria)
+    },
+    saveCriteria () {
+      var param = {
+        token: localStorage.token,
+        projectName: store.projectName,
+        markedCriteriaList: this.criteria
+      }
+      editCriteria(param)
     }
   }
 }

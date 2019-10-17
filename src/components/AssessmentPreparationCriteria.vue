@@ -15,9 +15,9 @@
 <!--            </b-col>-->
 <!--        </b-row>-->
         <b-row align-h="center">
-            <b-col cols="9">
+            <b-col>
                 <b-row>
-                    <b-col cols="9"><h4>Criteria List</h4><hr></b-col>
+                    <b-col cols="9"></b-col>
                     <b-col>
                         <b-button v-b-modal.newCriterion variant="primary">Add</b-button>
                     </b-col>
@@ -38,20 +38,20 @@
                                               required></b-form-input>
                             </b-form-group>
                         </form>
-<!--                        <b-alert :show="dismissCountDown"-->
-<!--                                 dismissible variant="warning"-->
-<!--                                 @dismissed="dissmissCountDown=0"-->
-<!--                                 @dismiss-count-down="countDownChanged">-->
-<!--                            <p>Please enter a VALID New Criterion Name!</p>-->
-<!--                            <b-progress variant="warning"-->
-<!--                                        :max="dismissSecs"-->
-<!--                                        :value="dissmissCountDown"-->
-<!--                                        height="4px"></b-progress>-->
-<!--                        </b-alert>-->
-<!--                        <p v-if="errorFound">Please enter a VALID New Criterion Name!</p>-->
+                       <b-alert :show="dismissCountDown"
+                                dismissible variant="warning"
+                                @dismissed="dissmissCountDown=0"
+                                @dismiss-count-down="countDownChanged">
+                           <p>Please enter a VALID New Criterion Name!</p>
+                           <b-progress variant="warning"
+                                       :max="dismissSecs"
+                                       :value="dissmissCountDown"
+                                       height="4px"></b-progress>
+                       </b-alert>
+                       <p v-if="errorFound">Please enter a VALID New Criterion Name!</p>
                     </b-modal>
                 </b-row>
-                <b-row>
+                <!-- <b-row>
                     <b-form-group>
                     <b-form-checkbox
                             v-for="criterion in criteria"
@@ -60,23 +60,65 @@
                             :value="criterion">
                         {{criterion.name}}
                     </b-form-checkbox>
-<!--                        <b-form-checkbox-group-->
-<!--                                v-model="selected"-->
-<!--                                :options="criteria.value"-->
-<!--                                name="availableCriteriaList"-->
-<!--                                stacked-->
-<!--                        ></b-form-checkbox-group>-->
+                    </b-form-group>
+                </b-row> -->
+                <b-row align-content="center" align-h="center">
+            <b-col cols="3" >
+                <b-row><b-col><h4>Criteria List</h4><hr></b-col></b-row>
+                <b-row>
+                    <b-form-group label="select criteria from the list">
+                        <b-form-checkbox
+                            v-for="criterion in criteria"
+                            v-model="selected"
+                            :key="criterion.name"
+                            :value="criterion"
+                            name="criteria pool"
+                        >
+                            {{ criterion.name }}
+                        </b-form-checkbox>
                     </b-form-group>
                 </b-row>
-                <div>
+            </b-col>
+            <b-col cols="3">
+                <b-row><b-col><h4>Marking Criteria</h4><hr></b-col></b-row>
+
+                <b-row>
+                    <p class="w-100">selected criteria will display below</p>
+                    <ul id="selected criteria">
+                        <li v-for="criterion in selected" :key="criterion.name">
+                            {{ criterion.name }}
+                        </li>
+                    </ul>
+                </b-row>
+            </b-col>
+            <b-col cols="3">
+                <b-row><b-col><h4>Comment Only</h4><hr></b-col></b-row>
+                <b-row id="comment-form">
+                    <b-form-group id="positive" label="positive" label-for="pos-input">
+                        <b-form-input id="pos-input" type="text" required
+                            placeholder="Enter comment" v-model="comment"></b-form-input>
+                    </b-form-group>
+                    <b-form-group id="neutral" label="neutral" label-for="neu-input">
+                        <b-form-input id="neu-input" type="text" required
+                            placeholder="Enter comment" v-model="comment"></b-form-input>
+                    </b-form-group>
+                    <b-form-group id="negative" label="negative" label-for="neg-input">
+                        <b-form-input id="neg-input" type="text" required
+                            placeholder="Enter comment" v-model="comment"></b-form-input>
+                    </b-form-group>
+                </b-row>
+            </b-col>
+        </b-row>
+
+                <!-- <div>
                     Test Only: Selected: <strong>{{ selected }}</strong>
                 </div>
                 <div>
                     Test Only: Current Criteria:
                     <div v-for="criterion in criteria"
-                         v-bind:key="criterion.id">
-                        ID: {{criterion.id}}, Name: {{criterion.criterionName}}</div>
-                </div>
+                         v-bind:key="criterion.name">
+                        Name: {{criterion.criterionName}}</div>
+                </div> -->
                 <b-row align-h="between">
                     <b-col cols="4">
                         <b-button variant="primary" to="/AssessmentPreparation/About">Back</b-button>
@@ -106,17 +148,18 @@ export default {
   data () {
     return {
       // dismissSecs: 10,
-      // dismissCountDown: 0,
+      dismissCountDown: 0,
       errorFound: false,
       newCriterionName: '',
       inputState: null,
-      selected: [], //  must be an array
+      selected: [{name: 'criterion 1', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0}], //  must be an array
       // criteria: [
       //   {id: 1, criterionName: 'Criteria 1'},
       //   {id: 2, criterionName: 'Criteria 2'},
       //   {id: 3, criterionName: 'Criteria 3'},
       //   {id: 4, criterionName: 'Criteria 4'}
       // ] //  Sample data for display
+      // criteria: store.project.criteriaList
       criteria: [
         {name: 'criterion 1', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0},
         {name: 'criterion 2', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0}
@@ -169,6 +212,23 @@ export default {
       store.criteriaList = this.selected
       // store.project.criteriaList = this.selected
       console.log(store.criteriaList)
+    }
+  },
+  // computed: {
+  //   criteria1 () {
+  //     if (store.project) {
+  //       return store.project.criteriaList
+  //     } else {
+  //       return [
+  //         {name: 'criterion 1', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0},
+  //         {name: 'criterion 2', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0}
+  //       ]
+  //     }
+  //   }
+  // }
+  created () {
+    if (store.project) {
+      this.selected = store.project.criteria
     }
   }
 }
