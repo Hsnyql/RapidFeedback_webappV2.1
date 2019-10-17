@@ -13,6 +13,8 @@ import AssessmentPreparationCriteria from '../components/AssessmentPreparationCr
 import AssessmentPreparationGrading from '../components/AssessmentPreparationGrading'
 import AssessmentPreparationStudent from '../components/AssessmentPreparationStudent'
 import FirstPage from '@/components/FirstPage'
+import RealTimeAssessmentMain from '../components/RealTimeAssessmentMain'
+import RealTimeAssessmentMarking from '../components/RealTimeAssessmentMarking'
 
 Vue.use(VueRouter)
 
@@ -26,6 +28,8 @@ const routes = [
   {path: '/AssessmentPreparation/Criteria', component: AssessmentPreparationCriteria},
   {path: '/AssessmentPreparation/Grading', component: AssessmentPreparationGrading},
   {path: '/AssessmentPreparation/Student', component: AssessmentPreparationStudent},
+  {path: '/RealTimeAssessment/Menu', component: RealTimeAssessmentMain},
+  {path: '/RealTimeAssessment/Marking', component: RealTimeAssessmentMarking},
   {path: '/firstpage', component: FirstPage}
 ]
 

@@ -6,7 +6,7 @@
     <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/">Home</b-link>
         <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/Signup">Sign Up</b-link>
     <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/AssessmentPreparation/Menu">Assessment Preparation</b-link>
-    <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/">Real-Time Assessment</b-link>
+    <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/RealTimeAssessment/Menu">Real-Time Assessment</b-link>
     <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/">Review</b-link>
     <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/">Report</b-link>
     <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/file">Import Data</b-link>
