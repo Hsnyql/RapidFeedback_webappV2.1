@@ -45,7 +45,7 @@ export default {
       store.state = JSON.parse(localStorage.store)
     }
     window.addEventListener('beforeunload', () => {
-      console.log(JSON.stringify(store.state))
+      // console.log(JSON.stringify(store.state))
       localStorage.setItem('store', JSON.stringify(store.state))
     })
   },

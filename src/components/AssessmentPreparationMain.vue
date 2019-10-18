@@ -89,15 +89,15 @@ export default {
           }
         })
       }
-      console.log(store.state.project)
-      console.log(store.state.projectList)
+      // console.log(store.state.project)
+      // console.log(store.state.projectList)
     },
     clear () {
       store.project = null
       store.projectName = null
       this.deleting = false
-      console.log(store.state.project)
-      console.log(store.state.projectList)
+      // console.log(store.state.project)
+      // console.log(store.state.projectList)
       this.$router.push('/AssessmentPreparation/About')
     },
     nextpage (path) {
@@ -164,10 +164,12 @@ export default {
     // }
   },
   created () {
-    console.log(store.state.project)
-    console.log(store.state.projectList)
+    // console.log(store.state.project)
+    // console.log(store.state.projectList)
     // eslint-disable-next-line no-eval
-    store.state.projectList = eval(localStorage.projectList)
+    if (store.state.projectList.length === 0) {
+      store.state.projectList = JSON.parse(localStorage.projectList)
+    }
     if (store.state.projectList.length > 0) {
       store.state.project = store.state.projectList[0]
       store.state.projectName = store.state.project.projectName
@@ -175,8 +177,8 @@ export default {
       store.state.project = null
       store.state.projectName = null
     }
-    console.log(store.state.project)
-    console.log(store.state.projectList)
+    // console.log(store.state.project)
+    // console.log(store.state.projectList)
   }
 }
 </script>

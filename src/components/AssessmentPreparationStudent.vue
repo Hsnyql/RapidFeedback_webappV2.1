@@ -170,7 +170,7 @@
         <b-button variant="primary" to="/AssessmentPreparation/Grading">Back</b-button>
       </b-col>
       <b-col cols="4">
-        <b-button variant="primary">Save</b-button>
+        <b-button variant="primary" @click="save">Save</b-button>
       </b-col>
     </b-row>
   </b-container>
@@ -218,7 +218,6 @@ export default {
         this.addedStudents.push(newStudent)
       }
     },
-    // TODO: this is not a todo, this method is suitable for uploading criteria
     readExcel () {
       const fileReader = new FileReader()
       fileReader.onload = (ev) => {
@@ -250,34 +249,6 @@ export default {
               }
             }
           })
-          // for (let i = 0; i < ws.length; i++) {
-          //   console.log(ws[i])
-          //   let newStudent = {number: ws[i].number,
-          //     firstName: ws[i].firstName,
-          //     middleName: ws[i].middleName,
-          //     surname: ws[i].surname,
-          //     email: ws[i].email,
-          //     group: 0}
-          //   this.addedStudents.push(newStudent)
-          // }
-
-          // var param = {
-          //   token: localStorage.getItem('token'),
-          //   projectId: store.projectId,
-          //   studentList: ws
-          // }
-          // importStudent(param).then(res => {
-          //   console.log(res)
-          //   if (res.updateStudent_ACK) {
-          //     console.log('succeed')
-          //     // TODO: page after adding student
-          //     this.$router.push('/')
-          //   } else {
-
-          //   }
-          // })
-          // this.addedStudents = this.addedStudents.concat(ws)
-          // this.list = ws
         } catch (e) {
           return false
         }
@@ -570,12 +541,24 @@ export default {
         })
       }
       this.selectedStudents = []
+    },
+    save () {
+      store.state.projectList.forEach(p => {
+        if (p.projectName === store.state.projectName) {
+          console.log(p.studentInfo)
+        }
+      })
     }
   },
   created () {
-    console.log(store.state.project)
+    // console.log(store.state.project)
     if (store.state.project !== null) {
-      this.addedStudents = store.state.project.studentInfo
+      // this.addedStudents = store.state.project.studentInfo
+      store.state.projectList.forEach(p => {
+        if (p.projectName === store.state.projectName) {
+          this.addedStudents = p.studentInfo
+        }
+      })
     }
   }
 }
