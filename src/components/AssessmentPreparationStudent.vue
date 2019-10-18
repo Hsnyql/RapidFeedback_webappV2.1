@@ -247,15 +247,17 @@ export default {
     addSingle () {
       var param = {
         token: localStorage.token,
-        projectName: store.project.projectName,
+        projectName: store.state.projectName,
         studentID: this.newNumber,
         firstName: this.newFirstName,
         middleName: this.newMiddleName,
         lastName: this.newLastName,
         email: this.newEmail
       }
+      console.log(store.state.projectName)
       addStudent(param).then(res => {
         console.log(res)
+        return res.updateStudent_ACK
       })
     },
     group () {
@@ -370,17 +372,19 @@ export default {
           return
         }
       }
-      let newStudent = {number: this.newNumber,
-        firstName: this.newFirstName,
-        middleName: this.newMiddleName,
-        surname: this.newLastName,
-        email: this.newEmail,
-        group: 0}
-      // this.students.push(newStudent)
-      this.addedStudents.push(newStudent)
-      this.$nextTick(() => {
-        this.$refs.modal.hide()
-      })
+      if (this.addSingle()) {
+        let newStudent = {number: this.newNumber,
+          firstName: this.newFirstName,
+          middleName: this.newMiddleName,
+          surname: this.newLastName,
+          email: this.newEmail,
+          group: 0}
+        // this.students.push(newStudent)
+        this.addedStudents.push(newStudent)
+        this.$nextTick(() => {
+          this.$refs.modal.hide()
+        })
+      }
     },
     editStudent () {
       switch (this.selectedStudents.length) {
@@ -448,6 +452,12 @@ export default {
         }
       }
       this.selectedStudents = []
+    }
+  },
+  created () {
+    console.log(store.state.project)
+    if (store.state.project !== null) {
+      this.addedStudents = store.state.project.studentInfo
     }
   }
 }

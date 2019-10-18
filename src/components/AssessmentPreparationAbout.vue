@@ -107,6 +107,7 @@ export default {
               warningSec: this.warningSec
             }
             store.state.project = project
+            store.state.projectName = project.projectName
             // store.projectList.push(project)
             // localStorage.setItem('projectList', JSON.stringify(store.projectList))
             // store.project.projectName = this.projectName
