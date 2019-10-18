@@ -61,8 +61,8 @@
               </b-form-group>
             </form>
           </b-modal>
-          <b-button variant="primary" @click="editStudent">Edit</b-button>
-          <b-modal id="editStudent"
+          <b-button variant="primary" @click="edit">Edit</b-button>
+          <b-modal id="edit"
                  ref="modal"
                  title="Edit a Student"
                  @show="loadSelection"
@@ -170,7 +170,7 @@
 import {store} from '@/store'
 import XLSX from 'xlsx'
 // eslint-disable-next-line no-unused-vars
-import {addStudent, groupStudent, importStudent, deleteStudent} from '@/api'
+import {addStudent, groupStudent, importStudent, deleteStudent, editStudent} from '@/api'
 
 export default {
   name: 'AssessmentPreparationStudent',
@@ -257,7 +257,19 @@ export default {
       console.log(store.state.projectName)
       addStudent(param).then(res => {
         console.log(res)
-        return res.updateStudent_ACK
+        if (res.updateStudent_ACK) {
+          let newStudent = {number: this.newNumber,
+            firstName: this.newFirstName,
+            middleName: this.newMiddleName,
+            surname: this.newLastName,
+            email: this.newEmail,
+            group: 0}
+          // this.students.push(newStudent)
+          this.addedStudents.push(newStudent)
+          this.$nextTick(() => {
+            this.$refs.modal.hide()
+          })
+        }
       })
     },
     group () {
@@ -312,7 +324,7 @@ export default {
     delete (index) {
       var param = {
         token: localStorage.token,
-        projectName: store.project.projectName,
+        projectName: store.state.projectName,
         studentID: this.selectedStudents[index].number
       }
       console.log('send: ' + param)
@@ -372,24 +384,37 @@ export default {
           return
         }
       }
-      if (this.addSingle()) {
-        let newStudent = {number: this.newNumber,
-          firstName: this.newFirstName,
-          middleName: this.newMiddleName,
-          surname: this.newLastName,
-          email: this.newEmail,
-          group: 0}
-        // this.students.push(newStudent)
-        this.addedStudents.push(newStudent)
-        this.$nextTick(() => {
-          this.$refs.modal.hide()
-        })
+      var param = {
+        token: localStorage.token,
+        projectName: store.state.projectName,
+        studentID: this.newNumber,
+        firstName: this.newFirstName,
+        middleName: this.newMiddleName,
+        lastName: this.newLastName,
+        email: this.newEmail
       }
+      console.log(store.state.projectName)
+      addStudent(param).then(res => {
+        console.log(res)
+        if (res.updateStudent_ACK) {
+          let newStudent = {number: this.newNumber,
+            firstName: this.newFirstName,
+            middleName: this.newMiddleName,
+            surname: this.newLastName,
+            email: this.newEmail,
+            group: 0}
+          // this.students.push(newStudent)
+          this.addedStudents.push(newStudent)
+          this.$nextTick(() => {
+            this.$refs.modal.hide()
+          })
+        }
+      })
     },
-    editStudent () {
+    edit () {
       switch (this.selectedStudents.length) {
         case 1:
-          this.$bvModal.show('editStudent')
+          this.$bvModal.show('edit')
           break
         default:
           console.log('Select exactly ONE student!')
@@ -412,19 +437,65 @@ export default {
         // this.errorFound = this.checkFormValidity()
         return
       }
-      let index = null
-      for (let i = 0; i < this.addedStudents.length; i++) {
-        if (this.selectedStudents[0].number === this.addedStudents[i].number) {
-          index = i
-        }
+      var param = {
+        token: localStorage.token,
+        projectName: store.state.projectName,
+        studentID: this.newNumber,
+        firstName: this.newFirstName,
+        middleName: this.newMiddleName,
+        lastName: this.newLastName,
+        email: this.newEmail
       }
-      this.addedStudents[index].number = this.newNumber
-      this.addedStudents[index].firstName = this.newFirstName
-      this.addedStudents[index].middleName = this.newMiddleName
-      this.addedStudents[index].surname = this.newLastName
-      this.addedStudents[index].email = this.email
-      this.$nextTick(() => {
-        this.$refs.modal.hide()
+      editStudent(param).then(res => {
+        console.log(res)
+        if (res.updateStudent_ACK) {
+          let index = null
+          for (let i = 0; i < this.addedStudents.length; i++) {
+            if (this.selectedStudents[0].number === this.addedStudents[i].number) {
+              index = i
+            }
+          }
+          console.log('pass')
+          this.addedStudents[index].number = this.newNumber
+          this.addedStudents[index].firstName = this.newFirstName
+          this.addedStudents[index].middleName = this.newMiddleName
+          this.addedStudents[index].surname = this.newLastName
+          this.addedStudents[index].email = this.email
+          this.$nextTick(() => {
+            this.$refs.modal.hide()
+          })
+        }
+      })
+    },
+    sendEdit () {
+      var param = {
+        token: localStorage.token,
+        projectName: store.state.projectName,
+        studentID: this.newNumber,
+        firstName: this.newFirstName,
+        middleName: this.newMiddleName,
+        lastName: this.newLastName,
+        email: this.newEmail
+      }
+      editStudent(param).then(res => {
+        console.log(res)
+        if (res.updateStudent_ACK) {
+          let index = null
+          for (let i = 0; i < this.addedStudents.length; i++) {
+            if (this.selectedStudents[0].number === this.addedStudents[i].number) {
+              index = i
+            }
+          }
+          console.log('pass')
+          this.addedStudents[index].number = this.newNumber
+          this.addedStudents[index].firstName = this.newFirstName
+          this.addedStudents[index].middleName = this.newMiddleName
+          this.addedStudents[index].surname = this.newLastName
+          this.addedStudents[index].email = this.email
+          this.$nextTick(() => {
+            this.$refs.modal.hide()
+          })
+        }
       })
     },
     remove () {
@@ -444,12 +515,19 @@ export default {
       }
       indices.sort()
       for (let i = 0; i < indices.length; i++) {
-        if (this.delete(indices[i])) {
-          this.addedStudents.splice(indices[i] - i, 1)
-          this.selectedStudents.splice(i, 1)
-        } else {
-          return
+        var param = {
+          token: localStorage.token,
+          projectName: store.state.projectName,
+          studentID: this.selectedStudents[indices[i]].number
         }
+        console.log('send: ' + param)
+        deleteStudent(param).then(res => {
+          console.log(res)
+          if (res.updateStudent_ACK) {
+            this.addedStudents.splice(indices[i] - i, 1)
+            this.selectedStudents.splice(i, 1)
+          }
+        })
       }
       this.selectedStudents = []
     }
