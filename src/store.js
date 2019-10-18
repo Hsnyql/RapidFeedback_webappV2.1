@@ -8,12 +8,7 @@ export const store = Vue.observable({
     projectName: null,
     projectList: [],
     criteriaList: []
-  },
-  token: null,
-  firstName: null,
-  project: null,
-  projectName: null,
-  projectList: []
+  }
 })
 
 export const clear = () => {
