@@ -17,7 +17,7 @@ export const signupCheck = param => {
 }
 
 export const addStudent = param => {
-  return axios.post('/AddStudentServelet', param).then(res => {
+  return axios.post('/AddStudentServlet', param).then(res => {
     return res.data
   })
 }
