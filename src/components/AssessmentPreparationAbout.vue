@@ -39,7 +39,7 @@
                         <b-button variant="primary" to="/AssessmentPreparation/Menu">Back</b-button>
                     </b-col>
                     <b-col cols="4">
-                        <b-button variant="primary" to="/AssessmentPreparation/Criteria">Next</b-button>
+                        <b-button variant="primary" @click="save" to="/AssessmentPreparation/Criteria">Next</b-button>
                     </b-col>
                 </b-row>
                 </b-form>
@@ -106,7 +106,7 @@ export default {
               warningMin: this.warningMin,
               warningSec: this.warningSec
             }
-            store.project = project
+            store.state.project = project
             // store.projectList.push(project)
             // localStorage.setItem('projectList', JSON.stringify(store.projectList))
             // store.project.projectName = this.projectName
@@ -122,18 +122,18 @@ export default {
     }
   },
   created () {
-    if (store.project !== null) {
-      this.projectName = store.project.projectName
-      this.subjectName = store.project.subjectName
-      this.subjectCode = store.project.subjectCode
-      this.description = store.project.description
-      this.durationMin = store.project.durationMin
-      this.durationSec = store.project.durationSec
-      this.warningMin = store.project.warningMin
-      this.warningSec = store.project.warningSec
+    if (store.state.project !== null) {
+      this.projectName = store.state.project.projectName
+      this.subjectName = store.state.project.subjectName
+      this.subjectCode = store.state.project.subjectCode
+      this.description = store.state.project.description
+      this.durationMin = store.state.project.durationMin
+      this.durationSec = store.state.project.durationSec
+      this.warningMin = store.state.project.warningMin
+      this.warningSec = store.state.project.warningSec
     }
-    console.log(store.project)
-    console.log(store.projectList)
+    console.log(store.state.project)
+    console.log(store.state.projectList)
     console.log(this.projectName)
   }
 }
