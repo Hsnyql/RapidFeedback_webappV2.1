@@ -7,7 +7,18 @@
           <b-button variant="primary" @click="ungroup">UnGroup</b-button>
         </b-col>
         <b-col cols="4">
-          <b-button variant="primary">Upload</b-button>
+          <b-button v-b-modal.importStudent variant="primary">Upload</b-button>
+          <b-modal id="importStudent"
+                    ref="modal"
+                    title="Upload XLSX file to import students"
+                    @show="resetModal"
+                    @hidden="file = null"
+                    @ok="readExcel">
+            <b-form-file v-model="file" ref="file-input" class="mb-2"></b-form-file>
+
+            <b-button @click="file = null">Reset via v-model</b-button>
+            <b-button @click="readExcel">read</b-button>
+          </b-modal>
           <b-button v-b-modal.addStudent variant="primary">Add</b-button>
           <b-modal id="addStudent"
                  ref="modal"
@@ -176,6 +187,7 @@ export default {
   name: 'AssessmentPreparationStudent',
   data () {
     return {
+      file: null,
       newFirstName: '',
       newMiddleName: '',
       newLastName: '',
@@ -206,9 +218,6 @@ export default {
         this.addedStudents.push(newStudent)
       }
     },
-    // clearFiles () {
-    //   this.$refs['file-input'].reset()
-    // },
     // TODO: this is not a todo, this method is suitable for uploading criteria
     readExcel () {
       const fileReader = new FileReader()
@@ -221,6 +230,37 @@ export default {
           const wsname = workbook.SheetNames[0]// 取第一张表
           const ws = XLSX.utils.sheet_to_json(workbook.Sheets[wsname])// 生成json表格内容
           console.log(ws)
+          var param = {
+            token: localStorage.token,
+            projectName: store.state.projectName,
+            studentList: ws
+          }
+          importStudent(param).then(res => {
+            console.log(res)
+            if (res.updateStudent_ACK) {
+              for (let i = 0; i < ws.length; i++) {
+                console.log(ws[i])
+                let newStudent = {number: ws[i].number,
+                  firstName: ws[i].firstName,
+                  middleName: ws[i].middleName,
+                  surname: ws[i].surname,
+                  email: ws[i].email,
+                  group: 0}
+                this.addedStudents.push(newStudent)
+              }
+            }
+          })
+          // for (let i = 0; i < ws.length; i++) {
+          //   console.log(ws[i])
+          //   let newStudent = {number: ws[i].number,
+          //     firstName: ws[i].firstName,
+          //     middleName: ws[i].middleName,
+          //     surname: ws[i].surname,
+          //     email: ws[i].email,
+          //     group: 0}
+          //   this.addedStudents.push(newStudent)
+          // }
+
           // var param = {
           //   token: localStorage.getItem('token'),
           //   projectId: store.projectId,
@@ -236,8 +276,8 @@ export default {
 
           //   }
           // })
-          this.addedStudents = this.addedStudents.concat(ws)
-          this.list = ws
+          // this.addedStudents = this.addedStudents.concat(ws)
+          // this.list = ws
         } catch (e) {
           return false
         }
