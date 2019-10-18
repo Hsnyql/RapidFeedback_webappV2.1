@@ -90,7 +90,7 @@
                         <b-button variant="primary" to="/AssessmentPreparation/About">Back</b-button>
                     </b-col>
                     <b-col cols="4">
-                        <b-button variant="primary" @click="saveSelected" to="/AssessmentPreparation/Grading">Next</b-button>
+                        <b-button variant="primary" @click="saveSelected">Next</b-button>
                     </b-col>
                 </b-row>
             </b-col>
@@ -110,7 +110,8 @@ export default {
       errorFound: false,
       newCriterionName: '',
       inputState: null,
-      selected: [{name: 'criterion 1', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0}], //  must be an array
+      selected: [],
+      // selected: [{name: 'criterion 1', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0}], //  must be an array
       // criteria: [
       //   {id: 1, criterionName: 'Criteria 1'},
       //   {id: 2, criterionName: 'Criteria 2'},
@@ -155,7 +156,6 @@ export default {
       let newCriterion = {name: this.newCriterionName, markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0}
       this.criteria.push(newCriterion)
       // this.selected.push(newCriterion)
-      // store.project.criteriaList = this.criteria
       this.$nextTick(() => {
         this.$refs.modal.hide()
       })
@@ -167,9 +167,10 @@ export default {
       this.dissmissCountDown = this.dismissSecs
     },
     saveSelected () {
-      store.criteriaList = this.selected
+      store.state.criteriaList = this.selected
       // store.project.criteriaList = this.selected
-      console.log(store.criteriaList)
+      // console.log(store.state.criteriaList)
+      this.$router.push('/AssessmentPreparation/Grading')
     }
   },
   // computed: {
@@ -185,8 +186,10 @@ export default {
   //   }
   // }
   created () {
-    if (store.project) {
-      this.selected = store.project.criteria
+    if (store.state.project !== null) {
+      if (store.state.project.criteria !== [] | store.state.project.criteria !== null) {
+        this.selected = store.state.project.criteria
+      }
     }
   }
 }

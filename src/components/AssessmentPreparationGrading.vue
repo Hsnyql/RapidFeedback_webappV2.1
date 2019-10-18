@@ -4,7 +4,7 @@
         <b-col cols="3"></b-col>
         <b-col>
           <b-row><b-col><h4>Customised Grading Criteria</h4><hr></b-col></b-row>
-          <b-row v-for="criterion in criteria" v-bind:key = "criterion">
+          <b-row v-for="criterion in criteria" v-bind:key = "criterion.name">
             <b-col>
                 <b-row>
                     <b-col><h4>{{ criterion.name }}</h4><hr></b-col>
@@ -47,7 +47,7 @@
                 <b-button variant="primary" to="/AssessmentPreparation/Criteria">Back</b-button>
             </b-col>
             <b-col cols="4">
-                <b-button variant="primary" @click="test">Save</b-button>
+                <b-button variant="primary" @click="saveCriteria">Save</b-button>
                 <b-button variant="primary" to="/AssessmentPreparation/Student">Next</b-button>
             </b-col>
           </b-row>
@@ -73,7 +73,7 @@ export default {
       //   // {id: 4, criterionName: 'Criteria 4', increments: [{id: 1, value: '1/4'}, {id: 2, value: '1/2'}, {id: 3, value: '1'}], criterionParam: [{maxMark: '', markIncre: []}]}
       //   {name: 'test', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0}
       // ] //  Sample data for display
-      criteria: store.criteriaList
+      criteria: store.state.criteriaList
     }
   },
   methods: {
@@ -83,16 +83,26 @@ export default {
     saveCriteria () {
       var param = {
         token: localStorage.token,
-        projectName: store.projectName,
-        markedCriteriaList: this.criteria
+        projectName: store.state.project.projectName,
+        markedCriteriaList: this.criteria,
+        commentCriteriaList: []
       }
       editCriteria(param).then(res => {
+        console.log(res)
         if (res.updateProject_ACK) {
-          store.project.criteria = this.criteria
-          store.criteriaList = this.criteria
+          store.state.project.criteria = this.criteria
+          store.state.criteriaList = this.criteria
         }
       })
     }
+  },
+  created () {
+    // if (store.state.project.criteriaList !== []) {
+    //   this.criteria = store.state.criteriaList
+    // }
+    // this.criteria = store.state.criteriaList
+    // console.log(store.state.criteriaList)
+    console.log(this.criteria)
   }
 }
 </script>
