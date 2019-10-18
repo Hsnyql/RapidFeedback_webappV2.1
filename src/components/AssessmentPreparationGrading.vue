@@ -1,28 +1,14 @@
 <template>
     <b-container fluid>
-        <b-row><b-col><h4>Customised Grading Criteria</h4><hr></b-col></b-row>
-        <b-row v-for="criterion in criteria" v-bind:key = "criterion.name">
+      <b-row>
+        <b-col cols="3"></b-col>
+        <b-col>
+          <b-row><b-col><h4>Customised Grading Criteria</h4><hr></b-col></b-row>
+          <b-row v-for="criterion in criteria" v-bind:key = "criterion">
             <b-col>
                 <b-row>
                     <b-col><h4>{{ criterion.name }}</h4><hr></b-col>
                 </b-row>
-<!--                <b-row>-->
-<!--                    <b-form-group id="MaximumMark" label="Maximum Mark:" label-for="maxMark-input">-->
-<!--                        <b-form-input id="maxMark-input" type="number" required-->
-<!--                                      placeholder="Enter Maximum Mark" v-model="maxMark"></b-form-input>-->
-<!--                    </b-form-group>-->
-<!--                </b-row>-->
-<!--                <b-row>-->
-<!--                    <b-form-group id="MarkIncrements" label="Mark Increments:" label-for="markIncre-input">-->
-<!--                        <b-form-checkbox id="markIncre-input"-->
-<!--                                         v-for="increment in increments"-->
-<!--                                         v-model="selected"-->
-<!--                                         :key="increment.id"-->
-<!--                                         :value="increment.value"-->
-<!--                                         inline-->
-<!--                        >{{ increment.value }}</b-form-checkbox>-->
-<!--                    </b-form-group>-->
-<!--                </b-row>-->
                 <b-row>
                     <b-col>
                         <b-row><label for="maxMark-input">Maximum Mark:</label></b-row>
@@ -52,8 +38,11 @@
                     <p>Selected: <strong>{{ criterion.markIncrement}}</strong></p>
                 </div>
             </b-col>
-        </b-row>
-        <b-row align-h="between">
+          </b-row>
+        </b-col>
+      </b-row>
+      <b-row align-h="between">
+            <b-col cols="2"></b-col>
             <b-col cols="4">
                 <b-button variant="primary" to="/AssessmentPreparation/Criteria">Back</b-button>
             </b-col>
@@ -61,7 +50,7 @@
                 <b-button variant="primary" @click="test">Save</b-button>
                 <b-button variant="primary" to="/AssessmentPreparation/Student">Next</b-button>
             </b-col>
-        </b-row>
+          </b-row>
     </b-container>
 </template>
 

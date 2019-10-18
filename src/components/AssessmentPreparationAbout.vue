@@ -1,11 +1,11 @@
 <template>
     <b-container fluid>
-        <b-row><b-col><h1>About</h1><hr></b-col></b-row>
+        <b-row><b-col  cols="8" offset="2"><h1>About</h1><hr></b-col></b-row>
         <b-row>
             <b-col>
                 <b-form>
                     <b-row>
-                        <b-col cols="9">
+                        <b-col  cols="8" offset="2">
                             <b-form-group id="ProjectName" label="Project Name:" label-for="projectname-input">
                                 <b-form-input id="projectname-input" type="text" required
                                               placeholder="Enter Project Name" v-model="projectName"></b-form-input>
@@ -32,19 +32,9 @@
                                               placeholder="Enter Project Description" v-model="description"></b-form-input>
                             </b-form-group>
                         </b-col>
-                        <!-- <b-col>
-                            <b-row align-h="center">
-                                <b-col cols="4">
-                                    <b-button variant="primary" to="/AssessmentPreparation/Menu" @click="save">Save</b-button>
-                                </b-col>
-                                <b-col cols="4">
-                                    <b-button variant="primary" to="/AssessmentPreparation/Criteria" @click="save">Next</b-button>
-                                </b-col>
-                                <b-col></b-col>
-                            </b-row>
-                        </b-col> -->
                     </b-row>
                     <b-row align-h="between">
+                      <b-col cols="2"></b-col>
                     <b-col cols="4">
                         <b-button variant="primary" to="/AssessmentPreparation/Menu">Back</b-button>
                     </b-col>

@@ -1,19 +1,5 @@
 <template>
     <b-container fluid>
-<!--        <b-row>-->
-<!--            <b-col>-->
-<!--                <b-row><b-col><h4>Criteria List</h4><hr></b-col></b-row>-->
-<!--                <b-row><p>"list of Criteria available for selection"</p></b-row>-->
-<!--            </b-col>-->
-<!--            <b-col>-->
-<!--                <b-row><b-col><h4>Marking Criteria</h4><hr></b-col></b-row>-->
-<!--                <b-row><p>"list of Criteria selected for this project"</p></b-row>-->
-<!--            </b-col>-->
-<!--            <b-col>-->
-<!--                <b-row><b-col><h4>Comment Only</h4><hr></b-col></b-row>-->
-<!--                <b-row>"list of standalone comments"</b-row>-->
-<!--            </b-col>-->
-<!--        </b-row>-->
         <b-row align-h="center">
             <b-col>
                 <b-row>
@@ -51,17 +37,6 @@
                        <p v-if="errorFound">Please enter a VALID New Criterion Name!</p>
                     </b-modal>
                 </b-row>
-                <!-- <b-row>
-                    <b-form-group>
-                    <b-form-checkbox
-                            v-for="criterion in criteria"
-                            v-model="selected"
-                            :key="criterion.name"
-                            :value="criterion">
-                        {{criterion.name}}
-                    </b-form-checkbox>
-                    </b-form-group>
-                </b-row> -->
                 <b-row align-content="center" align-h="center">
             <b-col cols="3" >
                 <b-row><b-col><h4>Criteria List</h4><hr></b-col></b-row>
@@ -109,17 +84,8 @@
                 </b-row>
             </b-col>
         </b-row>
-
-                <!-- <div>
-                    Test Only: Selected: <strong>{{ selected }}</strong>
-                </div>
-                <div>
-                    Test Only: Current Criteria:
-                    <div v-for="criterion in criteria"
-                         v-bind:key="criterion.name">
-                        Name: {{criterion.criterionName}}</div>
-                </div> -->
                 <b-row align-h="between">
+                  <b-col cols="2"></b-col>
                     <b-col cols="4">
                         <b-button variant="primary" to="/AssessmentPreparation/About">Back</b-button>
                     </b-col>
@@ -128,14 +94,6 @@
                     </b-col>
                 </b-row>
             </b-col>
-<!--        <b-row align-h="between">-->
-<!--            <b-col cols="4">-->
-<!--                <b-button variant="primary" to="/AssessmentPreparation/About">Back</b-button>-->
-<!--            </b-col>-->
-<!--            <b-col cols="4">-->
-<!--                <b-button variant="primary" to="/AssessmentPreparation/Grading">Next</b-button>-->
-<!--            </b-col>-->
-<!--        </b-row>-->
         </b-row>
     </b-container>
 </template>
