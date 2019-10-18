@@ -3,8 +3,8 @@
     <div class="center" style="margin-bottom:25px; margin-top:15px; padding:0; background-color:#FFFFFF; color:#fff">
       <div style="height:0px">
       </div>
-    <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/">Home</b-link>
-        <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/Signup">Sign Up</b-link>
+    <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/" v-show="login">Home</b-link>
+        <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/Signup" v-show="login">Sign Up</b-link>
     <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/AssessmentPreparation/Menu">Assessment Preparation</b-link>
     <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/RealTimeAssessment/Menu">Real-Time Assessment</b-link>
     <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/">Review</b-link>
@@ -19,6 +19,10 @@
 import {store} from '@/store'
 export default {
   name: 'Navbar',
+  data () {
+    return {
+    }
+  },
   methods: {
     signout () {
       localStorage.clear()
@@ -27,6 +31,15 @@ export default {
       store.token = null
       store.firstName = null
       store.project = null
+    }
+  },
+  computed: {
+    login () {
+      if (store.token) {
+        return false
+      } else {
+        return true
+      }
     }
   }
 }

@@ -35,6 +35,7 @@
 <script>
 // import {store} from '@/store.js'
 import {loginCheck} from '@/api.js'
+import {store} from '@/store'
 
 export default {
   name: 'Login',
@@ -59,6 +60,7 @@ export default {
           localStorage.setItem('token', res.token)
           localStorage.setItem('firstName', res.firstName)
           localStorage.setItem('projectList', res.projectList)
+          store.token = res.token
           this.$router.push('/firstpage')
         } else if (res.login_ACK === 0) {
           this.wrongPassword = true
