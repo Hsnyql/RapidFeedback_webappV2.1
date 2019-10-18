@@ -81,23 +81,23 @@ export default {
       if (this.deleting) {
         this.deletePro(name)
       } else {
-        store.projectName = name
+        store.state.projectName = name
         // console.log('store ' + store.projectName)
         this.projectList.forEach(item => {
           if (item.projectName === name) {
-            store.project = item
+            store.state.project = item
           }
         })
       }
-      console.log(store.project)
-      console.log(store.projectList)
+      console.log(store.state.project)
+      console.log(store.state.projectList)
     },
     clear () {
       store.project = null
       store.projectName = null
       this.deleting = false
-      console.log(store.project)
-      console.log(store.projectList)
+      console.log(store.state.project)
+      console.log(store.state.projectList)
       this.$router.push('/AssessmentPreparation/About')
     },
     nextpage (path) {
@@ -120,12 +120,12 @@ export default {
               temp = item
             }
           })
-          if (store.project === temp) {
-            store.project = null
+          if (store.state.project === temp) {
+            store.state.project = null
           }
-          let i = store.projectList.indexOf(temp)
-          store.projectList.splice(i, 1)
-          localStorage.setItem('projectList', JSON.stringify(store.projectList))
+          let i = store.state.projectList.indexOf(temp)
+          store.state.projectList.splice(i, 1)
+          localStorage.setItem('projectList', JSON.stringify(store.state.projectList))
         } else {
           // TODO: failure alert
           console.log('fail')
@@ -136,47 +136,47 @@ export default {
   },
   computed: {
     subjectName () {
-      if (store.project === null) {
+      if (store.state.project === null) {
         return ' '
       } else {
-        return store.project.subjectName
+        return store.state.project.subjectName
       }
     },
     subjectCode () {
-      if (store.project === null) {
+      if (store.state.project === null) {
         return ' '
       } else {
-        return store.project.subjectCode
+        return store.state.project.subjectCode
       }
     },
     description () {
-      if (store.project === null) {
+      if (store.state.project === null) {
         return ' '
       } else {
-        return store.project.description
+        return store.state.project.description
       }
     },
     projectList () {
-      return store.projectList
+      return store.state.projectList
     }
     // project () {
     //   return store.project
     // }
   },
-  created: function () {
-    console.log(store.project)
-    console.log(store.projectList)
+  created () {
+    console.log(store.state.project)
+    console.log(store.state.projectList)
     // eslint-disable-next-line no-eval
-    store.projectList = eval(localStorage.projectList)
-    if (store.projectList.length > 0) {
-      store.project = store.projectList[0]
-      store.projectName = store.project.projectName
+    store.state.projectList = eval(localStorage.projectList)
+    if (store.state.projectList.length > 0) {
+      store.state.project = store.state.projectList[0]
+      store.state.projectName = store.state.project.projectName
     } else {
-      store.project = null
-      store.projectName = null
+      store.state.project = null
+      store.state.projectName = null
     }
-    console.log(store.project)
-    console.log(store.projectList)
+    console.log(store.state.project)
+    console.log(store.state.projectList)
   }
 }
 </script>
