@@ -16,8 +16,8 @@
                     @ok="readExcel">
             <b-form-file v-model="file" ref="file-input" class="mb-2"></b-form-file>
 
-            <b-button @click="file = null">Reset via v-model</b-button>
-            <b-button @click="readExcel">read</b-button>
+            <!-- <b-button @click="file = null">Clear</b-button>
+            <b-button @click="readExcel">read</b-button> -->
           </b-modal>
           <b-button v-b-modal.addStudent variant="primary">Add</b-button>
           <b-modal id="addStudent"
@@ -543,22 +543,36 @@ export default {
       this.selectedStudents = []
     },
     save () {
+      var hasProject = false
+      store.state.project.studentInfo = this.addedStudents
       store.state.projectList.forEach(p => {
         if (p.projectName === store.state.projectName) {
-          console.log(p.studentInfo)
+          hasProject = true
+          p = store.state.project
         }
       })
+      if (hasProject === false) {
+        store.state.projectList.push(store.state.project)
+      }
+      //   store.state.project.studentInfo = this.addedStudents
+
+      console.log(store.state.projectList)
+      localStorage.setItem('projectList', JSON.stringify(store.state.projectList))
+      this.$router.push('/AssessmentPreparation/Menu')
     }
   },
   created () {
     // console.log(store.state.project)
-    if (store.state.project !== null) {
-      // this.addedStudents = store.state.project.studentInfo
-      store.state.projectList.forEach(p => {
-        if (p.projectName === store.state.projectName) {
-          this.addedStudents = p.studentInfo
-        }
-      })
+    // if (store.state.project !== null) {
+    //   // this.addedStudents = store.state.project.studentInfo
+    //   store.state.projectList.forEach(p => {
+    //     if (p.projectName === store.state.projectName) {
+    //       this.addedStudents = p.studentInfo
+    //     }
+    //   })
+    // }
+    if (store.state.project.hasOwnProperty('studentInfo')) {
+      this.addedStudents = store.state.project.studentInfo
     }
   }
 }

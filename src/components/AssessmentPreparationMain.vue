@@ -94,7 +94,7 @@ export default {
       // console.log(store.state.projectList)
     },
     clear () {
-      store.state.project = null
+      store.state.project = {}
       store.state.projectName = null
       this.deleting = false
       // console.log(store.state.project)

@@ -93,6 +93,7 @@ export default {
           store.state.project.criteria = this.criteria
           store.state.criteriaList = this.criteria
         }
+        console.log(store.state.project)
       })
     }
   },
