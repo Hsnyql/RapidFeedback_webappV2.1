@@ -72,7 +72,8 @@ export default {
   name: 'AssessmentPreparationMain',
   data () {
     return {
-      deleting: false
+      deleting: false,
+      projectList: JSON.parse(localStorage.getItem('projectList'))
     }
   },
   methods: {
@@ -93,8 +94,8 @@ export default {
       // console.log(store.state.projectList)
     },
     clear () {
-      store.project = null
-      store.projectName = null
+      store.state.project = null
+      store.state.projectName = null
       this.deleting = false
       // console.log(store.state.project)
       // console.log(store.state.projectList)
@@ -155,10 +156,10 @@ export default {
       } else {
         return store.state.project.description
       }
-    },
-    projectList () {
-      return store.state.projectList
     }
+    // projectList () {
+    //   return store.state.projectList
+    // }
     // project () {
     //   return store.project
     // }
@@ -166,10 +167,11 @@ export default {
   created () {
     // console.log(store.state.project)
     // console.log(store.state.projectList)
-    // eslint-disable-next-line no-eval
-    if (store.state.projectList.length === 0) {
-      store.state.projectList = JSON.parse(localStorage.projectList)
-    }
+    // if (store.state.projectList.length === 0) {
+    //   // eslint-disable-next-line no-eval
+    //   store.state.projectList = JSON.parse(localStorage.getItem('projectList'))
+    // }
+    store.state.projectList = this.projectList
     if (store.state.projectList.length > 0) {
       store.state.project = store.state.projectList[0]
       store.state.projectName = store.state.project.projectName
@@ -179,6 +181,7 @@ export default {
     }
     // console.log(store.state.project)
     // console.log(store.state.projectList)
+    // console.log(this.projectList)
   }
 }
 </script>

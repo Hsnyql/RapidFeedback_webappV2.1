@@ -110,7 +110,7 @@ export default {
       errorFound: false,
       newCriterionName: '',
       inputState: null,
-      selected: [],
+      selected: store.state.project.criteria,
       // selected: [{name: 'criterion 1', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0}], //  must be an array
       // criteria: [
       //   {id: 1, criterionName: 'Criteria 1'},
@@ -167,6 +167,7 @@ export default {
       this.dissmissCountDown = this.dismissSecs
     },
     saveSelected () {
+      // store.state.project.criteria = this.seleted
       store.state.criteriaList = this.selected
       // store.project.criteriaList = this.selected
       // console.log(store.state.criteriaList)
@@ -186,11 +187,9 @@ export default {
   //   }
   // }
   created () {
-    if (store.state.project !== null) {
-      if (store.state.project.criteria !== [] | store.state.project.criteria !== null) {
-        this.selected = store.state.project.criteria
-      }
-    }
+    // if (store.state.project.criteria !== null) {
+    //   this.selected = store.state.project.critera
+    // }
   }
 }
 </script>
