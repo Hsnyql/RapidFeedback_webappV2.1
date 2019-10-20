@@ -4,9 +4,11 @@
       <b-col cols="2">
         <b-row><h3>{{marker.firstName}}'s Project</h3></b-row>
         <b-row>
-          <b-list-group v-for="project in projects" v-bind:key="project.id">
-            <b-list-group-item button @click="selected(project)">{{project.name}}</b-list-group-item>
-          </b-list-group>
+          <b-col>
+            <b-list-group v-for="project in projects" v-bind:key="project.id">
+              <b-list-group-item button @click="selected(project)">{{project.name}}</b-list-group-item>
+            </b-list-group>
+          </b-col>
         </b-row>
       </b-col>
       <b-col cols="10">
