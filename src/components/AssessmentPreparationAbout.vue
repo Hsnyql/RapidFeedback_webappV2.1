@@ -39,7 +39,7 @@
                         <b-button variant="primary" to="/AssessmentPreparation/Menu">Back</b-button>
                     </b-col>
                     <b-col cols="4">
-                        <b-button variant="primary" @click="save" to="/AssessmentPreparation/Criteria">Next</b-button>
+                        <b-button variant="primary" @click="save">Next</b-button>
                     </b-col>
                 </b-row>
                 </b-form>
@@ -118,8 +118,20 @@ export default {
               store.state.project.criteria = []
             }
             console.log(store.state.project)
+            var hasProject = false
+            store.state.projectList.forEach(p => {
+              if (p.projectName === store.state.projectName) {
+                hasProject = true
+                p = store.state.project
+              }
+            })
+            if (hasProject === false) {
+              store.state.projectList.push(store.state.project)
+            }
+            localStorage.setItem('projectList', JSON.stringify(store.state.projectList))
           }
         })
+      this.$router.push('/AssessmentPreparation/Criteria')
     }
   },
   created () {

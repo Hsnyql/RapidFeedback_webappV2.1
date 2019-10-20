@@ -579,8 +579,6 @@ export default {
         store.state.projectList.push(store.state.project)
       }
       //   store.state.project.studentInfo = this.addedStudents
-
-      console.log(store.state.projectList)
       localStorage.setItem('projectList', JSON.stringify(store.state.projectList))
       this.$router.push('/AssessmentPreparation/Menu')
     }

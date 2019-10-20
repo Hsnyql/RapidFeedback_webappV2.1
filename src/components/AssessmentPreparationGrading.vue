@@ -92,6 +92,12 @@ export default {
         if (res.updateProject_ACK) {
           store.state.project.criteria = this.criteria
           store.state.criteriaList = this.criteria
+          store.state.projectList.forEach(p => {
+            if (p.projectName === store.state.projectName) {
+              p = store.state.project
+            }
+          })
+          localStorage.setItem('projectList', JSON.stringify(store.state.projectList))
         }
         console.log(store.state.project)
       })
