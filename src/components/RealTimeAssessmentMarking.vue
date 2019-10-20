@@ -3,8 +3,8 @@
     <b-row>
       <b-col>
         <b-row>
-          <h1>{{selectedProject.name}}</h1>
-          <b-button @click="populate">Populate</b-button>
+          <h1>{{selectedProject.projectName}}</h1>
+          <!-- <b-button @click="populate">Populate</b-button> -->
         </b-row>
       </b-col>
     </b-row>
@@ -40,43 +40,43 @@
       <b-col>
         <b-row
             v-for="criterion in selectedProject.criteria"
-            v-bind:key = criterion.id>
+            v-bind:key = criterion.name>
           <b-col>
-            <b-row><label>{{criterion.criterionName}}</label></b-row>
+            <b-row><label>{{criterion.name}}</label></b-row>
             <b-row>
-              <b-input-group prepend="0" :append="criterion.maxMark.toString()">
+              <b-input-group prepend="0" :append="criterion.maximunMark.toString()">
                 <b-form-input
                     type="range"
                     v-model="criterion.mark"
                     number
                     min="0"
-                    :max="criterion.maxMark"
-                    :step="renderStep(criterion.increment)"></b-form-input>
+                    :max="criterion.maximunMark"
+                    :step="renderStep(criterion.markIncrement)"></b-form-input>
               </b-input-group>
             </b-row>
             <b-row>
               <b-col cols="3">
                 <b-list-group
-                    v-for="subsection in criterion.subsections"
-                    v-bind:key="subsection.id">
+                    v-for="subsection in criterion.subsectionList"
+                    v-bind:key="subsection.name">
                   <b-list-group-item button @click="selectSubsection(subsection, criterion)">
                     {{subsection.name}}</b-list-group-item>
                 </b-list-group>
               </b-col>
               <b-col cols="3" v-if="criterion.currentSubsection !== null">
                 <b-list-group
-                    v-for="shortText in criterion.currentSubsection.shortTexts"
-                    v-bind:key="shortText.id">
+                    v-for="shortText in criterion.currentSubsection.shortTextList"
+                    v-bind:key="shortText.name">
                   <b-list-group-item button @click="selectShortText(shortText, criterion)">
                     {{shortText.name}}</b-list-group-item>
                 </b-list-group>
               </b-col>
               <b-col cols="6" v-if="criterion.currentShortText !== null">
                 <b-list-group
-                    v-for="longText in criterion.currentShortText.longTexts"
-                    v-bind:key="longText.id">
-                  <b-list-group-item button @click="selectLongText(longText, criterion)">
-                    {{longText.name}}</b-list-group-item>
+                    v-for="long in criterion.currentShortText.longtext"
+                    v-bind:key="long">
+                  <b-list-group-item button @click="selectLongText(long, criterion)">
+                    {{long}}</b-list-group-item>
                 </b-list-group>
               </b-col>
             </b-row>
@@ -115,49 +115,56 @@
 </template>
 
 <script>
+import {store} from '@/store'
 export default {
   name: 'RealTimeAssessmentMarking',
   data () {
     return {
       dismissCountDown: 0,
-      selectedProject: {
-        id: 1,
-        name: 'Project1',
-        time: 360,
-        criteria: [
-          {
-            id: 1,
-            criterionName: 'Criteria 1',
-            maxMark: 10,
-            increment: '1/2',
-            mark: 0,
-            subsections: [],
-            currentSubsection: null,
-            currentShortText: null,
-            currentLongText: null},
-          {id: 2, criterionName: 'Criteria 2', maxMark: 8, increment: '1/4', mark: 0, subsections: [], currentSubsection: null, currentShortText: null, currentLongText: null},
-          {id: 3, criterionName: 'Criteria 3', maxMark: 6, increment: '1/2', mark: 0, subsections: [], currentSubsection: null, currentShortText: null, currentLongText: null},
-          {id: 4, criterionName: 'Criteria 4', maxMark: 3, increment: '1', mark: 0, subsections: [], currentSubsection: null, currentShortText: null, currentLongText: null}
-        ],
-        students: [
-          {id: 1, firstName: 'firstName1', middleName: '', lastName: 'lastName1', email: 'student1@email.com', group: 0},
-          {id: 2, firstName: 'firstName2', middleName: 'middleName2', lastName: 'lastName2', email: 'student2@email.com', group: 0},
-          {id: 3, firstName: 'firstName3', middleName: 'middleName3', lastName: 'lastName3', email: 'student3@email.com', group: 0},
-          {id: 4, firstName: 'firstName4', middleName: '', lastName: 'lastName4', email: 'student4@email.com', group: 0}
-        ]},
-      selectedStudent: {
-        id: 1,
-        firstName: 'firstName1',
-        middleName: '',
-        lastName: 'lastName1',
-        email: 'student1@email.com',
-        group: 0},
+      // selectedProject: {
+      //   id: 1,
+      //   name: 'Project1',
+      //   time: 360,
+      //   criteria: [
+      //     {
+      //       id: 1,
+      //       criterionName: 'Criteria 1',
+      //       maxMark: 10,
+      //       increment: '1/2',
+      //       mark: 0,
+      //       subsections: [],
+      //       currentSubsection: null,
+      //       currentShortText: null,
+      //       currentLongText: null},
+      //     {id: 2, criterionName: 'Criteria 2', maxMark: 8, increment: '1/4', mark: 0, subsections: [], currentSubsection: null, currentShortText: null, currentLongText: null},
+      //     {id: 3, criterionName: 'Criteria 3', maxMark: 6, increment: '1/2', mark: 0, subsections: [], currentSubsection: null, currentShortText: null, currentLongText: null},
+      //     {id: 4, criterionName: 'Criteria 4', maxMark: 3, increment: '1', mark: 0, subsections: [], currentSubsection: null, currentShortText: null, currentLongText: null}
+      //   ],
+      //   students: [
+      //     {id: 1, firstName: 'firstName1', middleName: '', lastName: 'lastName1', email: 'student1@email.com', group: 0},
+      //     {id: 2, firstName: 'firstName2', middleName: 'middleName2', lastName: 'lastName2', email: 'student2@email.com', group: 0},
+      //     {id: 3, firstName: 'firstName3', middleName: 'middleName3', lastName: 'lastName3', email: 'student3@email.com', group: 0},
+      //     {id: 4, firstName: 'firstName4', middleName: '', lastName: 'lastName4', email: 'student4@email.com', group: 0}
+      //   ]},
+      selectedProject: store.state.project,
+      selectedStudent: store.state.student,
+      // selectedStudent: {
+      //   id: 1,
+      //   firstName: 'firstName1',
+      //   middleName: '',
+      //   lastName: 'lastName1',
+      //   email: 'student1@email.com',
+      //   group: 0},
       markedCriteria: []
     }
   },
   created () {
     this.populate()
-    console.log('Populated')
+    // console.log('Populated')
+    this.selectedProject = store.state.project
+    this.student = store.state.student
+    console.log(this.selectedProject)
+    console.log(this.student)
   },
   computed: {
     totalPercentage () {
@@ -178,51 +185,54 @@ export default {
   methods: {
     populate () {
       for (let i = 0; i < this.selectedProject.criteria.length; i++) {
-        this.generateSubsections(this.selectedProject.criteria[i])
+        // this.generateSubsections(this.selectedProject.criteria[i])
+        this.selectedProject.criteria[i].currentSubsection = null
+        this.selectedProject.criteria[i].currentShortText = null
+        this.selectedProject.criteria[i].currentLongText = null
         console.log('Populate Criteria ' + i + ' DONE')
       }
       console.log('Complete Populate')
     },
-    generateSubsections (criteria) {
-      for (let i = 0; i < 5; i++) {
-        let subsection = {
-          id: i + 1,
-          name: 'Criteria' + criteria.id.toString() + 'Subsection' + (i + 1).toString(),
-          shortTexts: []
-          // currentShortText: null
-        }
-        this.generateShortTexts(subsection)
-        criteria.subsections.push(subsection)
-      }
-    },
-    generateShortTexts (subsection) {
-      for (let i = 0; i < 5; i++) {
-        let shortText = {
-          id: i + 1,
-          name: subsection.name + 'ShortText' + (i + 1).toString(),
-          longTexts: []
-          // currentLongText: null
-        }
-        this.generateLongTexts(shortText)
-        subsection.shortTexts.push(shortText)
-      }
-    },
-    generateLongTexts (shortText) {
-      for (let i = 0; i < 5; i++) {
-        let longText = {
-          id: i + 1,
-          name: shortText.name + 'LongText' + (i + 1).toString()
-        }
-        shortText.longTexts.push(longText)
-      }
-    },
+    // generateSubsections (criteria) {
+    //   for (let i = 0; i < 5; i++) {
+    //     let subsection = {
+    //       id: i + 1,
+    //       name: 'Criteria' + criteria.id.toString() + 'Subsection' + (i + 1).toString(),
+    //       shortTexts: []
+    //       // currentShortText: null
+    //     }
+    //     this.generateShortTexts(subsection)
+    //     criteria.subsections.push(subsection)
+    //   }
+    // },
+    // generateShortTexts (subsection) {
+    //   for (let i = 0; i < 5; i++) {
+    //     let shortText = {
+    //       id: i + 1,
+    //       name: subsection.name + 'ShortText' + (i + 1).toString(),
+    //       longTexts: []
+    //       // currentLongText: null
+    //     }
+    //     this.generateLongTexts(shortText)
+    //     subsection.shortTexts.push(shortText)
+    //   }
+    // },
+    // generateLongTexts (shortText) {
+    //   for (let i = 0; i < 5; i++) {
+    //     let longText = {
+    //       id: i + 1,
+    //       name: shortText.name + 'LongText' + (i + 1).toString()
+    //     }
+    //     shortText.longTexts.push(longText)
+    //   }
+    // },
     fullName (student) {
       let fullName = ''
       if (student.firstName !== '') {
-        if (student.middleName === '') {
-          fullName = student.firstName + ' ' + student.lastName
+        if (student.middleName === null) {
+          fullName = student.firstName + ' ' + student.surname
         } else {
-          fullName = student.firstName + ' ' + student.middleName + ' ' + student.lastName
+          fullName = student.firstName + ' ' + student.middleName + ' ' + student.surname
         }
       }
       return fullName
