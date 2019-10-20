@@ -12,13 +12,13 @@
                 </b-row>
                 <b-row>
                     <b-col>
-                        <b-list-group>
-                            <!-- <b-list-group-item>Project 1</b-list-group-item>
-                            <b-list-group-item>Project 2</b-list-group-item> -->
+                        <!-- <b-list-group>
                             <b-list-group-item v-for="item in projectList" v-bind:key="item.projectName" @click="choose(item.projectName)">
-                            <!-- <b-list-group-item v-for="item in test" :key="item"> -->
                               {{ item.projectName }}
                             </b-list-group-item>
+                        </b-list-group> -->
+                        <b-list-group v-for="project in projectList" v-bind:key="project.projectName">
+                          <b-list-group-item button @click="choose(project.projectName)">{{project.projectName}}</b-list-group-item>
                         </b-list-group>
                     </b-col>
                 </b-row>
