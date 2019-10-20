@@ -3,7 +3,7 @@
     <b-row>
       <b-col>
         <b-row>
-          <h1>{{selectedProject.name}}</h1>
+          <h1>{{selectedProject.projectName}}</h1>
           <b-button @click="populate">Populate</b-button>
         </b-row>
       </b-col>
@@ -40,17 +40,17 @@
       <b-col>
         <b-row
             v-for="criterion in copyCriteria"
-            v-bind:key = criterion.id>
+            v-bind:key = criterion.name>
           <b-col>
-            <b-row><label>{{criterion.criterionName}}</label></b-row>
+            <b-row><label>{{criterion.name}}</label></b-row>
             <b-row>
-              <b-input-group prepend="0" :append="criterion.maxMark.toString()">
+              <b-input-group prepend="0" :append="criterion.maximunMark.toString()">
                 <b-form-input
                     type="range"
                     v-model="criterion.mark"
                     number
                     min="0"
-                    :max="criterion.maxMark"
+                    :max="criterion.maximunMark"
                     :step="renderStep(criterion.increment)"></b-form-input>
               </b-input-group>
             </b-row>
@@ -58,26 +58,26 @@
               <b-col cols="3">
                 <b-row>
                   <b-list-group
-                      v-for="subsection in criterion.subsections"
-                      v-bind:key="subsection.id">
-                    <b-list-group-item button @click="selectSubsection(subsection, criterion)">{{subsection.subsectionName}}</b-list-group-item>
+                      v-for="subsection in criterion.subsectionList"
+                      v-bind:key="subsection.name">
+                    <b-list-group-item button @click="selectSubsection(subsection)">{{subsection.name}}</b-list-group-item>
                   </b-list-group>
                 </b-row>
               </b-col>
               <b-col cols="3">
-                <b-row v-if="criterion.selectSubsection !== null">
+                <b-row v-if="selectedSubsection !== null">
                   <b-list-group
-                      v-for="shortText in currentSubsection.shortTexts"
-                      v-bind:key="shortText.id">
-                    <b-list-group-item button @click="selectShortText(shortText, criterion)">{{shortText.shortTextName}}</b-list-group-item>
+                      v-for="shortText in selectedSubsection.shortTextList"
+                      v-bind:key="shortText.name">
+                    <b-list-group-item button @click="selectShortText(shortText)">{{shortText.name}}</b-list-group-item>
                   </b-list-group>
                 </b-row>
               </b-col>
               <b-col cols="6">
-                <b-row v-if="criterion.selectShortText !== null">
+                <b-row v-if="selectedShortText !== null">
                   <b-list-group
-                      v-for="longText in currentShortText.longTexts"
-                      v-bind:key="longText.id">
+                      v-for="longText in selectedShortText.longText"
+                      v-bind:key="longText">
                     <b-list-group-item button @click="selectLongText(longText, criterion)">{{longText.longTextName}}</b-list-group-item>
                   </b-list-group>
                 </b-row>
@@ -126,42 +126,47 @@
 </template>
 
 <script>
+import {store} from '@/store'
 export default {
   name: 'RealTimeAssessmentMarking',
   data () {
     return {
       dismissCountDown: 0,
-      selectedProject: {
-        id: 1,
-        name: 'Project1',
-        time: 360,
-        criteria: [
-          {
-            id: 1,
-            criterionName: 'Criteria 1',
-            maxMark: 10,
-            increment: '1/2',
-            mark: 0,
-            subsections: []},
-          {id: 2, criterionName: 'Criteria 2', maxMark: 8, increment: '1/4', mark: 0, subsections: []},
-          {id: 3, criterionName: 'Criteria 3', maxMark: 6, increment: '1/2', mark: 0, subsections: []},
-          {id: 4, criterionName: 'Criteria 4', maxMark: 3, increment: '1', mark: 0, subsections: []}
-        ],
-        students: [
-          {id: 1, firstName: 'firstName1', middleName: '', lastName: 'lastName1', email: 'student1@email.com', group: 0},
-          {id: 2, firstName: 'firstName2', middleName: 'middleName2', lastName: 'lastName2', email: 'student2@email.com', group: 0},
-          {id: 3, firstName: 'firstName3', middleName: 'middleName3', lastName: 'lastName3', email: 'student3@email.com', group: 0},
-          {id: 4, firstName: 'firstName4', middleName: '', lastName: 'lastName4', email: 'student4@email.com', group: 0}
-        ]},
-      selectedStudent: {
-        id: 1,
-        firstName: 'firstName1',
-        middleName: '',
-        lastName: 'lastName1',
-        email: 'student1@email.com',
-        group: 0},
+      // selectedProject: {
+      //   id: 1,
+      //   name: 'Project1',
+      //   time: 360,
+      //   criteria: [
+      //     {
+      //       id: 1,
+      //       criterionName: 'Criteria 1',
+      //     maxMark: 10,
+      //     increment: '1/2',
+      //     mark: 0,
+      //     subsections: []},
+      //   {id: 2, criterionName: 'Criteria 2', maxMark: 8, increment: '1/4', mark: 0, subsections: []},
+      //   {id: 3, criterionName: 'Criteria 3', maxMark: 6, increment: '1/2', mark: 0, subsections: []},
+      //   {id: 4, criterionName: 'Criteria 4', maxMark: 3, increment: '1', mark: 0, subsections: []}
+      // ],
+      // students: [
+      //   {id: 1, firstName: 'firstName1', middleName: '', lastName: 'lastName1', email: 'student1@email.com', group: 0},
+      //   {id: 2, firstName: 'firstName2', middleName: 'middleName2', lastName: 'lastName2', email: 'student2@email.com', group: 0},
+      //   {id: 3, firstName: 'firstName3', middleName: 'middleName3', lastName: 'lastName3', email: 'student3@email.com', group: 0},
+      //   {id: 4, firstName: 'firstName4', middleName: '', lastName: 'lastName4', email: 'student4@email.com', group: 0}
+      // ]},
+      // selectedStudent: {
+      //   id: 1,
+      //   firstName: 'firstName1',
+      //   middleName: '',
+      //   lastName: 'lastName1',
+      //   email: 'student1@email.com',
+      //   group: 0},
+      selectedProject: store.state.project,
+      selectedStudent: store.state.student,
       markedCriteria: [],
-      copyCriteria: [],
+      copyCriteria: store.state.project.criteria,
+      selectedSubsection: store.state.project.criteria[0].subsectionList[0],
+      selectedShortText: store.state.project.criteria[0].subsectionList[0].shortTextList,
       currentCriterion: null,
       currentSubsection: null,
       currentShortText: null,
@@ -218,18 +223,18 @@ export default {
       let fullName = ''
       if (student.firstName !== '') {
         if (student.middleName === '') {
-          fullName = student.firstName + ' ' + student.lastName
+          fullName = student.firstName + ' ' + student.surname
         } else {
-          fullName = student.firstName + ' ' + student.middleName + ' ' + student.lastName
+          fullName = student.firstName + ' ' + student.middleName + ' ' + student.surname
         }
       }
       return fullName
     },
     showTimer () {
-      this.dismissCountDown = this.selectedProject.time
+      this.dismissCountDown = this.selectedProject.durationMin * 60 + this.selectedProject.durationSec
     },
     resetTimer () {
-      this.dismissCountDown = 0
+      this.dismissCountDown = this.selectedProject.durationMin * 60 + this.selectedProject.durationSec
     },
     countDownChanged (dismissCountDown) {
       this.dismissCountDown = dismissCountDown
@@ -245,19 +250,21 @@ export default {
         return 0
       }
     },
-    selectSubsection (subsection, criterion) {
-      for (let i = 0; i < this.copyCriteria.length; i++) {
-        if (criterion.id === this.copyCriteria[i].id) {
-          this.copyCriteria[i].selectedSubsection = subsection
-        }
-      }
+    selectSubsection (subsection) {
+      // for (let i = 0; i < this.copyCriteria.length; i++) {
+      //   if (criterion.id === this.copyCriteria[i].id) {
+      //     this.copyCriteria[i].selectedSubsection = subsection
+      //   }
+      // }
+      this.selectedSubsection = subsection
     },
-    selectShortText (shortText, criterion) {
-      for (let i = 0; i < this.copyCriteria.length; i++) {
-        if (criterion.id === this.copyCriteria[i].id) {
-          this.copyCriteria[i].selectedShortText = shortText
-        }
-      }
+    selectShortText (shortText) {
+      // for (let i = 0; i < this.copyCriteria.length; i++) {
+      //   if (criterion.id === this.copyCriteria[i].id) {
+      //     this.copyCriteria[i].selectedShortText = shortText
+      //   }
+      // }
+      this.selectedShortText = shortText
     },
     selectLongText (longText, criterion) {
       for (let i = 0; i < this.copyCriteria.length; i++) {
@@ -284,6 +291,10 @@ export default {
         }
       }
     }
+  },
+  created () {
+    console.log(store.state.project)
+    console.log(store.state.student)
   }
 }
 </script>

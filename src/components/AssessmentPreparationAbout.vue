@@ -52,7 +52,7 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import {store} from '@/store'
-import {assessmentAbout} from '@/api'
+import {assessmentAbout, assessmentTime} from '@/api'
 
 export default {
   name: 'AssessmentPreparationAbout',

@@ -24,7 +24,7 @@
           <b-col cols="1"><p>{{student.number}}</p></b-col>
           <b-col cols="4"><p>{{fullName(student)}}</p></b-col>
           <b-col cols="4"><p>{{student.email}}</p></b-col>
-          <b-col cols="2"><b-button v-if='student.number!==null' to='/RealTimeAssessment/Marking'>Start</b-button></b-col>
+          <b-col cols="2"><b-button v-if='student.number!==null' @click="start(student)">Start</b-button></b-col>
         </b-row>
       </b-col>
     </b-row>
@@ -109,8 +109,9 @@ export default {
       return students
     },
     selected (project) {
-      this.init()
+      // this.init()
       this.selectedProject = project
+      store.state.project = project
     },
     init () {
       this.selectedProject = {
@@ -129,12 +130,16 @@ export default {
       let fullName = ''
       if (student.firstName !== '') {
         if (student.middleName === '') {
-          fullName = student.firstName + ' ' + student.lastName
+          fullName = student.firstName + ' ' + student.surname
         } else {
-          fullName = student.firstName + ' ' + student.middleName + ' ' + student.lastName
+          fullName = student.firstName + ' ' + student.middleName + ' ' + student.surname
         }
       }
       return fullName
+    },
+    start (student) {
+      store.state.student = student
+      this.$router.push('/RealTimeAssessment/Marking')
     }
   },
   mounted () {

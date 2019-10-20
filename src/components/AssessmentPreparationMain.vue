@@ -78,20 +78,20 @@ export default {
     }
   },
   methods: {
-    choose (project) {
+    choose (projectName) {
       // console.log(name)
       if (this.deleting) {
         this.deletePro(name)
       } else {
-        store.state.projectName = name
+        store.state.projectName = projectName
         // console.log('store ' + store.projectName)
         this.projectList.forEach(item => {
-          if (item.projectName === name) {
+          if (item.projectName === projectName) {
             store.state.project = item
           }
         })
       }
-      // console.log(store.state.project)
+      console.log(store.state.project.projectName)
       // console.log(store.state.projectList)
     },
     clear () {
