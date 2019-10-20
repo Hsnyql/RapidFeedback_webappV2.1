@@ -81,12 +81,12 @@
               </b-col>
               <b-col cols="6" v-if="criterion.currentShortText !== null">
                 <b-list-group
-                    v-for="long in criterion.currentShortText.longText"
+                    v-for="long in criterion.currentShortText.longtext"
                     v-bind:key="long">
                   <b-list-group-item
                       class="text-break"
                       button
-                      @click="selectLongText(longText, criterion)">
+                      @click="selectLongText(long, criterion)">
                     {{long}}
                   </b-list-group-item>
                 </b-list-group>
@@ -171,12 +171,14 @@ export default {
     }
   },
   created () {
-    this.populate()
-    // console.log('Populated')
+    console.log(store.state.project)
+    console.log(store.state.student)
     this.selectedProject = store.state.project
     this.student = store.state.student
-    console.log(this.selectedProject)
-    console.log(this.student)
+    this.populate()
+    // console.log('Populated')
+    // console.log(this.selectedProject)
+    // console.log(this.student)
   },
   computed: {
     totalPercentage () {
@@ -193,6 +195,7 @@ export default {
       percentage = (percentage * 100).toFixed(2)
       return percentage
     }
+
   },
   methods: {
     populate () {
@@ -201,9 +204,9 @@ export default {
         this.selectedProject.criteria[i].currentSubsection = null
         this.selectedProject.criteria[i].currentShortText = null
         this.selectedProject.criteria[i].currentLongText = null
-        console.log('Populate Criteria ' + i + ' DONE')
+        // console.log('Populate Criteria ' + i + ' DONE')
       }
-      console.log('Complete Populate')
+      // console.log('Complete Populate')
     },
     // generateSubsections (criteria) {
     //   for (let i = 0; i < 5; i++) {
@@ -250,7 +253,7 @@ export default {
       return fullName
     },
     showTimer () {
-      this.dismissCountDown = this.selectedProject.time
+      this.dismissCountDown = this.selectedProject.durationMin * 60 + this.selectedProject.durationSec
     },
     resetTimer () {
       this.dismissCountDown = 0
@@ -273,16 +276,20 @@ export default {
       criterion.currentSubsection = subsection
       criterion.currentShortText = null
       criterion.currentLongText = null
+      this.$forceUpdate()
       // let index = this.selectedProject.criteria.indexOf(criterion)
       // console.log('Working on Criteria[' + (index + 1) + ']')
-      // console.log(this.selectedProject.criteria[index].currentSubsection)
+      console.log(criterion.currentSubsection !== null)
     },
     selectShortText (shortText, criterion) {
       criterion.currentShortText = shortText
       criterion.currentLongText = null
+      this.$forceUpdate()
+      console.log(criterion.currentShortText !== null)
     },
     selectLongText (longText, criterion) {
       criterion.currentLongText = longText
+      this.$forceUpdate()
       this.recordMarking(criterion)
       console.log('Recorded')
     },
