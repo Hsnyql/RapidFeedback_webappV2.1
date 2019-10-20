@@ -39,7 +39,7 @@
     <b-row>
       <b-col>
         <b-row
-            v-for="criterion in copyCriteria"
+            v-for="criterion in selectedProject.criteria"
             v-bind:key = criterion.id>
           <b-col>
             <b-row><label>{{criterion.criterionName}}</label></b-row>
@@ -56,36 +56,36 @@
             </b-row>
             <b-row>
               <b-col cols="3">
-                <b-row>
-                  <b-list-group
-                      v-for="subsection in criterion.subsections"
-                      v-bind:key="subsection.id">
-                    <b-list-group-item button @click="selectSubsection(subsection, criterion)">{{subsection.subsectionName}}</b-list-group-item>
-                  </b-list-group>
-                </b-row>
+                <b-list-group
+                    v-for="subsection in criterion.subsections"
+                    v-bind:key="subsection.id">
+                  <b-list-group-item button @click="selectSubsection(subsection, criterion)">
+                    {{subsection.name}}</b-list-group-item>
+                </b-list-group>
               </b-col>
-              <b-col cols="3">
-                <b-row v-if="criterion.selectSubsection !== null">
-                  <b-list-group
-                      v-for="shortText in currentSubsection.shortTexts"
-                      v-bind:key="shortText.id">
-                    <b-list-group-item button @click="selectShortText(shortText, criterion)">{{shortText.shortTextName}}</b-list-group-item>
-                  </b-list-group>
-                </b-row>
+              <b-col cols="3" v-if="criterion.currentSubsection !== null">
+                <b-list-group
+                    v-for="shortText in criterion.currentSubsection.shortTexts"
+                    v-bind:key="shortText.id">
+                  <b-list-group-item button @click="selectShortText(shortText, criterion)">
+                    {{shortText.name}}</b-list-group-item>
+                </b-list-group>
               </b-col>
-              <b-col cols="6">
-                <b-row v-if="criterion.selectShortText !== null">
-                  <b-list-group
-                      v-for="longText in currentShortText.longTexts"
-                      v-bind:key="longText.id">
-                    <b-list-group-item button @click="selectLongText(longText, criterion)">{{longText.longTextName}}</b-list-group-item>
-                  </b-list-group>
-                </b-row>
+              <b-col cols="6" v-if="criterion.currentShortText !== null">
+                <b-list-group
+                    v-for="longText in criterion.currentShortText.longTexts"
+                    v-bind:key="longText.id">
+                  <b-list-group-item button @click="selectLongText(longText, criterion)">
+                    {{longText.name}}</b-list-group-item>
+                </b-list-group>
               </b-col>
             </b-row>
             <div>
               <p>Testing:</p>
               <p>Selected Mark: {{criterion.mark}} {{typeof(criterion.mark)}}</p>
+              <p v-if="criterion.currentSubsection">Selected Subsection: {{criterion.currentSubsection.name}}</p>
+              <p v-if="criterion.currentShortText">Selected ShortText: {{criterion.currentShortText.name}}</p>
+              <p v-if="criterion.currentLongText">Selected LongText: {{criterion.currentLongText.name}}</p>
             </div>
           </b-col>
         </b-row>
@@ -93,33 +93,21 @@
     </b-row>
     <b-row>
       <b-col>
-        <b-row><p>Testing:</p></b-row>
-        <b-row><p>Marked Criteria:</p></b-row>
-        <b-row v-for="criterion in markedCriteria" v-bind:key="criterion.id">
-          <b-col>
-            <b-row>
-              <p>ID: {{criterion.id}}, Name: {{criterion.criterionName}}, Mark: {{criterion.mark}} </p>
-              <p>Has Subsections: </p>
-            </b-row>
-            <b-row v-for="subsection in criterion.subsections" v-bind:key="subsection.id">
-              <b-col>
-                <b-row>
-                  <p>ID: {{subsection.id}}, Name: {{subsection.subsectionName}}, Has ShortTexts:</p>
-                </b-row>
-                <b-row v-for="shortText in subsection.shortTexts" v-bind:key="shortText.id">
-                  <b-col>
-                    <b-row>
-                      <p>ID: {{shortText.id}}, Name: {{shortText.shortTextName}}, Has LongTexts:</p>
-                    </b-row>
-                    <b-row v-for="longText in shortText.longTexts" v-bind:key="longText.id">
-                      <p>ID: {{longText.id}}, Name: {{longText.longTextName}}</p>
-                    </b-row>
-                  </b-col>
-                </b-row>
-              </b-col>
-            </b-row>
-          </b-col>
-        </b-row>
+        <div>
+          <p>Testing:</p>
+          <p>Marked Criteria:</p>
+          <p>{{markedCriteria}}</p>
+          <div v-if="markedCriteria !== []">
+            <div v-for="criterion in markedCriteria" v-bind:key="criterion.id">
+              <p> Criterion Name: {{criterion.criterionName}}</p>
+              <div v-for="subsection in criterion.subsections" v-bind:key="subsection.id">
+                <p>Subsection Name: {{subsection.name}}</p>
+                <p>ShortText: {{subsection.shortTexts[0].name}}</p>
+                <p>Long Text: {{subsection.shortTexts[0].longTexts[0].name}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </b-col>
     </b-row>
   </b-container>
@@ -142,10 +130,13 @@ export default {
             maxMark: 10,
             increment: '1/2',
             mark: 0,
-            subsections: []},
-          {id: 2, criterionName: 'Criteria 2', maxMark: 8, increment: '1/4', mark: 0, subsections: []},
-          {id: 3, criterionName: 'Criteria 3', maxMark: 6, increment: '1/2', mark: 0, subsections: []},
-          {id: 4, criterionName: 'Criteria 4', maxMark: 3, increment: '1', mark: 0, subsections: []}
+            subsections: [],
+            currentSubsection: null,
+            currentShortText: null,
+            currentLongText: null},
+          {id: 2, criterionName: 'Criteria 2', maxMark: 8, increment: '1/4', mark: 0, subsections: [], currentSubsection: null, currentShortText: null, currentLongText: null},
+          {id: 3, criterionName: 'Criteria 3', maxMark: 6, increment: '1/2', mark: 0, subsections: [], currentSubsection: null, currentShortText: null, currentLongText: null},
+          {id: 4, criterionName: 'Criteria 4', maxMark: 3, increment: '1', mark: 0, subsections: [], currentSubsection: null, currentShortText: null, currentLongText: null}
         ],
         students: [
           {id: 1, firstName: 'firstName1', middleName: '', lastName: 'lastName1', email: 'student1@email.com', group: 0},
@@ -160,13 +151,12 @@ export default {
         lastName: 'lastName1',
         email: 'student1@email.com',
         group: 0},
-      markedCriteria: [],
-      copyCriteria: [],
-      currentCriterion: null,
-      currentSubsection: null,
-      currentShortText: null,
-      currentLongText: null
+      markedCriteria: []
     }
+  },
+  created () {
+    this.populate()
+    console.log('Populated')
   },
   computed: {
     totalPercentage () {
@@ -186,32 +176,43 @@ export default {
   },
   methods: {
     populate () {
-      for (let h = 0; h < this.selectedProject.criteria.length; h++) {
-        let subsections = []
-        for (let i = 0; i < 5; i++) {
-          let subsection = {
-            id: i + 1,
-            subsectionName: 'Criterion' + (h + 1).toString() + ' SubSection' + (i + 1).toString(),
-            shortTexts: []
-          }
-          for (let j = 0; j < 5; j++) {
-            let shortText = {
-              id: j + 1,
-              shortTextName: 'Criterion' + (h + 1).toString() + ' SubSection' + (i + 1).toString() + ' ShortText' + (j + 1).toString(),
-              longTexts: []
-            }
-            for (let k = 0; k < 5; k++) {
-              let longText = {
-                id: k + 1,
-                longTextName: 'Criterion' + (h + 1).toString() + ' SubSection' + (i + 1).toString() + ' ShortText' + (j + 1).toString() + ' LongText' + (k + 1).toString()
-              }
-              shortText.longTexts.push(longText)
-            }
-            subsection.shortTexts.push(shortText)
-          }
-          subsections.push(subsection)
+      for (let i = 0; i < this.selectedProject.criteria.length; i++) {
+        this.generateSubsections(this.selectedProject.criteria[i])
+        console.log('Populate Criteria ' + i + ' DONE')
+      }
+      console.log('Complete Populate')
+    },
+    generateSubsections (criteria) {
+      for (let i = 0; i < 5; i++) {
+        let subsection = {
+          id: i + 1,
+          name: 'Criteria' + criteria.id.toString() + 'Subsection' + (i + 1).toString(),
+          shortTexts: []
+          // currentShortText: null
         }
-        this.selectedProject.criteria[h].subsections = subsections
+        this.generateShortTexts(subsection)
+        criteria.subsections.push(subsection)
+      }
+    },
+    generateShortTexts (subsection) {
+      for (let i = 0; i < 5; i++) {
+        let shortText = {
+          id: i + 1,
+          name: subsection.name + 'ShortText' + (i + 1).toString(),
+          longTexts: []
+          // currentLongText: null
+        }
+        this.generateLongTexts(shortText)
+        subsection.shortTexts.push(shortText)
+      }
+    },
+    generateLongTexts (shortText) {
+      for (let i = 0; i < 5; i++) {
+        let longText = {
+          id: i + 1,
+          name: shortText.name + 'LongText' + (i + 1).toString()
+        }
+        shortText.longTexts.push(longText)
       }
     },
     fullName (student) {
@@ -246,43 +247,54 @@ export default {
       }
     },
     selectSubsection (subsection, criterion) {
-      for (let i = 0; i < this.copyCriteria.length; i++) {
-        if (criterion.id === this.copyCriteria[i].id) {
-          this.copyCriteria[i].selectedSubsection = subsection
-        }
-      }
+      criterion.currentSubsection = subsection
+      // let index = this.selectedProject.criteria.indexOf(criterion)
+      // console.log('Working on Criteria[' + (index + 1) + ']')
+      // console.log(this.selectedProject.criteria[index].currentSubsection)
     },
     selectShortText (shortText, criterion) {
-      for (let i = 0; i < this.copyCriteria.length; i++) {
-        if (criterion.id === this.copyCriteria[i].id) {
-          this.copyCriteria[i].selectedShortText = shortText
-        }
-      }
+      criterion.currentShortText = shortText
     },
     selectLongText (longText, criterion) {
-      for (let i = 0; i < this.copyCriteria.length; i++) {
-        if (criterion.id === this.copyCriteria[i].id) {
-          this.copyCriteria[i].selectedLongText = longText
-          this.copyCriteria[i].selectedShortText.longTexts = []
-          this.copyCriteria[i].selectedShortText.longTexts.push(this.copyCriteria[i].selectedLongText)
-          this.copyCriteria[i].selectedSubsection.shortTexts = []
-          this.copyCriteria[i].selectedSubsection.shortTexts.push(this.copyCriteria[i].selectedShortText)
-          for (let j = 0; j < this.copyCriteria[i].subsections.length; j++) {
-            if (this.copyCriteria[i].selectedSubsection.id === this.copyCriteria[i].subsections[j].id) {
-              this.copyCriteria[i].subsections[j].subsections = this.copyCriteria[i].selectedSubsection
-            }
-          }
-          if (this.markedCriteria === []) {
-            this.markedCriteria.push(this.copyCriteria[i])
-          } else {
-            for (let k = 0; k < this.markedCriteria.length; k++) {
-              if (this.copyCriteria[i].id === this.markedCriteria[k].id) {
-                this.markedCriteria[k] = this.copyCriteria[i]
-              }
-            }
-          }
+      criterion.currentLongText = longText
+      this.recordMarking(criterion)
+      console.log('Recorded')
+    },
+    recordMarking (criterion) {
+      console.log('Start Recording')
+      if (this.markedCriteria.length === 0) {
+        console.log('First Entry')
+        let markedCriterion = {
+          id: criterion.id,
+          criterionName: criterion.criterionName,
+          maxMark: criterion.maxMark,
+          increment: criterion.increment,
+          mark: criterion.mark,
+          subsections: []
         }
+        let markedSubsection = this.reconstructSubsection(criterion)
+        markedCriterion.subsections.push(markedSubsection)
+        this.markedCriteria.push(markedCriterion)
       }
+    },
+    reconstructSubsection (criterion) {
+      let longText = {
+        id: criterion.currentLongText.id,
+        name: criterion.currentLongText.name
+      }
+      let shortText = {
+        id: criterion.currentShortText.id,
+        name: criterion.currentShortText.name,
+        longTexts: []
+      }
+      shortText.longTexts.push(longText)
+      let subsection = {
+        id: criterion.currentSubsection.id,
+        name: criterion.currentSubsection.name,
+        shortTexts: []
+      }
+      subsection.shortTexts.push(shortText)
+      return subsection
     }
   }
 }
