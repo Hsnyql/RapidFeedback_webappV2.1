@@ -56,16 +56,10 @@ export default {
       selectedProject: {},
       marker: {
         id: 1,
-        firstName: 'marker1',
+        firstName: localStorage.getItem('firstName'),
         middleName: 'middleName1',
         lastName: 'lastName1',
         email: 'marker1@email.com'},
-      // projects: [
-      //   {id: 1, name: 'Project1', criteria: [], students: []},
-      //   {id: 2, name: 'Project2', criteria: [], students: []},
-      //   {id: 3, name: 'Project3', criteria: [], students: []},
-      //   {id: 4, name: 'Project4', criteria: [], students: []}
-      // ]
       projectList: store.state.projectList
     }
   },
@@ -129,9 +123,9 @@ export default {
       let fullName = ''
       if (student.firstName !== '') {
         if (student.middleName === '') {
-          fullName = student.firstName + ' ' + student.lastName
+          fullName = student.firstName + ' ' + student.surname
         } else {
-          fullName = student.firstName + ' ' + student.middleName + ' ' + student.lastName
+          fullName = student.firstName + ' ' + student.middleName + ' ' + student.surname
         }
       }
       return fullName
@@ -141,10 +135,13 @@ export default {
     store.state.projectList.forEach(project => {
       project.studentInfo.forEach(student => {
         if (student.group === -999) {
-          student.group = 0
+          student.group = null
         }
       })
     })
+  },
+  created () {
+
   }
 }
 </script>

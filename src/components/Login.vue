@@ -61,7 +61,7 @@ export default {
           localStorage.setItem('firstName', res.firstName)
           localStorage.setItem('projectList', res.projectList)
           store.state.token = res.token
-          store.state.projectList = res.projectList
+          store.state.projectList = JSON.parse(res.projectList)
           this.$router.push('/firstpage')
         } else if (res.login_ACK === 0) {
           this.wrongPassword = true
