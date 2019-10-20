@@ -154,3 +154,102 @@ export const syncProject = param => {
 //   "warningMin ": 0, // int
 //   "warningSec ": 0 // int
 // }
+
+// {
+//   "commentList  ": [],
+//   "criteriaList  ": [
+//       {
+//           "maximunMark  ": 3,
+//           "name  ": "criterion 1  ",
+//           "subsectionList  ": [
+//               {
+//                   "name  ": "test  ",
+//                   "shortTextList  ": [
+//                       {
+//                           "grade  ": 3,
+//                           "longtext  ": [
+//                               "longtest  "
+//                           ],
+//                           "name  ": "shorttest  "
+//                       }
+//                   ]
+//               }
+//           ],
+//           "weighting  ": 0
+//       },
+//       {
+//           "maximunMark  ": 3,
+//           "name  ": "Presentation Structure  ",
+//           "subsectionList  ": [
+//               {
+//                   "name  ": "Introduction General  ",
+//                   "shortTextList  ": [
+//                       {
+//                           "grade  ": 2,
+//                           "longtext  ": [
+//                               "It's important to start any presentation well. You need to speak loudly and clearly and to address the audience. This means facing them and making eye contact when possible.  "
+//                           ],
+//                           "name  ": "General introductory comment  "
+//                       }
+//                   ]
+//               },
+//               {
+//                   "name  ": "Introduction  ",
+//                   "shortTextList  ": [
+//                       {
+//                           "grade  ": 2,
+//                           "longtext  ": [
+//                               "There's no need to apologise for being nervous. People will usually accept that you are and will not think badly of you.  "
+//                           ],
+//                           "name  ": "Don't apologise for nerves  "
+//                       }
+//                   ]
+//               },
+//               {
+//                   "name  ": "Main Body of the Presentation  ",
+//                   "shortTextList  ": [
+//                       {
+//                           "grade  ": 3,
+//                           "longtext  ": [
+//                               "I liked your presentation because it was well structured. It had a definite introduction, main section and a useful set of conclusions.  "
+//                           ],
+//                           "name  ": "Well structured presentation  "
+//                       }
+//                   ]
+//               },
+//               {
+//                   "name  ": "Conclusions  ",
+//                   "shortTextList  ": [
+//                       {
+//                           "grade  ": 3,
+//                           "longtext  ": [
+//                               "You wrapped up the presentation very well.  "
+//                           ],
+//                           "name  ": "Presentation well wrapped up  "
+//                       }
+//                   ]
+//               },
+//               {
+//                   "name  ": "Presentation Length  ",
+//                   "shortTextList  ": [
+//                       {
+//                           "grade  ": 3,
+//                           "longtext  ": [
+//                               "Your presentation ran the right length of time. It can be difficult to judge length like this but you did a good job.  "
+//                           ],
+//                           "name  ": "Presentation correct length  "
+//                       }
+//                   ]
+//               }
+//           ],
+//           "weighting  ": 0
+//       }
+//   ],
+//   "lecturerEmail  ": "yuqielu23@gmail.com  ",
+//   "lecturerName  ": "??  ?  ",
+//   "markList  ": [
+//       3,
+//       3
+//   ],
+//   "totalMark  ": 100
+// }
