@@ -79,6 +79,15 @@ export default {
       assessmentAbout(param).then(response => {
         console.log(response)
         if (response.updateProject_ACK) {
+          // let project = {
+          //   projectName: this.projectName,
+          //   subjectName: this.subjectName,
+          //   subjectCode: this.subjectCode,
+          //   description: this.description
+          // }
+          // store.state.projectList.push(project)
+          // store.state.project = project
+          // store.state.projectName = this.projectName
           this.savetime()
         }
       })
@@ -96,28 +105,19 @@ export default {
           console.log(res)
           if (res.updateProject_ACK) {
             console.log('success')
-            var project = {
-              projectName: this.projectName,
-              subjectName: this.subjectName,
-              subjectCode: this.subjectCode,
-              description: this.description,
-              durationMin: this.durationMin,
-              durationSec: this.durationSec,
-              warningMin: this.warningMin,
-              warningSec: this.warningSec
+            store.state.project.projectName = this.projectName
+            store.state.project.subjectName = this.subjectName
+            store.state.project.subjectCode = this.subjectCode
+            store.state.project.description = this.description
+            store.state.project.durationMin = this.durationMin
+            store.state.project.durationSec = this.durationSec
+            store.state.project.warningMin = this.warningMin
+            store.state.project.warningSec = this.warningSec
+            store.state.projectName = this.projectName
+            if (store.state.project.hasOwnProperty('criteria') !== true) {
+              store.state.project.criteria = []
             }
-            store.state.project = project
-            store.state.projectName = project.projectName
-            // store.projectList.push(project)
-            // localStorage.setItem('projectList', JSON.stringify(store.projectList))
-            // store.project.projectName = this.projectName
-            // store.project.subjectName = this.subjectName
-            // store.project.subjectCode = this.subjectCode
-            // store.project.description = this.description
-            // store.project.durationMin = this.durationMin
-            // store.project.durationSec = this.durationSec
-            // store.project.warningMin = this.warningMin
-            // store.project.warningSec = this.warningSec
+            console.log(store.state.project)
           }
         })
     }
@@ -133,9 +133,9 @@ export default {
       this.warningMin = store.state.project.warningMin
       this.warningSec = store.state.project.warningSec
     }
-    console.log(store.state.project)
-    console.log(store.state.projectList)
-    console.log(this.projectName)
+    // console.log(store.state.project)
+    // console.log(store.state.projectList)
+    // console.log(this.projectName)
   }
 }
 </script>

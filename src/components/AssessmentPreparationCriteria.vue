@@ -24,7 +24,7 @@
                                               required></b-form-input>
                             </b-form-group>
                         </form>
-                       <b-alert :show="dismissCountDown"
+                       <!-- <b-alert :show="dismissCountDown"
                                 dismissible variant="warning"
                                 @dismissed="dissmissCountDown=0"
                                 @dismiss-count-down="countDownChanged">
@@ -33,7 +33,7 @@
                                        :max="dismissSecs"
                                        :value="dissmissCountDown"
                                        height="4px"></b-progress>
-                       </b-alert>
+                       </b-alert> -->
                        <p v-if="errorFound">Please enter a VALID New Criterion Name!</p>
                     </b-modal>
                 </b-row>
@@ -67,7 +67,7 @@
                 </b-row>
             </b-col>
             <b-col cols="3">
-                <b-row><b-col><h4>Comment Only</h4><hr></b-col></b-row>
+                <!-- <b-row><b-col><h4>Comment Only</h4><hr></b-col></b-row>
                 <b-row id="comment-form">
                     <b-form-group id="positive" label="positive" label-for="pos-input">
                         <b-form-input id="pos-input" type="text" required
@@ -81,7 +81,7 @@
                         <b-form-input id="neg-input" type="text" required
                             placeholder="Enter comment" v-model="comment"></b-form-input>
                     </b-form-group>
-                </b-row>
+                </b-row> -->
             </b-col>
         </b-row>
                 <b-row align-h="between">
@@ -106,6 +106,7 @@ export default {
   data () {
     return {
       // dismissSecs: 10,
+      // hasSelected: false,
       dismissCountDown: 0,
       errorFound: false,
       newCriterionName: '',
@@ -123,6 +124,7 @@ export default {
         {name: 'criterion 1', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0},
         {name: 'criterion 2', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0}
       ]
+      // criteria: []
     }
   },
   methods: {
@@ -166,31 +168,42 @@ export default {
     showAlert () {
       this.dissmissCountDown = this.dismissSecs
     },
+    // hasSelected () {
+    //   if (this.selected.length > 0) {
+    //     return true
+    //   } else {
+    //     return false
+    //   }
+    // },
     saveSelected () {
+      // store.state.project.criteria = this.seleted
       store.state.criteriaList = this.selected
       // store.project.criteriaList = this.selected
       // console.log(store.state.criteriaList)
       this.$router.push('/AssessmentPreparation/Grading')
     }
   },
-  // computed: {
-  //   criteria1 () {
-  //     if (store.project) {
-  //       return store.project.criteriaList
-  //     } else {
-  //       return [
-  //         {name: 'criterion 1', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0},
-  //         {name: 'criterion 2', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0}
-  //       ]
-  //     }
-  //   }
-  // }
-  created () {
-    if (store.state.project !== null) {
-      if (store.state.project.criteria !== [] | store.state.project.criteria !== null) {
-        this.selected = store.state.project.criteria
+  computed: {
+    hasSelected () {
+      if (this.selected) {
+        // if (this.selected.length > 0) {
+        //   return true
+        // } else {
+        //   return false
+        // }
+        return true
+      } else {
+        return false
       }
     }
+  },
+  created () {
+    // console.log(store.state.project)
+    // console.log(this.selected)
+    if (store.state.project.hasOwnProperty('criteria')) {
+      this.selected = store.state.project.criteria
+    }
+    // console.log(this.selected)
   }
 }
 </script>

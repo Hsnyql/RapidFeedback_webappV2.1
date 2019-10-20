@@ -93,16 +93,19 @@ export default {
           store.state.project.criteria = this.criteria
           store.state.criteriaList = this.criteria
         }
+        console.log(store.state.project)
       })
     }
   },
   created () {
-    // if (store.state.project.criteriaList !== []) {
-    //   this.criteria = store.state.criteriaList
+    // if (store.state.projectList.length !== 0) {
+    //   store.state.projectList.forEach(project => {
+    //     if (project.projectName === store.state.projectName) {
+    //       this.criteria = project.criteria
+    //     }
+    //   })
     // }
-    // this.criteria = store.state.criteriaList
-    // console.log(store.state.criteriaList)
-    console.log(this.criteria)
+
   }
 }
 </script>
