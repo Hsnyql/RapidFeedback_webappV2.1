@@ -99,6 +99,7 @@
           <p>{{markedCriteria}}</p>
           <div v-if="markedCriteria !== []">
             <div v-for="criterion in markedCriteria" v-bind:key="criterion.id">
+              <hr>
               <p> Criterion Name: {{criterion.criterionName}}</p>
               <div v-for="subsection in criterion.subsections" v-bind:key="subsection.id">
                 <p>Subsection Name: {{subsection.name}}</p>
@@ -248,12 +249,15 @@ export default {
     },
     selectSubsection (subsection, criterion) {
       criterion.currentSubsection = subsection
+      criterion.currentShortText = null
+      criterion.currentLongText = null
       // let index = this.selectedProject.criteria.indexOf(criterion)
       // console.log('Working on Criteria[' + (index + 1) + ']')
       // console.log(this.selectedProject.criteria[index].currentSubsection)
     },
     selectShortText (shortText, criterion) {
       criterion.currentShortText = shortText
+      criterion.currentLongText = null
     },
     selectLongText (longText, criterion) {
       criterion.currentLongText = longText
@@ -264,18 +268,41 @@ export default {
       console.log('Start Recording')
       if (this.markedCriteria.length === 0) {
         console.log('First Entry')
-        let markedCriterion = {
-          id: criterion.id,
-          criterionName: criterion.criterionName,
-          maxMark: criterion.maxMark,
-          increment: criterion.increment,
-          mark: criterion.mark,
-          subsections: []
-        }
-        let markedSubsection = this.reconstructSubsection(criterion)
-        markedCriterion.subsections.push(markedSubsection)
+        let markedCriterion = this.createMarkedCriterion(criterion)
         this.markedCriteria.push(markedCriterion)
+      } else {
+        if (this.findCriterion(criterion, this.markedCriteria) === -1) {
+          let markedCriterion = this.createMarkedCriterion(criterion)
+          this.markedCriteria.push(markedCriterion)
+        } else {
+          let index = this.findCriterion(criterion, this.markedCriteria)
+          this.updateCriterion(index, criterion)
+        }
       }
+    },
+    createMarkedCriterion (criterion) {
+      let markedCriterion = {
+        id: criterion.id,
+        criterionName: criterion.criterionName,
+        maxMark: criterion.maxMark,
+        increment: criterion.increment,
+        mark: criterion.mark,
+        subsections: []
+      }
+      let markedSubsection = this.reconstructSubsection(criterion)
+      markedCriterion.subsections.push(markedSubsection)
+      return markedCriterion
+    },
+    updateCriterion (index, criterion) {
+      let markedSubsection = this.reconstructSubsection(criterion)
+      for (let i = 0; i < this.markedCriteria[index].subsections.length; i++) {
+        if (this.markedCriteria[index].subsections[i].id === markedSubsection.id) {
+          this.markedCriteria[index].subsections.splice(i, 1)
+          this.markedCriteria[index].subsections.push(markedSubsection)
+          return
+        }
+      }
+      this.markedCriteria[index].subsections.push(markedSubsection)
     },
     reconstructSubsection (criterion) {
       let longText = {
@@ -295,6 +322,14 @@ export default {
       }
       subsection.shortTexts.push(shortText)
       return subsection
+    },
+    findCriterion (criterion, criteria) {
+      for (let i = 0; i < criteria.length; i++) {
+        if (criteria[i].id === criterion.id) {
+          return i
+        }
+      }
+      return -1
     }
   }
 }
