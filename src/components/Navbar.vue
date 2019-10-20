@@ -7,8 +7,8 @@
         <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/Signup" v-show="login">Sign Up</b-link>
     <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/AssessmentPreparation/Menu">Assessment Preparation</b-link>
     <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/RealTimeAssessment/Menu">Real-Time Assessment</b-link>
-    <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/">Review</b-link>
-    <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/">Report</b-link>
+    <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/ReviewAndReport/Menu">Review</b-link>
+<!--    <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/">Report</b-link>-->
     <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/file">Import Data</b-link>
     <b-link style="margin-bottom:10px; padding:1;" class="button-small" @click="signout" to="/">Logout</b-link>
     </div>

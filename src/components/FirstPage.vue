@@ -13,7 +13,7 @@
       </b-col>
       <b-col cols="4">
         <div class="part">
-          <b-link>Review and Report</b-link>
+          <b-link to="'/ReviewAndReport/Menu'">Review and Report</b-link>
         </div>
       </b-col>
     </b-row>

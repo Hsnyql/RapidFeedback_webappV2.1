@@ -1,154 +1,154 @@
 <template>
   <b-container fluid>
-      <b-row>
-        <b-col cols="5"><h3>Student Management</h3></b-col>
-        <b-col cols="3">
-          <b-button variant="primary" @click="group">Group</b-button>
-          <b-button variant="primary" @click="ungroup">UnGroup</b-button>
-        </b-col>
-        <b-col cols="4">
-          <b-button v-b-modal.importStudent variant="primary">Upload</b-button>
-          <b-modal id="importStudent"
-                    ref="modal"
-                    title="Upload XLSX file to import students"
-                    @show="resetModal"
-                    @hidden="file = null"
-                    @ok="readExcel">
-            <b-form-file v-model="file" ref="file-input" class="mb-2"></b-form-file>
+    <b-row>
+      <b-col cols="5"><h3>Student Management</h3></b-col>
+      <b-col cols="3">
+        <b-button variant="primary" @click="group">Group</b-button>
+        <b-button variant="primary" @click="ungroup">UnGroup</b-button>
+      </b-col>
+      <b-col cols="4">
+        <b-button v-b-modal.importStudent variant="primary">Upload</b-button>
+        <b-modal id="importStudent"
+                 ref="modal"
+                 title="Upload XLSX file to import students"
+                 @show="resetModal"
+                 @hidden="file = null"
+                 @ok="readExcel">
+          <b-form-file v-model="file" ref="file-input" class="mb-2"></b-form-file>
 
-            <!-- <b-button @click="file = null">Clear</b-button>
-            <b-button @click="readExcel">read</b-button> -->
-          </b-modal>
-          <b-button v-b-modal.addStudent variant="primary">Add</b-button>
-          <b-modal id="addStudent"
+          <!-- <b-button @click="file = null">Clear</b-button>
+          <b-button @click="readExcel">read</b-button> -->
+        </b-modal>
+        <b-button v-b-modal.addStudent variant="primary">Add</b-button>
+        <b-modal id="addStudent"
                  ref="modal"
                  title="Add a New Student"
                  @show="resetModal"
                  @hidden="resetModal"
                  @ok="recordNewStudent">
-            <form ref="form" @submit.stop.prevent="addNewStudent">
-              <b-form-group :state="inputState"
+          <form ref="form" @submit.stop.prevent="addNewStudent">
+            <b-form-group :state="inputState"
                           label="Student Number:"
                           label-for="studentNumber-input"
                           invalid-feedback="Student nimber is Required">
-                <b-form-input id="studentNumber-input"
+              <b-form-input id="studentNumber-input"
                             v-model="newNumber"
                             :state="inputState"
                             required></b-form-input>
-              </b-form-group>
-              <b-form-group :state="inputState"
+            </b-form-group>
+            <b-form-group :state="inputState"
                           label="First Name:"
                           label-for="firstName-input"
                           invalid-feedback="First Name is Required">
-                <b-form-input id="firstName-input"
+              <b-form-input id="firstName-input"
                             v-model="newFirstName"
                             :state="inputState"
                             required></b-form-input>
-              </b-form-group>
-              <b-form-group :state="inputState"
+            </b-form-group>
+            <b-form-group :state="inputState"
                           label="Middle Name (optional):"
                           label-for="middleName-input">
-                <b-form-input id="middleName-input"
+              <b-form-input id="middleName-input"
                             v-model="newMiddleName"
                             :state="inputState"></b-form-input>
-              </b-form-group>
-              <b-form-group :state="inputState"
+            </b-form-group>
+            <b-form-group :state="inputState"
                           label="Last Name:"
                           label-for="lastName-input"
                           invalid-feedback="Last Name is Required">
-                <b-form-input id="lastName-input"
+              <b-form-input id="lastName-input"
                             v-model="newLastName"
                             :state="inputState"
                             required></b-form-input>
-              </b-form-group>
-              <b-form-group :state="inputState"
+            </b-form-group>
+            <b-form-group :state="inputState"
                           label="Email:"
                           label-for="email-input"
                           invalid-feedback="Email is Required">
-                <b-form-input id="email-input"
+              <b-form-input id="email-input"
                             v-model="newEmail"
                             :state="inputState"
                             required></b-form-input>
-              </b-form-group>
-            </form>
-          </b-modal>
-          <b-button variant="primary" @click="edit">Edit</b-button>
-          <b-modal id="edit"
+            </b-form-group>
+          </form>
+        </b-modal>
+        <b-button variant="primary" @click="edit">Edit</b-button>
+        <b-modal id="edit"
                  ref="modal"
                  title="Edit a Student"
                  @show="loadSelection"
                  @hidden="resetModal"
                  @ok="editStudentInfo">
-            <form ref="form" @submit.stop.prevent="changeStudentInfo">
-              <b-form-group :state="inputState"
+          <form ref="form" @submit.stop.prevent="changeStudentInfo">
+            <b-form-group :state="inputState"
                           label="First Name:"
                           label-for="firstName-input"
                           invalid-feedback="First Name is Required">
-                <b-form-input id="firstName-input"
+              <b-form-input id="firstName-input"
                             v-model="newFirstName"
                             :state="inputState"
                             required></b-form-input>
-              </b-form-group>
-              <b-form-group :state="inputState"
+            </b-form-group>
+            <b-form-group :state="inputState"
                           label="Middle Name (optional):"
                           label-for="middleName-input">
-                <b-form-input id="middleName-input"
+              <b-form-input id="middleName-input"
                             v-model="newMiddleName"
                             :state="inputState"></b-form-input>
-              </b-form-group>
-              <b-form-group :state="inputState"
+            </b-form-group>
+            <b-form-group :state="inputState"
                           label="Last Name:"
                           label-for="lastName-input"
                           invalid-feedback="Last Name is Required">
-                <b-form-input id="lastName-input"
+              <b-form-input id="lastName-input"
                             v-model="newLastName"
                             :state="inputState"
                             required></b-form-input>
-              </b-form-group>
-              <b-form-group :state="inputState"
+            </b-form-group>
+            <b-form-group :state="inputState"
                           label="Email:"
                           label-for="email-input"
                           invalid-feedback="Email is Required">
-                <b-form-input id="email-input"
+              <b-form-input id="email-input"
                             v-model="newEmail"
                             :state="inputState"
                             required></b-form-input>
-              </b-form-group>
-            </form>
-          </b-modal>
-          <b-button  variant="primary" @click="remove">Remove</b-button>
-          <b-modal id="removeStudent"
+            </b-form-group>
+          </form>
+        </b-modal>
+        <b-button  variant="primary" @click="remove">Remove</b-button>
+        <b-modal id="removeStudent"
                  ref="modal"
                  title="Rapid Feedback"
                  @ok="removeStudent">
-            <b-row><p>Please confirm to remove the following students from this project:</p></b-row>
-            <b-row v-for="student in selectedStudents" :key="student.number">
-              <p>{{fullName(student)}}</p>
-            </b-row>
-          </b-modal>
-        </b-col>
-      </b-row>
-      <b-row>
-        <b-col><hr>
-          <b-row v-if="addedStudents.length===0"><p>Please add students!</p></b-row>
-          <b-row>
-            <b-col cols="1"><h5 v-if="addedStudents.length!==0"> Selection</h5></b-col>
-            <b-col cols="1"><h5 v-if="addedStudents.length!==0">Group</h5></b-col>
-            <b-col cols="2"><h5 v-if="addedStudents.length!==0">Student Number</h5></b-col>
-            <b-col cols="4"><h5 v-if="addedStudents.length!==0">Student Name</h5></b-col>
-            <b-col cols="4"><h5 v-if="addedStudents.length!==0">Student Email</h5></b-col>
+          <b-row><p>Please confirm to remove the following students from this project:</p></b-row>
+          <b-row v-for="student in selectedStudents" :key="student.number">
+            <p>{{fullName(student)}}</p>
           </b-row>
-          <b-row v-for="student in addedStudents" v-bind:key="student.number">
-            <b-col cols="1"><b-form-checkbox
-                  v-model="selectedStudents"
-                  :value="student"></b-form-checkbox></b-col>
-            <b-col cols="1"><p>{{showGroup(student)}}</p></b-col>
-            <b-col cols="2"><p>{{student.number}}</p></b-col>
-            <b-col cols="4"><p>{{fullName(student)}}</p></b-col>
-            <b-col cols="4"><p>{{student.email}}</p></b-col>
-          </b-row>
-          <hr></b-col>
-      </b-row>
+        </b-modal>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col><hr>
+        <b-row v-if="addedStudents.length===0"><p>Please add students!</p></b-row>
+        <b-row>
+          <b-col cols="1"><h5 v-if="addedStudents.length!==0"> Selection</h5></b-col>
+          <b-col cols="1"><h5 v-if="addedStudents.length!==0">Group</h5></b-col>
+          <b-col cols="2"><h5 v-if="addedStudents.length!==0">Student Number</h5></b-col>
+          <b-col cols="4"><h5 v-if="addedStudents.length!==0">Student Name</h5></b-col>
+          <b-col cols="4"><h5 v-if="addedStudents.length!==0">Student Email</h5></b-col>
+        </b-row>
+        <b-row v-for="student in addedStudents" v-bind:key="student.number">
+          <b-col cols="1"><b-form-checkbox
+              v-model="selectedStudents"
+              :value="student"></b-form-checkbox></b-col>
+          <b-col cols="1"><p>{{showGroup(student)}}</p></b-col>
+          <b-col cols="2"><p>{{student.number}}</p></b-col>
+          <b-col cols="4"><p>{{fullName(student)}}</p></b-col>
+          <b-col cols="4"><p>{{student.email}}</p></b-col>
+        </b-row>
+        <hr></b-col>
+    </b-row>
     <b-row>
       <b-col>
         <b-button @click="populate">Populate</b-button>
