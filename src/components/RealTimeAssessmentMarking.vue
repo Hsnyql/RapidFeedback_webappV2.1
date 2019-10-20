@@ -276,17 +276,20 @@ export default {
       criterion.currentSubsection = subsection
       criterion.currentShortText = null
       criterion.currentLongText = null
+      this.$forceUpdate()
       // let index = this.selectedProject.criteria.indexOf(criterion)
       // console.log('Working on Criteria[' + (index + 1) + ']')
-      console.log(criterion.currentSubsection)
+      console.log(criterion.currentSubsection !== null)
     },
     selectShortText (shortText, criterion) {
       criterion.currentShortText = shortText
       criterion.currentLongText = null
-      console.log(criterion.currentShortText)
+      this.$forceUpdate()
+      console.log(criterion.currentShortText !== null)
     },
     selectLongText (longText, criterion) {
       criterion.currentLongText = longText
+      this.$forceUpdate()
       this.recordMarking(criterion)
       console.log('Recorded')
     },
