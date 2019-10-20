@@ -123,11 +123,22 @@
         </div>
       </b-col>
     </b-row>
+    <b-row align-h="between">
+      <b-col cols="2"></b-col>
+      <b-col cols="4">
+        <b-button variant="primary">Back</b-button>
+      </b-col>
+      <b-col cols="4">
+        <b-button variant="primary" @click="save">Save</b-button>
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
 <script>
 import {store} from '@/store'
+// eslint-disable-next-line no-unused-vars
+import {sendMark} from '@/api'
 export default {
   name: 'RealTimeAssessmentMarking',
   data () {
@@ -359,6 +370,20 @@ export default {
         }
       }
       return -1
+    },
+    save () {
+      // var markList = {
+      //   comment: '',
+      //   commentList: [],
+      //   criteriaList:
+      // }
+      // var param = {
+      //   token: localStorage.token,
+      //   projectName: this.selectedProject.projectName,
+      //   studentID: this.selectedStudent.number,
+      //   primaryEmail: this.selectedProject.assistant[0],
+      //   mark:
+      // }
     }
   }
 }
