@@ -306,7 +306,19 @@ export default {
         }
         for (let i = 0; i < this.selectedStudents.length; i++) {
           let index = this.addedStudents.indexOf(this.selectedStudents[i])
-          this.addedStudents[index].group = group
+          var param = {
+            token: localStorage.token,
+            projectName: store.state.projectName,
+            studentID: this.addedStudents[index].number,
+            group: group
+          }
+          groupStudent(param).then(res => {
+            console.log(res)
+            if (res.updateStudent_ACK) {
+              this.addedStudents[index].group = group
+            }
+          })
+          // this.addedStudents[index].group = group
         }
       }
       // var param = {
@@ -328,7 +340,19 @@ export default {
           }
         }
         for (let i = 0; i < this.selectedStudents.length; i++) {
-          this.selectedStudents[i].group = 0
+          var param = {
+            token: localStorage.token,
+            projectName: store.state.projectName,
+            studentID: this.selectedStudents[i].number,
+            gourp: 0
+          }
+          groupStudent(param).then(res => {
+            console.log(res)
+            if (res.updateStudent_ACK) {
+              this.selectedStudents[i].group = 0
+            }
+          })
+          // this.selectedStudents[i].group = 0
         }
       }
     },
