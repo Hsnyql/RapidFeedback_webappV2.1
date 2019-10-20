@@ -8,7 +8,7 @@
       </b-col>
       <b-col cols="4">
         <div class="part">
-          <b-link >Real-time Assessment</b-link>
+          <b-link to="/RealTimeAssessment/Menu">Real-time Assessment</b-link>
         </div>
       </b-col>
       <b-col cols="4">

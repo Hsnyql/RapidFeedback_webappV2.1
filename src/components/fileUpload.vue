@@ -12,7 +12,8 @@
 
 <script>
 import XLSX from 'xlsx'
-import {addStudent} from '@/api'
+// eslint-disable-next-line no-unused-vars
+import {addStudent, groupStudent, importStudent, deleteStudent} from '@/api'
 import {store} from '@/store'
 
 export default {
@@ -23,9 +24,9 @@ export default {
     }
   },
   methods: {
-    clearFiles () {
-      this.$refs['file-input'].reset()
-    },
+    // clearFiles () {
+    //   this.$refs['file-input'].reset()
+    // },
     // TODO: this is not a todo, this method is suitable for uploading criteria
     readExcel () {
       const fileReader = new FileReader()
@@ -43,7 +44,7 @@ export default {
             projectId: store.projectId,
             studentList: ws
           }
-          addStudent(param).then(res => {
+          importStudent(param).then(res => {
             console.log(res)
             if (res.updateStudent_ACK) {
               console.log('succeed')

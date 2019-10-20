@@ -9,7 +9,7 @@ import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 // eslint-disable-next-line no-unused-vars
-import Mock from '@/mock'
+// import Mock from '@/mock'
 
 Vue.use(VueAxios, axios)
 

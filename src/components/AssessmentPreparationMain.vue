@@ -5,19 +5,20 @@
                 <b-row>
                     <b-col>
                         <b-nav vertical>
-                            <b-nav-item to="/AssessmentPreparation/About" @click="clear">Add Assessment</b-nav-item>
+                          <b-button @click="deleteTrigger">delete</b-button>
+                          <b-button @click="clear">Add Assessment</b-button>
                         </b-nav>
                     </b-col>
                 </b-row>
                 <b-row>
                     <b-col>
-                        <b-list-group>
-                            <!-- <b-list-group-item>Project 1</b-list-group-item>
-                            <b-list-group-item>Project 2</b-list-group-item> -->
-                            <b-list-group-item v-for="item in projectList" v-bind:key="item.id" @click="choose(item)">
-                            <!-- <b-list-group-item v-for="item in test" :key="item"> -->
-                              {{ item.name }}
+                        <!-- <b-list-group>
+                            <b-list-group-item v-for="item in projectList" v-bind:key="item.projectName" @click="choose(item.projectName)">
+                              {{ item.projectName }}
                             </b-list-group-item>
+                        </b-list-group> -->
+                        <b-list-group v-for="project in projectList" v-bind:key="project.projectName">
+                          <b-list-group-item button @click="choose(project.projectName)">{{project.projectName}}</b-list-group-item>
                         </b-list-group>
                     </b-col>
                 </b-row>
@@ -31,9 +32,9 @@
                         <h5>About</h5>
                         <hr>
                         <p>Project Details</p>
-                        <p>Subject Name: {{project.subjectName}}</p>
-                        <p>Subject Code: {{project.subjectCode}}</p>
-                        <p>description: {{project.description}}</p>
+                        <p>Subject Name: {{subjectName}}</p>
+                        <p>Subject Code: {{subjectCode}}</p>
+                        <p>description: {{description}}</p>
                     </b-col>
                 </b-row>
                 <b-row>
@@ -52,7 +53,6 @@
                     </b-col>
                 </b-row>
                 <b-row>
-                  <!--  -->
                     <b-col @click="nextpage('/AssessmentPreparation/Student')">
                         <h5>Student Management</h5>
                         <hr>
@@ -67,85 +67,122 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import {store} from '@/store.js'
+import {deleteProject} from '@/api'
 
 export default {
   name: 'AssessmentPreparationMain',
   data () {
     return {
-      // eslint-disable-next-line no-eval
-      projectList: eval(localStorage.getItem('projectList')),
-      // projectList: localStorage.getItem('projectList')
-      clicked: false
+      deleting: false,
+      projectList: JSON.parse(localStorage.getItem('projectList'))
     }
   },
   methods: {
     choose (project) {
       // console.log(name)
-      this.clicked = true
-      store.project = project
-      // console.log('store ' + store.projectName)
-      // this.projectList.forEach(item => {
-      //   if (item.projectId === id) {
-      //     store.project = item
-      //   }
-      // })
-      // console.log('choose: ', id)
-      store.projectId = project.id
-      console.log('project:', store.project)
-      console.log('store.projectid: ', store.projectId)
-      // console.log(store.project)
+      if (this.deleting) {
+        this.deletePro(name)
+      } else {
+        store.state.projectName = name
+        // console.log('store ' + store.projectName)
+        this.projectList.forEach(item => {
+          if (item.projectName === name) {
+            store.state.project = item
+          }
+        })
+      }
+      // console.log(store.state.project)
+      // console.log(store.state.projectList)
     },
     clear () {
-      store.projectId = 0
-      store.project = null
-      console.log(store.project)
+      store.state.project = {}
+      store.state.projectName = null
+      this.deleting = false
+      // console.log(store.state.project)
+      // console.log(store.state.projectList)
+      this.$router.push('/AssessmentPreparation/About')
     },
     nextpage (path) {
       this.$router.push(path)
+    },
+    deleteTrigger () {
+      this.deleting = true
+    },
+    deletePro (projectName) {
+      var param = {
+        token: localStorage.token,
+        projectName: projectName
+      }
+      deleteProject(param).then(res => {
+        console.log(res)
+        if (res.updateProject_ACK) {
+          var temp = null
+          this.projectList.forEach(item => {
+            if (item.projectName === projectName) {
+              temp = item
+            }
+          })
+          if (store.state.project === temp) {
+            store.state.project = null
+          }
+          let i = store.state.projectList.indexOf(temp)
+          store.state.projectList.splice(i, 1)
+          localStorage.setItem('projectList', JSON.stringify(store.state.projectList))
+        } else {
+          // TODO: failure alert
+          console.log('fail')
+        }
+      })
+      this.deleting = false
     }
   },
   computed: {
     subjectName () {
-      if (store.project === null) {
+      if (store.state.project === null) {
         return ' '
       } else {
-        return store.project.subjectName
+        return store.state.project.subjectName
       }
     },
     subjectCode () {
-      if (store.project === null) {
+      if (store.state.project === null) {
         return ' '
       } else {
-        return store.project.subjectCode
+        return store.state.project.subjectCode
       }
     },
     description () {
-      if (store.project === null) {
+      if (store.state.project === null) {
         return ' '
       } else {
-        return store.project.description
-      }
-    },
-    project () {
-      if (store.project === null) {
-        return ' '
-      } else {
-        return store.project
+        return store.state.project.description
       }
     }
+    // projectList () {
+    //   return store.state.projectList
+    // }
+    // project () {
+    //   return store.project
+    // }
   },
-  created: function () {
-    console.log(localStorage.getItem('projectList'))
-    if (store.project === null) {
-      if (localStorage.getItem('projectList') != null) {
-      // eslint-disable-next-line no-eval
-        store.project = eval(localStorage.projectList)[0]
-        store.projectId = store.project.projectId
-      } else {
-        store.project = null
-      }
+  created () {
+    // console.log(store.state.project)
+    // console.log(store.state.projectList)
+    // if (store.state.projectList.length === 0) {
+    //   // eslint-disable-next-line no-eval
+    //   store.state.projectList = JSON.parse(localStorage.getItem('projectList'))
+    // }
+    store.state.projectList = this.projectList
+    if (store.state.projectList.length > 0) {
+      store.state.project = store.state.projectList[0]
+      store.state.projectName = store.state.project.projectName
+    } else {
+      store.state.project = null
+      store.state.projectName = null
     }
-    console.log(store.project)
+    // console.log(store.state.project)
+    // console.log(store.state.projectList)
+    // console.log(this.projectList)
   }
 
 }

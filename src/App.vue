@@ -34,7 +34,11 @@
             <b-button @click="test" size="lg">test</b-button>
           </b-col>
         </b-row> -->
-        <!-- TODO: margin -->
+        <!-- <b-row>
+          <b-col>
+            <p>{{project}}</p>
+          </b-col>
+        </b-row> -->
         <b-row class="footer">
           <b-col>
             <UomFooter></UomFooter>
@@ -63,9 +67,6 @@ export default {
     // }
     test () {
       console.log(localStorage.getItem('projectList'))
-    },
-    signout () {
-      localStorage.clear()
     }
   }
 }
