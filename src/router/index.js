@@ -15,6 +15,9 @@ import AssessmentPreparationStudent from '../components/AssessmentPreparationStu
 import FirstPage from '@/components/FirstPage'
 import RealTimeAssessmentMain from '../components/RealTimeAssessmentMain'
 import RealTimeAssessmentMarking from '../components/RealTimeAssessmentMarking'
+import ReviewAndReportMain from '../components/ReviewAndReportMain'
+import ReviewAndReportView from '../components/ReviewAndReportView'
+import ReviewAndReportReport from '../components/ReviewAndReportReport'
 
 Vue.use(VueRouter)
 
@@ -30,6 +33,9 @@ const routes = [
   {path: '/AssessmentPreparation/Student', component: AssessmentPreparationStudent},
   {path: '/RealTimeAssessment/Menu', component: RealTimeAssessmentMain},
   {path: '/RealTimeAssessment/Marking', component: RealTimeAssessmentMarking},
+  {path: '/ReviewAndReport/Menu', component: ReviewAndReportMain},
+  {path: '/ReviewAndReport/View', component: ReviewAndReportView},
+  {path: '/ReviewAndReport/Report', component: ReviewAndReportReport},
   {path: '/firstpage', component: FirstPage}
 ]
 
