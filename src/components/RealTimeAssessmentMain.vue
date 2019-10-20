@@ -4,8 +4,8 @@
       <b-col cols="2">
         <b-row><h3>{{marker.firstName}}'s Project</h3></b-row>
         <b-row>
-          <b-list-group v-for="project in projects" v-bind:key="project.id">
-            <b-list-group-item button @click="selected(project)">{{project.name}}</b-list-group-item>
+          <b-list-group v-for="project in projectList" v-bind:key="project.projectName">
+            <b-list-group-item button @click="selected(project)">{{project.projectName}}</b-list-group-item>
           </b-list-group>
         </b-row>
       </b-col>
@@ -17,12 +17,12 @@
           <b-col cols="4"><h6>Email</h6></b-col>
           <b-col cols="2"></b-col>
         </b-row>
-        <b-row v-for="student in selectedProject.students" v-bind:key="student.id">
+        <b-row v-for="student in selectedProject.studentInfo" v-bind:key="student.number">
           <b-col cols="1"><p>{{student.group}}</p></b-col>
-          <b-col cols="1"><p>{{student.id}}</p></b-col>
+          <b-col cols="1"><p>{{student.number}}</p></b-col>
           <b-col cols="4"><p>{{fullName(student)}}</p></b-col>
           <b-col cols="4"><p>{{student.email}}</p></b-col>
-          <b-col cols="2"><b-button v-if='student.id!==null' to='/RealTimeAssessment/Marking'>Start</b-button></b-col>
+          <b-col cols="2"><b-button v-if='student.number!==null' to='/RealTimeAssessment/Marking'>Start</b-button></b-col>
         </b-row>
       </b-col>
     </b-row>
@@ -34,33 +34,37 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
+import {store} from '@/store'
 export default {
   name: 'RealTimeAssessmentMain',
   data () {
     return {
-      selectedProject: {
-        id: null,
-        name: null,
-        criteria: [{id: null, criterionName: null, maxMark: null, markIncre: null}],
-        students: [{id: null,
-          firstName: '',
-          middleName: '',
-          lastName: '',
-          email: '',
-          group: null}]
-      },
+      // selectedProject: {
+      //   id: null,
+      //   name: null,
+      //   criteria: [{id: null, criterionName: null, maxMark: null, markIncre: null}],
+      //   students: [{id: null,
+      //     firstName: '',
+      //     middleName: '',
+      //     lastName: '',
+      //     email: '',
+      //     group: null}]
+      // },
+      selectedProject: {},
       marker: {
         id: 1,
         firstName: 'marker1',
         middleName: 'middleName1',
         lastName: 'lastName1',
         email: 'marker1@email.com'},
-      projects: [
-        {id: 1, name: 'Project1', criteria: [], students: []},
-        {id: 2, name: 'Project2', criteria: [], students: []},
-        {id: 3, name: 'Project3', criteria: [], students: []},
-        {id: 4, name: 'Project4', criteria: [], students: []}
-      ]
+      // projects: [
+      //   {id: 1, name: 'Project1', criteria: [], students: []},
+      //   {id: 2, name: 'Project2', criteria: [], students: []},
+      //   {id: 3, name: 'Project3', criteria: [], students: []},
+      //   {id: 4, name: 'Project4', criteria: [], students: []}
+      // ]
+      projectList: store.state.projectList
     }
   },
   computed: {
@@ -130,6 +134,15 @@ export default {
       }
       return fullName
     }
+  },
+  mounted () {
+    store.state.projectList.forEach(project => {
+      project.studentInfo.forEach(student => {
+        if (student.group === -999) {
+          student.group = 0
+        }
+      })
+    })
   }
 }
 </script>
