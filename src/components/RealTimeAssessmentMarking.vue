@@ -36,7 +36,7 @@
       </b-alert>
     </div>
     <hr>
-    <b-row>
+    <b-row class="overflow-auto">
       <b-col>
         <b-row
             v-for="criterion in selectedProject.criteria"
@@ -59,24 +59,36 @@
                 <b-list-group
                     v-for="subsection in criterion.subsections"
                     v-bind:key="subsection.id">
-                  <b-list-group-item button @click="selectSubsection(subsection, criterion)">
-                    {{subsection.name}}</b-list-group-item>
+                  <b-list-group-item
+                      class="text-break"
+                      button
+                      @click="selectSubsection(subsection, criterion)">
+                    {{subsection.name}}
+                  </b-list-group-item>
                 </b-list-group>
               </b-col>
               <b-col cols="3" v-if="criterion.currentSubsection !== null">
                 <b-list-group
                     v-for="shortText in criterion.currentSubsection.shortTexts"
                     v-bind:key="shortText.id">
-                  <b-list-group-item button @click="selectShortText(shortText, criterion)">
-                    {{shortText.name}}</b-list-group-item>
+                  <b-list-group-item
+                      class="text-break"
+                      button
+                      @click="selectShortText(shortText, criterion)">
+                      {{shortText.name}}
+                  </b-list-group-item>
                 </b-list-group>
               </b-col>
               <b-col cols="6" v-if="criterion.currentShortText !== null">
                 <b-list-group
                     v-for="longText in criterion.currentShortText.longTexts"
                     v-bind:key="longText.id">
-                  <b-list-group-item button @click="selectLongText(longText, criterion)">
-                    {{longText.name}}</b-list-group-item>
+                  <b-list-group-item
+                      class="text-break"
+                      button
+                      @click="selectLongText(longText, criterion)">
+                    {{longText.name}}
+                  </b-list-group-item>
                 </b-list-group>
               </b-col>
             </b-row>
