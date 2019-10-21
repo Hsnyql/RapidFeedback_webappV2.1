@@ -60,6 +60,7 @@ export default {
           localStorage.setItem('token', res.token)
           localStorage.setItem('firstName', res.firstName)
           localStorage.setItem('projectList', res.projectList)
+          localStorage.setItem('email', this.email)
           store.state.token = res.token
           store.state.projectList = JSON.parse(res.projectList)
           this.$router.push('/firstpage')

@@ -377,16 +377,16 @@ export default {
         comment: '',
         commentList: [],
         criteriaList: this.markedCriteria,
-        lecturerEmail: this.selectedProject.assistant[0],
+        lecturerEmail: localStorage.email,
         lecturerName: localStorage.firstName,
         markList: markList,
-        totalMark: 20
+        totalMark: this.totalPercentage
       }
       var param = {
         token: localStorage.token,
         projectName: this.selectedProject.projectName,
         studentID: this.selectedStudent.number,
-        primaryEmail: this.selectedProject.assistant[0],
+        primaryEmail: localStorage.email,
         // mark: JSON.stringify(mark)
         mark: mark
       }

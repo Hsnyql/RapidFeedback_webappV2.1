@@ -8,7 +8,8 @@ export const store = Vue.observable({
     projectName: null,
     projectList: [],
     criteriaList: [],
-    student: {}
+    student: {},
+    markList: []
   }
 })
 
@@ -20,6 +21,7 @@ export const clear = () => {
     projectName: null,
     projectList: [],
     criteriaList: [],
-    student: {}
+    student: {},
+    markList: []
   }
 }

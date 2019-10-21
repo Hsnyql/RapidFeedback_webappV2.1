@@ -24,7 +24,7 @@
           <b-col cols="1"><p>{{student.number}}</p></b-col>
           <b-col cols="4"><p>{{fullName(student)}}</p></b-col>
           <b-col cols="4"><p>{{student.email}}</p></b-col>
-          <b-col cols="2"><b-button v-if='student.number!==null' to='/ReviewAndReport/View'>View</b-button></b-col>
+          <b-col cols="2"><b-button v-if='student.number!==null' @click="view(student)">View</b-button></b-col>
         </b-row>
       </b-col>
     </b-row>
@@ -38,6 +38,7 @@
 <script>
 // eslint-disable-next-line no-unused-vars
 import {store} from '@/store'
+import {getMark} from '@/api'
 export default {
   name: 'ReviewAndReportMain',
   data () {
@@ -129,6 +130,24 @@ export default {
         }
       }
       return fullName
+    },
+    view (student) {
+      store.state.student = student
+      store.state.project = this.selectedProject
+      var param = {
+        token: localStorage.token,
+        projectName: this.selectedProject.projectName,
+        studentNumberList: [student.number],
+        primaryEmail: localStorage.email
+      }
+      getMark(param).then(res => {
+        console.log(res)
+        if (res.getMark_ACK) {
+          store.state.markList = JSON.parse(res.markList)
+          console.log(store.state.markList)
+          this.$router.push('/ReviewAndReport/View')
+        }
+      })
     }
   },
   mounted () {
