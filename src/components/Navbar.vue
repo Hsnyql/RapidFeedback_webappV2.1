@@ -9,8 +9,8 @@
     <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/RealTimeAssessment/Menu">Real-Time Assessment</b-link>
     <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/ReviewAndReport/Menu">Review</b-link>
 <!--    <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/">Report</b-link>-->
-    <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/file">Import Data</b-link>
-    <b-link style="margin-bottom:10px; padding:1;" class="button-small" @click="signout" to="/">Logout</b-link>
+    <!-- <b-link style="margin-bottom:10px; padding:1;" class="button-small" to="/file">Import Data</b-link> -->
+    <b-link style="margin-bottom:10px; padding:1;" class="button-small" @click="signout" to="/" v-show="!login">Logout</b-link>
     </div>
   </div>
 </template>
