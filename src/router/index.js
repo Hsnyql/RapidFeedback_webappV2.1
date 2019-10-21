@@ -12,7 +12,7 @@ import AssessmentPreparationAbout from '../components/AssessmentPreparationAbout
 import AssessmentPreparationCriteria from '../components/AssessmentPreparationCriteria'
 import AssessmentPreparationGrading from '../components/AssessmentPreparationGrading'
 import AssessmentPreparationStudent from '../components/AssessmentPreparationStudent'
-import FirstPage from '@/components/FirstPage'
+import MainMenu from '../components/MainMenu'
 import RealTimeAssessmentMain from '../components/RealTimeAssessmentMain'
 import RealTimeAssessmentMarking from '../components/RealTimeAssessmentMarking'
 import ReviewAndReportMain from '../components/ReviewAndReportMain'
@@ -36,7 +36,7 @@ const routes = [
   {path: '/ReviewAndReport/Menu', component: ReviewAndReportMain},
   {path: '/ReviewAndReport/View', component: ReviewAndReportView},
   {path: '/ReviewAndReport/Report', component: ReviewAndReportReport},
-  {path: '/firstpage', component: FirstPage}
+  {path: '/MainMenu', component: MainMenu}
 ]
 
 export default new VueRouter({

@@ -4,7 +4,7 @@ export const store = Vue.observable({
   state: {
     token: null,
     firstName: null,
-    project: {},
+    project: null,
     projectName: null,
     projectList: [],
     criteriaList: [],

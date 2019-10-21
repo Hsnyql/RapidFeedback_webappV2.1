@@ -1,6 +1,7 @@
 <template>
     <b-container fluid>
-        <b-row align-h="center"><h1>Login Page</h1></b-row>
+      <b-row><br></b-row>
+<!--        <b-row align-h="center"><h1>Login</h1></b-row>-->
         <b-row align-h="center">
           <b-alert v-model="noEmail" variant="danger" dismissible>Wrong email!</b-alert>
           <b-alert v-model="wrongPassword" variant="danger" dismissible>Wrong password!</b-alert>
@@ -33,7 +34,6 @@
 </template>
 
 <script>
-// import {store} from '@/store.js'
 import {loginCheck} from '@/api.js'
 import {store} from '@/store'
 
@@ -57,13 +57,23 @@ export default {
       }
       loginCheck(param).then(res => {
         if (res.login_ACK > 0) {
+          // check server response
+          console.log('Login Successful! Server Response Below:')
+          console.log(res)
           localStorage.setItem('token', res.token)
           localStorage.setItem('firstName', res.firstName)
+          console.log('Welcome, ' + res.firstName)
           localStorage.setItem('projectList', res.projectList)
+          console.log('All Info in Server Response Stored in Local Storage')
+          console.log('Assesement Info Received Below:')
+          console.log(res.projectList)
           localStorage.setItem('email', this.email)
           store.state.token = res.token
+          store.state.firstName = res.firstName
           store.state.projectList = JSON.parse(res.projectList)
-          this.$router.push('/firstpage')
+          console.log('All Info in Server Response Stored in Store.js')
+          console.log('Loading Main Menu')
+          this.$router.push('/MainMenu')
         } else if (res.login_ACK === 0) {
           this.wrongPassword = true
         } else {
@@ -77,8 +87,6 @@ export default {
       this.wrongPassword = null
       this.noEmail = null
     }
-  },
-  computed: {
   }
 }
 </script>

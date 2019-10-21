@@ -1,70 +1,62 @@
 <template>
-    <b-container fluid>
+  <b-container fluid>
+    <b-row><br></b-row>
+    <b-row>
+      <b-col cols="2">
+        <b-button-group>
+          <b-button variant="primary" @click="clear">Add</b-button>
+          <b-button variant="danger" @click="deleteTrigger">Delete</b-button>
+        </b-button-group>
+      </b-col>
+      <b-col cols="10">
+        <h1>Please Select or Add a Project</h1>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col cols="2">
+        <b-row><h5>Project List:</h5></b-row>
+        <b-list-group v-for="project in projectList" v-bind:key="project.projectName">
+          <b-list-group-item button @click="choose(project.projectName)">{{project.projectName}}</b-list-group-item>
+        </b-list-group>
+      </b-col>
+      <b-col>
         <b-row>
-            <b-col cols="2">
-                <b-row>
-                    <b-col>
-                        <b-nav vertical>
-                          <b-button @click="deleteTrigger">delete</b-button>
-                          <b-button @click="clear">Add Assessment</b-button>
-                        </b-nav>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col>
-                        <!-- <b-list-group>
-                            <b-list-group-item v-for="item in projectList" v-bind:key="item.projectName" @click="choose(item.projectName)">
-                              {{ item.projectName }}
-                            </b-list-group-item>
-                        </b-list-group> -->
-                        <b-list-group v-for="project in projectList" v-bind:key="project.projectName">
-                          <b-list-group-item button @click="choose(project.projectName)">{{project.projectName}}</b-list-group-item>
-                        </b-list-group>
-                    </b-col>
-                </b-row>
-            </b-col>
-            <b-col>
-                <b-row align-h="center">
-                    <h1>Please Select or Add a Project</h1>
-                </b-row>
-                <b-row>
-                    <b-col @click="nextpage('/AssessmentPreparation/About')">
-                        <h5>About</h5>
-                        <hr>
-                        <p>Project Details</p>
-                        <p>Subject Name: {{subjectName}}</p>
-                        <p>Subject Code: {{subjectCode}}</p>
-                        <p>description: {{description}}</p>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col @click="nextpage('/AssessmentPreparation/Criteria')">
-                        <h5>Criteria</h5>
-                        <hr>
-                        <p>Criteria Details</p>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col>
-                        <h5>Marker Management</h5>
-                        <hr>
-                        <p>Click the subtitle to manage markers</p>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col @click="nextpage('/AssessmentPreparation/Student')">
-                        <h5>Student Management</h5>
-                        <hr>
-                        <p>Click the subtitle to manage students</p>
-                    </b-col>
-                </b-row>
-            </b-col>
+          <b-col @click="nextpage('/AssessmentPreparation/About')">
+            <h5>About</h5>
+            <hr>
+            <p>Project Details</p>
+            <p>Subject Name: {{subjectName}}</p>
+            <p>Subject Code: {{subjectCode}}</p>
+            <p>description: {{description}}</p>
+          </b-col>
         </b-row>
-    </b-container>
+        <b-row>
+          <b-col @click="nextpage('/AssessmentPreparation/Criteria')">
+            <h5>Criteria</h5>
+            <hr>
+            <p>Criteria Details</p>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <h5>Marker Management</h5>
+            <hr>
+            <p>Click the subtitle to manage markers</p>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col @click="nextpage('/AssessmentPreparation/Student')">
+            <h5>Student Management</h5>
+            <hr>
+            <p>Click the subtitle to manage students</p>
+          </b-col>
+        </b-row>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
 import {store} from '@/store.js'
 import {deleteProject} from '@/api'
 
@@ -78,7 +70,6 @@ export default {
   },
   methods: {
     choose (name) {
-      // console.log(name)
       if (this.deleting) {
         this.deletePro(name)
       } else {
@@ -90,15 +81,11 @@ export default {
           }
         })
       }
-      // console.log(store.state.project)
-      // console.log(store.state.projectList)
     },
     clear () {
       store.state.project = {}
       store.state.projectName = null
       this.deleting = false
-      // console.log(store.state.project)
-      // console.log(store.state.projectList)
       this.$router.push('/AssessmentPreparation/About')
     },
     nextpage (path) {
@@ -157,20 +144,8 @@ export default {
         return store.state.project.description
       }
     }
-    // projectList () {
-    //   return store.state.projectList
-    // }
-    // project () {
-    //   return store.project
-    // }
   },
   created () {
-    // console.log(store.state.project)
-    // console.log(store.state.projectList)
-    // if (store.state.projectList.length === 0) {
-    //   // eslint-disable-next-line no-eval
-    //   store.state.projectList = JSON.parse(localStorage.getItem('projectList'))
-    // }
     store.state.projectList = this.projectList
     if (store.state.projectList.length > 0) {
       store.state.project = store.state.projectList[0]
@@ -179,9 +154,6 @@ export default {
       store.state.project = null
       store.state.projectName = null
     }
-    // console.log(store.state.project)
-    // console.log(store.state.projectList)
-    // console.log(this.projectList)
   }
 }
 </script>
