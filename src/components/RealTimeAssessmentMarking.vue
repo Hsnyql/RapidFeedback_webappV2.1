@@ -178,7 +178,8 @@ export default {
       //   lastName: 'lastName1',
       //   email: 'student1@email.com',
       //   group: 0},
-      markedCriteria: []
+      markedCriteria: [],
+      markList: []
     }
   },
   created () {
@@ -195,7 +196,7 @@ export default {
     totalPercentage () {
       let totalMax = 0
       for (let i = 0; i < this.selectedProject.criteria.length; i++) {
-        totalMax = totalMax + this.selectedProject.criteria[i].maxMark
+        totalMax = totalMax + this.selectedProject.criteria[i].maximunMark
       }
       let totalMarked = 0
       for (let i = 0; i < this.selectedProject.criteria.length; i++) {
@@ -303,6 +304,7 @@ export default {
       this.$forceUpdate()
       this.recordMarking(criterion)
       console.log('Recorded')
+      console.log(this.markedCriteria)
     },
     recordMarking (criterion) {
       console.log('Start Recording')
@@ -322,45 +324,40 @@ export default {
     },
     createMarkedCriterion (criterion) {
       let markedCriterion = {
-        id: criterion.id,
-        criterionName: criterion.criterionName,
-        maxMark: criterion.maxMark,
-        increment: criterion.increment,
-        mark: criterion.mark,
-        subsections: []
+        name: criterion.name,
+        maximunMark: criterion.maximunMark,
+        weighting: criterion.weighting,
+        // mark: criterion.mark,
+        subsectionList: []
       }
       let markedSubsection = this.reconstructSubsection(criterion)
-      markedCriterion.subsections.push(markedSubsection)
+      markedCriterion.subsectionList.push(markedSubsection)
       return markedCriterion
     },
     updateCriterion (index, criterion) {
       let markedSubsection = this.reconstructSubsection(criterion)
-      for (let i = 0; i < this.markedCriteria[index].subsections.length; i++) {
-        if (this.markedCriteria[index].subsections[i].id === markedSubsection.id) {
-          this.markedCriteria[index].subsections.splice(i, 1)
-          this.markedCriteria[index].subsections.push(markedSubsection)
+      for (let i = 0; i < this.markedCriteria[index].subsectionList.length; i++) {
+        if (this.markedCriteria[index].subsectionList[i].name === markedSubsection.name) {
+          this.markedCriteria[index].subsectionList.splice(i, 1)
+          this.markedCriteria[index].subsectionList.push(markedSubsection)
           return
         }
       }
-      this.markedCriteria[index].subsections.push(markedSubsection)
+      this.markedCriteria[index].subsectionList.push(markedSubsection)
     },
     reconstructSubsection (criterion) {
-      let longText = {
-        id: criterion.currentLongText.id,
-        name: criterion.currentLongText.name
-      }
+      let longText = criterion.currentLongText
       let shortText = {
-        id: criterion.currentShortText.id,
+        grade: criterion.currentShortText.grade,
         name: criterion.currentShortText.name,
-        longTexts: []
+        longtext: []
       }
-      shortText.longTexts.push(longText)
+      shortText.longtext.push(longText)
       let subsection = {
-        id: criterion.currentSubsection.id,
         name: criterion.currentSubsection.name,
-        shortTexts: []
+        shortTextList: []
       }
-      subsection.shortTexts.push(shortText)
+      subsection.shortTextList.push(shortText)
       return subsection
     },
     findCriterion (criterion, criteria) {
@@ -372,18 +369,31 @@ export default {
       return -1
     },
     save () {
-      // var markList = {
-      //   comment: '',
-      //   commentList: [],
-      //   criteriaList:
-      // }
-      // var param = {
-      //   token: localStorage.token,
-      //   projectName: this.selectedProject.projectName,
-      //   studentID: this.selectedStudent.number,
-      //   primaryEmail: this.selectedProject.assistant[0],
-      //   mark:
-      // }
+      var markList = []
+      for (let i = 0; i < this.selectedProject.criteria.length; i++) {
+        markList.push(this.selectedProject.criteria[i].mark)
+      }
+      var mark = {
+        comment: '',
+        commentList: [],
+        criteriaList: this.markedCriteria,
+        lecturerEmail: this.selectedProject.assistant[0],
+        lecturerName: localStorage.firstName,
+        markList: markList,
+        totalMark: this.totalPercentage
+      }
+      var param = {
+        token: localStorage.token,
+        projectName: this.selectedProject.projectName,
+        studentID: this.selectedStudent.number,
+        primaryEmail: this.selectedProject.assistant[0],
+        // mark: JSON.stringify(mark)
+        mark: mark
+      }
+      sendMark(param).then(res => {
+        console.log(res)
+        this.$router.push('/ReviewAndReport/View')
+      })
     }
   }
 }
