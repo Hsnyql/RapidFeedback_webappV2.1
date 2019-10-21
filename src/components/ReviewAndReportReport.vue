@@ -24,9 +24,9 @@
         <b-col>
           <b-row>
             <b-col>
-              <h4>Student Name: {{fullname(project.students[0])}}</h4>
-              <h5>Student ID: {{project.students[0].number}}</h5>
-              <h5>Student Email: {{project.students[0].email}}</h5>
+              <h4>Student Name: {{fullname(student)}}</h4>
+              <h5>Student ID: {{student.number}}</h5>
+              <h5>Student Email: {{student.email}}</h5>
               <br>
             </b-col>
           </b-row>
@@ -40,7 +40,7 @@
           <b-row>
             <b-col>
               <h4>Project Name: {{project.projectName}}</h4>
-              <h4>Assessor Name: {{project.assessor}}</h4>
+              <h4>Assessor Name: {{project.assistant}}</h4>
               <br>
             </b-col>
           </b-row>
@@ -51,14 +51,11 @@
           </b-row>
           <b-row v-for="criterion in markedCriteria" v-bind:key="criterion.name">
             <b-col>
-              <h5>{{criterion.name}} - {{criterion.mark}}/{{criterion.maximumMark}}</h5>
+              <h5>{{criterion.name}} - {{markList[markedCriteria.indexOf(criterion)]}}/{{criterion.maximunMark}}</h5>
               <p>Comments:</p>
               <div v-for="subsection in criterion.subsectionList" v-bind:key="subsection.name">
                 <p>{{subsection.name}}:</p>
-                <p>{{subsection.shortTextList[0].name}} - {{subsection.shortTextList[0].longText[0]}}</p>
-                <!--            <div v-for="shortText in subsection.shortTextList" v-bind:key="shortText.name">-->
-                <!--              <p>{{shortText.name}}</p>-->
-                <!--            </div>-->
+                <p>{{subsection.shortTextList[0].name}} - {{subsection.shortTextList[0].longtext[0]}}</p>
               </div>
             </b-col>
           </b-row>
@@ -69,37 +66,54 @@
 </template>
 
 <script>
+import {store} from '@/store'
 export default {
   name: 'ReviewAndReportReport',
   data () {
     return {
-      lecturerName: 'Lecturer1',
-      lecturerEmail: 'Lecturer1@email.com',
-      totalMark: 100,
+      // lecturerName: 'Lecturer1',
+      // lecturerEmail: 'Lecturer1@email.com',
+      // totalMark: 100,
+      // criteriaList: [],
+      // markList: [20, 15, 18, 10, 8],
+      // commentList: ['comment1', 'comment2', 'comment3', 'comment4', 'comment5'],
+      // markedCriteria: [],
+      // project: {
+      //   assessor: 'Assessor1',
+      //   description: 'Project Description',
+      //   projectName: 'Project1',
+      //   subjectCode: 'SUBJ900001',
+      //   subjectName: 'Subject1',
+      //   students: [{
+      //     firstName: 'Student1',
+      //     middleName: 'MiddleName1',
+      //     lastName: 'LastName1',
+      //     number: 1,
+      //     email: 'student1@email.com',
+      //     group: 0
+      //   }]
+      // }
+      lecturerName: '',
+      lecturerEmail: '',
+      totalMark: store.state.markList[0].totalMark,
       criteriaList: [],
-      markList: [20, 15, 18, 10, 8],
-      commentList: ['comment1', 'comment2', 'comment3', 'comment4', 'comment5'],
+      markList: [],
+      commentList: [],
       markedCriteria: [],
-      project: {
-        assessor: 'Assessor1',
-        description: 'Project Description',
-        projectName: 'Project1',
-        subjectCode: 'SUBJ900001',
-        subjectName: 'Subject1',
-        students: [{
-          firstName: 'Student1',
-          middleName: 'MiddleName1',
-          lastName: 'LastName1',
-          number: 1,
-          email: 'student1@email.com',
-          group: 0
-        }]
-      }
+      student: store.state.student,
+      project: store.state.project
     }
   },
   created () {
-    this.populate()
-    this.integrate()
+    // this.populate()
+    // this.integrate()
+    this.lecturerName = store.state.markList[0].lecturerName
+    this.lecturerEmail = store.state.markList[0].lecturerEmail
+    this.criteriaList = store.state.markList[0].commentList
+    this.markList = store.state.markList[0].markList
+    this.commentList = store.state.markList[0].commentList
+    this.markedCriteria = store.state.markList[0].criteriaList
+    console.log(store.state.markList)
   },
   methods: {
     populate () {
@@ -144,9 +158,9 @@ export default {
     fullname (student) {
       let fullname = ''
       if (student.middleName) {
-        fullname = student.firstName + ' ' + student.middleName + ' ' + student.lastName
+        fullname = student.firstName + ' ' + student.middleName + ' ' + student.surname
       } else {
-        fullname = student.firstName + ' ' + student.lastName
+        fullname = student.firstName + ' ' + student.surname
       }
       return fullname
     }

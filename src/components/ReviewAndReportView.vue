@@ -3,13 +3,13 @@
     <b-row>
       <b-list-group horizontal>
         <b-list-group-item>
-          <b-row align-h="center"><h4>{{totalPercentage()}}%</h4></b-row>
+          <b-row align-h="center"><h4>{{totalMark}}%</h4></b-row>
           <hr>
           <b-row align-h="center"><h5>{{lecturerName}}</h5></b-row>
           <b-row v-for="criterion in markedCriteria" v-bind:key="criterion.name">
             <b-col>
               <b-row align-h="center"><p>{{criterion.name}}</p></b-row>
-              <b-row align-h="center"><p>{{criterion.mark}}/{{criterion.maximumMark}}</p></b-row>
+              <b-row align-h="center"><p>{{markList[markedCriteria.indexOf(criterion)]}}/{{criterion.maximunMark}}</p></b-row>
             </b-col>
           </b-row>
           <b-row align-h="center">
@@ -22,22 +22,30 @@
 </template>
 
 <script>
+import {store} from '@/store'
 export default {
   name: 'ReviewAndReportView',
   data () {
     return {
-      lecturerName: 'Lecturer1',
-      lecturerEmail: 'Lecturer1@email.com',
-      totalMark: 100,
+      lecturerName: '',
+      lecturerEmail: '',
+      totalMark: store.state.markList[0].totalMark,
       criteriaList: [],
-      markList: [20, 15, 18, 10, 8],
-      commentList: ['comment1', 'comment2', 'comment3', 'comment4', 'comment5'],
+      markList: [],
+      commentList: [],
       markedCriteria: []
     }
   },
   created () {
-    this.populate()
-    this.integrate()
+    // this.populate()
+    // this.integrate()
+    this.lecturerName = store.state.markList[0].lecturerName
+    this.lecturerEmail = store.state.markList[0].lecturerEmail
+    this.criteriaList = store.state.markList[0].commentList
+    this.markList = store.state.markList[0].markList
+    this.commentList = store.state.markList[0].commentList
+    this.markedCriteria = store.state.markList[0].criteriaList
+    console.log(store.state.markList)
   },
   methods: {
     populate () {
