@@ -31,8 +31,7 @@
             <b-form-group id="password" label="Confirm Password:" label-for="password-input-2">
               <b-form-input id="password-input-2" type="password" required placeholder="Enter Password" v-model="confirmedPassword"></b-form-input>
             </b-form-group>
-          </b-form>
-          <b-row align-h="center">
+            <b-row align-h="center">
             <b-col cols="3">
               <b-row align-h="center">
                 <b-button type="submit" variant="primary">Submit</b-button>
@@ -44,6 +43,7 @@
               </b-row>
             </b-col>
           </b-row>
+          </b-form>
         </b-col>
       </b-row>
     </b-container>
@@ -67,6 +67,7 @@ export default {
   },
   methods: {
     signup () {
+      console.log('clicked')
       if (this.password !== this.confirmedPassword) {
         this.confirmFail = true
       } else {
