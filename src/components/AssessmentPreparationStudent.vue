@@ -244,7 +244,8 @@ export default {
                   middleName: ws[i].middleName,
                   surname: ws[i].surname,
                   email: ws[i].email,
-                  group: 0}
+                  group: 0,
+                  totalMark: -999}
                 this.addedStudents.push(newStudent)
               }
             }
@@ -437,7 +438,8 @@ export default {
             middleName: this.newMiddleName,
             surname: this.newLastName,
             email: this.newEmail,
-            group: 0}
+            group: 0,
+            totalMark: -999}
           // this.students.push(newStudent)
           this.addedStudents.push(newStudent)
           this.$nextTick(() => {

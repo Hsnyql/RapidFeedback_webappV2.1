@@ -24,7 +24,7 @@
           <b-col cols="1"><p>{{student.number}}</p></b-col>
           <b-col cols="4"><p>{{fullName(student)}}</p></b-col>
           <b-col cols="4"><p>{{student.email}}</p></b-col>
-          <b-col cols="2"><b-button v-if='student.number!==null' @click="start(student)">Start</b-button></b-col>
+          <b-col cols="2"><b-button v-if='student.totalMark === -999' @click="start(student)">Start</b-button></b-col>
         </b-row>
       </b-col>
     </b-row>

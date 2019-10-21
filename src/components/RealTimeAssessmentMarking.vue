@@ -392,7 +392,9 @@ export default {
       }
       sendMark(param).then(res => {
         console.log(res)
-        this.$router.push('/ReviewAndReport/View')
+        if (res.mark_ACK) {
+          this.$router.push('/ReviewAndReport/View')
+        }
       })
     }
   }
