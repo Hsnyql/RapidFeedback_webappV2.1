@@ -139,7 +139,7 @@ export default {
   mounted () {
     store.state.projectList.forEach(project => {
       project.studentInfo.forEach(student => {
-        if (student.group === -999) {
+        if (student.group === -999 | student.group === 0) {
           student.group = null
         }
       })
