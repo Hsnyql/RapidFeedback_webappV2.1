@@ -19,7 +19,7 @@ module.exports = {
         }
       },
       '/api':{
-        target: 'http://localhost:8080/',
+        target: 'http://35.244.92.152:8080',
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/RapidFeedback'
