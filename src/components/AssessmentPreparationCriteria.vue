@@ -1,64 +1,88 @@
 <template>
   <b-container fluid>
-        <b-row align-content="center" align-h="center">
-          <b-col cols="6">
-            <b-row><b-col><h4>Criteria List</h4><hr></b-col></b-row>
-            <b-row>
-              <b-form-group label="select criteria from the list">
-                <b-form-checkbox
-                  v-for="criterion in criteria"
-                  v-model="selected"
-                  :key="criterion.name"
-                  :value="criterion"
-                  name="criteria pool">
-                    {{ criterion.name }}
-                </b-form-checkbox>
+    <b-row><br></b-row>
+    <b-row align-content="center" align-h="center">
+      <b-col cols="5">
+        <b-row>
+          <b-col>
+            <h5>Criteria List</h5>
+          </b-col>
+          <b-col cols="4">
+            <b-button variant="primary">Upload</b-button>
+          </b-col>
+        </b-row>
+      </b-col>
+      <b-col cols="5">
+        <b-row>
+          <b-col>
+            <h5>Marking Criteria</h5>
+          </b-col>
+          <b-col cols="4">
+            <b-button v-b-modal.newCriterion variant="primary">Add</b-button>
+          </b-col>
+          <b-modal id="newCriterion"
+                   ref="modal"
+                   title="Enter New Criterion Name"
+                   @show="resetModal"
+                   @hidden="resetModal"
+                   @ok="recordNewCriterion">
+            <form ref="form" @submit.stop.prevent="handleSubmit">
+              <b-form-group :state="inputState"
+                            label="New Criterion Name:"
+                            label-for="criterionName-input"
+                            invalid-feedback="New Criterion Name is Required">
+                <b-form-input id="criterionName-input"
+                              v-model="newCriterionName"
+                              :state="inputState"
+                              required></b-form-input>
               </b-form-group>
-            </b-row>
-          </b-col>
-          <b-col cols="6">
-            <b-row>
-                <b-col><h4>Marking Criteria</h4><hr></b-col>
-                <b-col><b-button v-b-modal.newCriterion variant="primary">Add</b-button></b-col>
-                <b-modal id="newCriterion"
-                         ref="modal"
-                         title="Enter New Criterion Name"
-                         @show="resetModal"
-                         @hidden="resetModal"
-                         @ok="recordNewCriterion">
-                    <form ref="form" @submit.stop.prevent="handleSubmit">
-                        <b-form-group :state="inputState"
-                                      label="New Criterion Name:"
-                                      label-for="criterionName-input"
-                                      invalid-feedback="New Criterion Name is Required">
-                            <b-form-input id="criterionName-input"
-                                          v-model="newCriterionName"
-                                          :state="inputState"
-                                          required></b-form-input>
-                        </b-form-group>
-                    </form>
-                    <p v-if="errorFound">Please enter a VALID New Criterion Name!</p>
-                </b-modal>
-            </b-row>
-            <b-row>
-              <p class="w-100">selected criteria will display below</p>
-              <ul id="selected criteria">
-                <li v-for="criterion in selected" :key="criterion.name">
-                  {{ criterion.name }}
-                </li>
-              </ul>
-            </b-row>
-          </b-col>
+            </form>
+            <p v-if="errorFound">Please enter a VALID New Criterion Name!</p>
+          </b-modal>
         </b-row>
-        <b-row align-h="between">
-          <b-col cols="2"></b-col>
-          <b-col cols="4">
+      </b-col>
+    </b-row>
+    <b-row><b-col><hr></b-col></b-row>
+    <b-row align-content="center" align-h="center">
+      <b-col cols="5">
+        <b-row>
+          <b-form-group label="Please select criteria from the list below">
+            <b-form-checkbox
+                v-for="criterion in criteria"
+                v-model="selected"
+                :key="criterion.name"
+                :value="criterion"
+                name="criteria pool">
+              {{ criterion.name }}
+            </b-form-checkbox>
+          </b-form-group>
+        </b-row>
+      </b-col>
+      <b-col cols="5">
+        <b-row>
+          <p class="w-100">Selected criteria will display below</p>
+          <ul id="selected criteria">
+            <li v-for="criterion in selected" :key="criterion.name">
+              {{ criterion.name }}
+            </li>
+          </ul>
+        </b-row>
+      </b-col>
+    </b-row>
+    <b-row><b-col><hr></b-col></b-row>
+    <b-row align-h="center">
+<!--        <b-col cols="2"></b-col>-->
+        <b-col cols="3">
+          <b-row align-h="center">
             <b-button variant="primary" to="/AssessmentPreparation/About">Back</b-button>
-          </b-col>
-          <b-col cols="4">
+          </b-row>
+        </b-col>
+        <b-col cols="3">
+          <b-row align-h="center">
             <b-button variant="primary" @click="saveSelected">Next</b-button>
-          </b-col>
-        </b-row>
+          </b-row>
+        </b-col>
+    </b-row>
   </b-container>
 </template>
 
