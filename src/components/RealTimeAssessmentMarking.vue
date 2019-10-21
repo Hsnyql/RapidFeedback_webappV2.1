@@ -110,13 +110,13 @@
           <p>Marked Criteria:</p>
           <p>{{markedCriteria}}</p>
           <div v-if="markedCriteria !== []">
-            <div v-for="criterion in markedCriteria" v-bind:key="criterion.id">
+            <div v-for="criterion in markedCriteria" v-bind:key="criterion.name">
               <hr>
               <p> Criterion Name: {{criterion.criterionName}}</p>
-              <div v-for="subsection in criterion.subsections" v-bind:key="subsection.id">
+              <div v-for="subsection in criterion.subsectionList" v-bind:key="subsection.name">
                 <p>Subsection Name: {{subsection.name}}</p>
-                <p>ShortText: {{subsection.shortTexts[0].name}}</p>
-                <p>Long Text: {{subsection.shortTexts[0].longTexts[0].name}}</p>
+                <p>ShortText: {{subsection.shortTextList[0].name}}</p>
+                <p>Long Text: {{subsection.shortTextList[0].longtext[0].name}}</p>
               </div>
             </div>
           </div>
@@ -362,7 +362,7 @@ export default {
     },
     findCriterion (criterion, criteria) {
       for (let i = 0; i < criteria.length; i++) {
-        if (criteria[i].id === criterion.id) {
+        if (criteria[i].name === criterion.name) {
           return i
         }
       }
@@ -380,7 +380,7 @@ export default {
         lecturerEmail: this.selectedProject.assistant[0],
         lecturerName: localStorage.firstName,
         markList: markList,
-        totalMark: this.totalPercentage
+        totalMark: 20
       }
       var param = {
         token: localStorage.token,
@@ -390,6 +390,7 @@ export default {
         // mark: JSON.stringify(mark)
         mark: mark
       }
+      console.log(param)
       sendMark(param).then(res => {
         console.log(res)
         if (res.mark_ACK) {
