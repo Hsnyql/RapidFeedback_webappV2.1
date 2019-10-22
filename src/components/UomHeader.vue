@@ -5,6 +5,7 @@
     </b-col>
     <b-col cols="8" class="headerTitle"><h1>Rapid Feedback</h1></b-col>
   <b-col cols="2" align-self="end">
+    <h4 style="color: white" v-if="loggedIn">Hello, {{name}}</h4>
     <b-button
         style="margin-bottom:10px; padding:1;"
         class="button-small"
@@ -20,6 +21,11 @@ import {store, clear} from '@/store'
 
 export default {
   name: 'UomHeader',
+  data () {
+    return {
+      // name: store.state.firstName
+    }
+  },
   computed: {
     loggedIn () {
       if (store.state.token) {
@@ -27,6 +33,9 @@ export default {
       } else {
         return false
       }
+    },
+    name () {
+      return store.state.firstName
     }
   },
   methods: {
@@ -35,6 +44,16 @@ export default {
       clear()
       this.$router.push('/')
     }
+  },
+  created () {
+    // this.name = store.state.firstName
+    // this.$forceUpdate()
+    if (localStorage.store) {
+      store.state = JSON.parse(localStorage.store)
+    }
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('store', JSON.stringify(store.state))
+    })
   }
 }
 </script>
