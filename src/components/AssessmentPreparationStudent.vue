@@ -239,7 +239,8 @@ export default {
             if (res.updateStudent_ACK) {
               for (let i = 0; i < ws.length; i++) {
                 console.log(ws[i])
-                let newStudent = {number: ws[i].number,
+                let newStudent = {
+                  number: ws[i].number,
                   firstName: ws[i].firstName,
                   middleName: ws[i].middleName,
                   surname: ws[i].surname,
@@ -582,7 +583,7 @@ export default {
       }
       //   store.state.project.studentInfo = this.addedStudents
       localStorage.setItem('projectList', JSON.stringify(store.state.projectList))
-      this.$router.push('/AssessmentPreparation/Menu')
+      this.$router.push('/MainMenu')
     }
   },
   created () {
