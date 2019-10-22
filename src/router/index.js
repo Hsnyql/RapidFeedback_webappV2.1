@@ -4,8 +4,6 @@ import VueRouter from 'vue-router'
 
 import Login from '../components/Login'
 import Signup from '../components/Signup'
-// eslint-disable-next-line camelcase
-import storetest from '../components/storetest'
 
 import AssessmentPreparationMain from '../components/AssessmentPreparationMain'
 import AssessmentPreparationAbout from '../components/AssessmentPreparationAbout'
@@ -22,7 +20,6 @@ import ReviewAndReportReport from '../components/ReviewAndReportReport'
 Vue.use(VueRouter)
 
 const routes = [
-  {path: '/storetest', component: storetest},
   {path: '/', component: Login},
   {path: '/Signup', component: Signup},
   // better to use children in path of AssessmentPreparation
