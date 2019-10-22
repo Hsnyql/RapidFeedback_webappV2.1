@@ -10,7 +10,7 @@
             <b-col cols="6">
                 <b-row>
                     <b-col>
-                        <b-form @submit="login" @reset="clear">
+                        <b-form>
                             <b-form-group id="account" label="Account:" label-for="account-input">
                                 <b-form-input id="account-input" type="email" required placeholder="Enter Email" v-model="email"></b-form-input>
                             </b-form-group>
@@ -19,10 +19,10 @@
                             </b-form-group>
                             <b-row align-h="center">
                               <b-col cols="3">
-                                <b-button type="submit" variant="primary">Submit</b-button>
+                                <b-button variant="primary" @click="login">Submit</b-button>
                               </b-col>
                               <b-col cols="3">
-                                <b-button type="reset" variant="danger">Clear</b-button>
+                                <b-button variant="danger" @click="clear">Clear</b-button>
                               </b-col>
                             </b-row>
                         </b-form>

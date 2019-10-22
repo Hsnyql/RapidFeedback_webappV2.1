@@ -8,7 +8,7 @@
       </b-row>
       <b-row align-h="center">
         <b-col cols="6">
-          <b-form @submit="signup" @reset="clear">
+          <b-form>
             <b-form-group id="account" label="Email:" label-for="account-input">
               <b-form-input id="account-input" type="email" required placeholder="Enter Email" v-model="email">
               </b-form-input>
@@ -34,12 +34,12 @@
             <b-row align-h="center">
             <b-col cols="3">
               <b-row align-h="center">
-                <b-button type="submit" variant="primary">Submit</b-button>
+                <b-button variant="primary" @click="signup">Submit</b-button>
               </b-row>
             </b-col>
             <b-col cols="3">
               <b-row align-h="center">
-                <b-button type="reset" variant="danger">Clear</b-button>
+                <b-button variant="danger" @click="clear">Clear</b-button>
               </b-row>
             </b-col>
           </b-row>
