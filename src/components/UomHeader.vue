@@ -23,7 +23,7 @@ export default {
   name: 'UomHeader',
   data () {
     return {
-      name: store.state.firstName
+      // name: store.state.firstName
     }
   },
   computed: {
@@ -33,6 +33,9 @@ export default {
       } else {
         return false
       }
+    },
+    name () {
+      return store.state.firstName
     }
   },
   methods: {
@@ -41,6 +44,16 @@ export default {
       clear()
       this.$router.push('/')
     }
+  },
+  created () {
+    // this.name = store.state.firstName
+    // this.$forceUpdate()
+    if (localStorage.store) {
+      store.state = JSON.parse(localStorage.store)
+    }
+    window.addEventListener('beforeunload', () => {
+      localStorage.setItem('store', JSON.stringify(store.state))
+    })
   }
 }
 </script>
