@@ -253,15 +253,15 @@ export default {
             if (res.updateStudent_ACK) {
               for (let i = 0; i < ws.length; i++) {
                 // console.log(ws[i])
-                if (ws[i].GroupNumber !== null) {
-                  var param = {
-                    token: localStorage.token,
-                    projectName: store.state.projectName,
-                    studentID: ws[i].number,
-                    group: ws[i].GroupNumber
-                  }
-                  groupStudent(param)
-                }
+                // if (ws[i].GroupNumber !== null) {
+                //   var param = {
+                //     token: localStorage.token,
+                //     projectName: store.state.projectName,
+                //     studentID: ws[i].number,
+                //     group: ws[i].GroupNumber
+                //   }
+                //   groupStudent(param)
+                // }
                 let newStudent = {number: ws[i].number,
                   firstName: ws[i].firstName,
                   middleName: ws[i].middleName,
