@@ -229,6 +229,20 @@ export default {
           const wsname = workbook.SheetNames[0]// 取第一张表
           const ws = XLSX.utils.sheet_to_json(workbook.Sheets[wsname])// 生成json表格内容
           console.log(ws)
+          ws.forEach(student => {
+            student.number = student.StudentID
+            student.firstName = student.GivenName
+            student.middleName = student.MiddleName
+            student.surname = student.FamilyName
+            student.email = student.Email
+            // delete student.studentID
+            if (student.GroupNumber !== null) {
+              student.group = student.GroupNumber
+            } else {
+              student.group = 0
+            }
+          })
+          console.log(ws)
           var param = {
             token: localStorage.token,
             projectName: store.state.projectName,
@@ -238,18 +252,28 @@ export default {
             console.log(res)
             if (res.updateStudent_ACK) {
               for (let i = 0; i < ws.length; i++) {
-                console.log(ws[i])
+                // console.log(ws[i])
+                if (ws[i].GroupNumber !== null) {
+                  var param = {
+                    token: localStorage.token,
+                    projectName: store.state.projectName,
+                    studentID: ws[i].number,
+                    group: ws[i].GroupNumber
+                  }
+                  groupStudent(param)
+                }
                 let newStudent = {number: ws[i].number,
                   firstName: ws[i].firstName,
                   middleName: ws[i].middleName,
                   surname: ws[i].surname,
                   email: ws[i].email,
-                  group: 0,
+                  group: ws[i].group,
                   totalMark: -999}
                 this.addedStudents.push(newStudent)
               }
             }
           })
+          console.log(this.addedStudents)
         } catch (e) {
           return false
         }
