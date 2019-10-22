@@ -1,8 +1,10 @@
 <template>
   <b-container fluid>
+    <b-row><br></b-row>
     <b-row>
       <b-col cols="2">
-        <b-row><h3>{{marker.firstName}}'s Project</h3></b-row>
+<!--        <b-row><h3>{{marker.firstName}}'s Project</h3></b-row>-->
+        <b-row><h3>Project List:</h3></b-row>
         <b-row>
           <b-col>
             <b-list-group v-for="project in projectList" v-bind:key="project.projectName">

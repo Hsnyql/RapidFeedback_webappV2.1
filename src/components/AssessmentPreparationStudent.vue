@@ -606,7 +606,7 @@ export default {
       }
       //   store.state.project.studentInfo = this.addedStudents
       localStorage.setItem('projectList', JSON.stringify(store.state.projectList))
-      this.$router.push('/AssessmentPreparation/Menu')
+      this.$router.push('/MainMenu')
     }
   },
   created () {
