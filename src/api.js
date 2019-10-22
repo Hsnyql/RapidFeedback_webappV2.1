@@ -7,8 +7,8 @@ import axios from 'axios'
 
 const instance = axios.create({
   timeout: 10000,
-  // baseURL: 'http://35.244.92.152:8080/RapidFeedback',
-  baseURL: 'http://localhost:8080/RapidFeedback',
+  baseURL: 'http://35.244.92.152:8080/RapidFeedback',
+  // baseURL: 'http://localhost:8080/RapidFeedback',
   crossDomain: true,
   headers: {
     'Content-Type': 'application/json;charset=utf-8'

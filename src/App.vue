@@ -9,7 +9,7 @@
 <!--      <b-row align-h="center"><Navbar></Navbar></b-row>-->
       <b-row align-h="center" v-if="!loggedIn">
         <b-col cols="6">
-          <b-nav Tabs justified>
+          <b-nav tabs justified>
             <b-nav-item to="/">Log In</b-nav-item>
             <b-nav-item to="/Signup">Sign Up</b-nav-item>
           </b-nav>
@@ -23,7 +23,6 @@
 <!--            <UomFooter></UomFooter>-->
 <!--          </b-col>-->
 <!--        </b-row>-->
-
     </b-container>
 </template>
 
