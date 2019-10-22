@@ -1,13 +1,13 @@
 <template>
   <b-container fluid>
-    <b-row>
-      <b-col>
-        <b-row>
-          <h1>{{selectedProject.projectName}}</h1>
-          <!-- <b-button @click="populate">Populate</b-button> -->
-        </b-row>
-      </b-col>
-    </b-row>
+<!--    <b-row>-->
+<!--      <b-col>-->
+<!--        <b-row>-->
+<!--          <h1>{{selectedProject.projectName}}</h1>-->
+<!--           <b-button @click="populate">Populate</b-button>-->
+<!--        </b-row>-->
+<!--      </b-col>-->
+<!--    </b-row>-->
     <hr>
     <b-row>
       <b-col cols="3">{{fullName(selectedStudent)}}</b-col>
@@ -18,7 +18,12 @@
         </b-row>
       </b-col>
       <b-col cols="3">{{totalPercentage}}%</b-col>
-      <b-col cols="2"><b-button>Finish</b-button></b-col>
+      <b-col cols="2">
+        <b-row>
+          <b-button variant="primary" to="/RealTimeAssessment/Menu">Back</b-button>
+          <b-button variant="primary" @click="save">Finish</b-button>
+        </b-row>
+      </b-col>
     </b-row>
     <div>
       <b-alert
@@ -103,35 +108,35 @@
         </b-row>
       </b-col>
     </b-row>
-    <b-row>
-      <b-col>
-        <div>
-          <p>Testing:</p>
-          <p>Marked Criteria:</p>
-          <p>{{markedCriteria}}</p>
-          <div v-if="markedCriteria !== []">
-            <div v-for="criterion in markedCriteria" v-bind:key="criterion.name">
-              <hr>
-              <p> Criterion Name: {{criterion.criterionName}}</p>
-              <div v-for="subsection in criterion.subsectionList" v-bind:key="subsection.name">
-                <p>Subsection Name: {{subsection.name}}</p>
-                <p>ShortText: {{subsection.shortTextList[0].name}}</p>
-                <p>Long Text: {{subsection.shortTextList[0].longtext[0].name}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </b-col>
-    </b-row>
-    <b-row align-h="between">
-      <b-col cols="2"></b-col>
-      <b-col cols="4">
-        <b-button variant="primary">Back</b-button>
-      </b-col>
-      <b-col cols="4">
-        <b-button variant="primary" @click="save">Save</b-button>
-      </b-col>
-    </b-row>
+<!--    <b-row>-->
+<!--      <b-col>-->
+<!--        <div>-->
+<!--          <p>Testing:</p>-->
+<!--          <p>Marked Criteria:</p>-->
+<!--          <p>{{markedCriteria}}</p>-->
+<!--          <div v-if="markedCriteria !== []">-->
+<!--            <div v-for="criterion in markedCriteria" v-bind:key="criterion.name">-->
+<!--              <hr>-->
+<!--              <p> Criterion Name: {{criterion.criterionName}}</p>-->
+<!--              <div v-for="subsection in criterion.subsectionList" v-bind:key="subsection.name">-->
+<!--                <p>Subsection Name: {{subsection.name}}</p>-->
+<!--                <p>ShortText: {{subsection.shortTextList[0].name}}</p>-->
+<!--                <p>Long Text: {{subsection.shortTextList[0].longtext[0].name}}</p>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </b-col>-->
+<!--    </b-row>-->
+<!--    <b-row align-h="between">-->
+<!--      <b-col cols="2"></b-col>-->
+<!--      <b-col cols="4">-->
+<!--        <b-button variant="primary">Back</b-button>-->
+<!--      </b-col>-->
+<!--      <b-col cols="4">-->
+<!--        <b-button variant="primary" @click="save">Save</b-button>-->
+<!--      </b-col>-->
+<!--    </b-row>-->
   </b-container>
 </template>
 
@@ -289,8 +294,6 @@ export default {
       criterion.currentShortText = null
       criterion.currentLongText = null
       this.$forceUpdate()
-      // let index = this.selectedProject.criteria.indexOf(criterion)
-      // console.log('Working on Criteria[' + (index + 1) + ']')
       console.log(criterion.currentSubsection !== null)
     },
     selectShortText (shortText, criterion) {
