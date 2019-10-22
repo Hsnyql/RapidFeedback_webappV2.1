@@ -1,6 +1,12 @@
 <template>
   <b-container fluid>
     <b-row>
+      <b-col cols="10"></b-col>
+      <b-col cols="2">
+        <b-button @click="view">REFRESH</b-button>
+      </b-col>
+    </b-row>
+    <b-row>
       <b-list-group horizontal>
         <b-list-group-item>
           <b-row align-h="center"><h4>{{totalMark}}%</h4></b-row>
@@ -23,6 +29,7 @@
 
 <script>
 import {store} from '@/store'
+import {getMark} from '@/api'
 export default {
   name: 'ReviewAndReportView',
   data () {
@@ -86,6 +93,25 @@ export default {
       percentage = totalMarked / totalMax
       percentage = (percentage * 100).toFixed(2)
       return percentage
+    },
+    view () {
+      // store.state.student = student
+      // store.state.project = this.selectedProject
+      var param = {
+        token: localStorage.token,
+        projectName: store.state.project.projectName,
+        studentNumberList: [store.state.student.number],
+        primaryEmail: localStorage.email
+      }
+      getMark(param).then(res => {
+        console.log(res)
+        if (res.getMark_ACK) {
+          store.state.markList = JSON.parse(res.markList)
+          console.log(store.state.markList)
+          this.$forceUpdate()
+          // this.$router.push('/ReviewAndReport/View')
+        }
+      })
     }
   }
 }
