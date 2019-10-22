@@ -236,7 +236,7 @@ export default {
             student.surname = student.FamilyName
             student.email = student.Email
             // delete student.studentID
-            if (student.GroupNumber !== null) {
+            if (student.hasOwnProperty('GroupNumber')) {
               student.group = student.GroupNumber
             } else {
               student.group = 0
