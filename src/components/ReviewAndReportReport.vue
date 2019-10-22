@@ -4,7 +4,7 @@
       <b-row>
         <b-col cols="3">
           <b-row align-h="center">
-            <h3>Mark: {{totalPercentage()}}%</h3>
+            <h3>Mark: {{totalMark}}%</h3>
           </b-row>
         </b-col>
         <b-col cols="6">
@@ -14,8 +14,9 @@
         </b-col>
         <b-col cols="3">
           <b-row>
-            <b-button>Eidt</b-button>
-            <b-button>Send Report</b-button>
+            <b-button to="/RealTimeAssessment/Marking">EDIT</b-button>
+            <b-button @click="sendReport(1)">SEND REPORT </b-button>
+            <!-- <b-button @click="sendReport(2)">SEND TO ME</b-button> -->
           </b-row>
         </b-col>
       </b-row>
@@ -40,7 +41,7 @@
           <b-row>
             <b-col>
               <h4>Project Name: {{project.projectName}}</h4>
-              <h4>Assessor Name: {{project.assistant}}</h4>
+              <h4>Assessor: {{project.assistant[0]}}</h4>
               <br>
             </b-col>
           </b-row>
@@ -67,6 +68,7 @@
 
 <script>
 import {store} from '@/store'
+import {sendEmail} from '@/api'
 export default {
   name: 'ReviewAndReportReport',
   data () {
@@ -163,6 +165,18 @@ export default {
         fullname = student.firstName + ' ' + student.surname
       }
       return fullname
+    },
+    sendReport (sendBoth) {
+      var param = {
+        token: localStorage.token,
+        projectName: store.state.project.projectName,
+        studentID: store.state.student.number,
+        sendBoth: sendBoth
+      }
+      console.log(param)
+      sendEmail(param).then(res => {
+        console.log(res)
+      })
     }
   }
 }
