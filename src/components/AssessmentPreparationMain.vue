@@ -151,14 +151,14 @@ export default {
   },
   computed: {
     subjectName () {
-      if (store.state.project === null) {
+      if (store.state.project.subjectName === null) {
         return ' '
       } else {
         return store.state.project.subjectName
       }
     },
     subjectCode () {
-      if (store.state.project === null) {
+      if (store.state.project.subjectCode === null) {
         return ' '
       } else {
         return store.state.project.subjectCode
