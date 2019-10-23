@@ -97,13 +97,13 @@
                 </b-list-group>
               </b-col>
             </b-row>
-            <div>
+            <!-- <div>
               <p>Testing:</p>
               <p>Selected Mark: {{criterion.mark}} {{typeof(criterion.mark)}}</p>
               <p v-if="criterion.currentSubsection">Selected Subsection: {{criterion.currentSubsection.name}}</p>
               <p v-if="criterion.currentShortText">Selected ShortText: {{criterion.currentShortText.name}}</p>
               <p v-if="criterion.currentLongText">Selected LongText: {{criterion.currentLongText.name}}</p>
-            </div>
+            </div> -->
           </b-col>
         </b-row>
       </b-col>
