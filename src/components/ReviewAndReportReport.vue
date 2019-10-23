@@ -122,6 +122,7 @@ export default {
     this.commentList = store.state.markList[0].commentList
     this.markedCriteria = store.state.markList[0].criteriaList
     console.log(store.state.markList)
+    console.log(this.student)
   },
   methods: {
     populate () {
@@ -164,13 +165,15 @@ export default {
       return percentage
     },
     fullname (student) {
-      let fullname = ''
-      if (student.middleName) {
-        fullname = student.firstName + ' ' + student.middleName + ' ' + student.surname
-      } else {
-        fullname = student.firstName + ' ' + student.surname
+      let fullName = ''
+      if (student.firstName !== '') {
+        if (student.middleName === '' | student.middleName === 'null') {
+          fullName = student.firstName + ' ' + student.surname
+        } else {
+          fullName = student.firstName + ' ' + student.middleName + ' ' + student.surname
+        }
       }
-      return fullname
+      return fullName
     },
     sendReport (sendBoth) {
       var param = {
