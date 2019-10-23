@@ -81,4 +81,9 @@ export default {
   #fixedHeader + #blankRow{
     padding-top: 125px;
   }
+
+  // #loginbtn {
+  //   background-color: #094183;
+  //   color: white;
+  // }
 </style>
