@@ -1,11 +1,11 @@
 <template>
     <b-container fluid>
-      <b-row class="header text-center">
+      <b-row id="fixedHeader" class="header text-center">
         <b-col>
-          <UomHeader></UomHeader>
+            <UomHeader></UomHeader>
         </b-col>
       </b-row>
-      <b-row><br></b-row>
+      <b-row id="blankRow"><br></b-row>
 <!--      <b-row align-h="center"><Navbar></Navbar></b-row>-->
       <b-row align-h="center" v-if="!loggedIn">
         <b-col cols="6">
@@ -69,5 +69,16 @@ export default {
 
   .footer{
     background: #094183;
+  }
+
+  #fixedHeader{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+  }
+
+  #fixedHeader + #blankRow{
+    padding-top: 125px;
   }
 </style>
