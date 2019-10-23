@@ -1,11 +1,16 @@
 <template>
   <b-container fluid>
     <b-row>
-      <b-col cols="10"></b-col>
+      <b-col cols="3">
+        <b-button variant=primary to="/RealTimeAssessment/Menu">Back to RA</b-button>
+        <b-button variant=primary to="/ReviewAndReport/Menu">Back to R&R</b-button>
+      </b-col>
+      <b-col cols="7"></b-col>
       <b-col cols="2">
-        <b-button @click="view">REFRESH</b-button>
+        <b-button variant=success @click="view">Refresh</b-button>
       </b-col>
     </b-row>
+    <b-row> <br/> </b-row>
     <b-row>
       <b-list-group horizontal>
         <b-list-group-item>
