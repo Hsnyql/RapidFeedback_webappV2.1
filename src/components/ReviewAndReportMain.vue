@@ -61,10 +61,10 @@
         </b-row>
       </b-col>
     </b-row>
-    <b-row>
+    <!-- <b-row>
       <p>Generate testing data:</p>
       <b-button @click="populate">Populate</b-button>
-    </b-row>
+    </b-row> -->
   </b-container>
 </template>
 
