@@ -23,7 +23,8 @@
 </template>
 
 <script>
-
+import {store} from '@/store'
+import {syncProject} from '@/api'
 export default {
   name: 'MainMenu',
   data () {
@@ -32,6 +33,17 @@ export default {
   },
   created () {
     console.log('Main Menu Loaded')
+    var param = {
+      token: localStorage.token,
+      username: localStorage.email
+    }
+    syncProject(param).then(res => {
+      console.log(res)
+      if (res.sync_ACK) {
+        localStorage.setItem('projectList', res.projectList)
+        store.state.projectList = JSON.parse(res.projectList)
+      }
+    })
   },
   methods: {
     jumpTo (route) {

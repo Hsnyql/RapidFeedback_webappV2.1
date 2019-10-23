@@ -130,8 +130,16 @@ export default {
   created () {
     if (store.state.project !== null) {
       this.projectName = store.state.project.projectName
-      this.subjectName = store.state.project.subjectName
-      this.subjectCode = store.state.project.subjectCode
+      if (store.state.project.subjectName !== null) {
+        this.subjectName = store.state.project.subjectName
+      } else {
+        this.subjectName = ' '
+      }
+      if (store.state.project.subjectCode !== null) {
+        this.subjectCode = store.state.project.subjectCode
+      } else {
+        this.subjectCode = ' '
+      }
       this.description = store.state.project.description
       this.durationMin = store.state.project.durationMin
       this.durationSec = store.state.project.durationSec

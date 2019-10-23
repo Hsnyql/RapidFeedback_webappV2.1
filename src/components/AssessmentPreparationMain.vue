@@ -98,9 +98,16 @@ export default {
       }
     },
     selected (project) {
-      this.selectedProject = {}
-      this.selectedProject = project
-      store.state.project = project
+      // this.selectedProject = {}
+      // this.selectedProject = project
+      // store.state.project = project
+      if (this.deleting) {
+        this.deletePro(project.projectName)
+      } else {
+        store.state.project = project
+        // console.log('store ' + store.projectName)
+        this.selectedProject = project
+      }
     },
     clear () {
       store.state.project = {}
@@ -144,14 +151,14 @@ export default {
   },
   computed: {
     subjectName () {
-      if (store.state.project === null) {
+      if (store.state.project.subjectName === 'null') {
         return ' '
       } else {
         return store.state.project.subjectName
       }
     },
     subjectCode () {
-      if (store.state.project === null) {
+      if (store.state.project.subjectCode === 'null') {
         return ' '
       } else {
         return store.state.project.subjectCode
