@@ -20,11 +20,11 @@
               </b-form-group>
               <b-form-group id="Duration" label="Duration:" label-for="duration-input">
                 <b-form-input id="duration-input" type="number" required
-                              placeholder="Enter Duration" v-model="durationMin"></b-form-input>
+                              placeholder="Enter Duration In Minutes" v-model="durationMin"></b-form-input>
               </b-form-group>
               <b-form-group id="Warning" label="Warning:" label-for="warning-input">
                 <b-form-input id="warning-input" type="number" required
-                              placeholder="Enter Warning" v-model="warningMin"></b-form-input>
+                              placeholder="Enter Warning In Minutes" v-model="warningMin"></b-form-input>
               </b-form-group>
               <b-form-group id="ProjectDescription" label="Project Description:"
                             label-for="projectdescription-input">
@@ -59,10 +59,10 @@ export default {
   name: 'AssessmentPreparationAbout',
   data () {
     return {
-      projectName: '',
-      subjectName: '',
-      subjectCode: '',
-      description: '',
+      projectName: ' ',
+      subjectName: ' ',
+      subjectCode: ' ',
+      description: ' ',
       durationMin: 0,
       durationSec: 0,
       warningMin: 0,
