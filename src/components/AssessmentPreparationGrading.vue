@@ -39,7 +39,7 @@
               </b-col>
             </b-row>
             <div>
-              <p>Test Only:</p>
+              <!-- <p>Test Only:</p> -->
               <p><strong>{{ criterion.name}}:</strong></p>
               <p>Maximum Mark: <strong>{{ criterion.maximunMark }}</strong></p>
               <p>Selected: <strong>{{ criterion.markIncrement}}</strong></p>
