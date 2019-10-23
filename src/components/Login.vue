@@ -73,14 +73,14 @@ export default {
           localStorage.setItem('token', res.token)
           localStorage.setItem('firstName', res.firstName)
           console.log('Welcome, ' + res.firstName)
-          localStorage.setItem('projectList', res.projectList)
+          // localStorage.setItem('projectList', res.projectList)
           console.log('All Info in Server Response Stored in Local Storage')
           console.log('Assesement Info Received Below:')
           console.log(res.projectList)
           localStorage.setItem('email', this.email)
           store.state.token = res.token
           store.state.firstName = res.firstName
-          store.state.projectList = JSON.parse(res.projectList)
+          // store.state.projectList = JSON.parse(res.projectList)
           console.log('All Info in Server Response Stored in Store.js')
           console.log('Loading Main Menu')
           this.$router.push('/MainMenu')
