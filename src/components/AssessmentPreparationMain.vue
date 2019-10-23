@@ -1,5 +1,6 @@
 <template>
   <b-container fluid>
+    <b-row><b-button to="/MainMenu">Back</b-button></b-row>
     <b-row><br></b-row>
     <b-row>
       <b-col cols="2">
@@ -14,10 +15,22 @@
     </b-row>
     <b-row>
       <b-col cols="2">
-        <b-row><h5>Project List:</h5></b-row>
+        <!-- <b-row><h5>Project List:</h5></b-row>
         <b-list-group v-for="project in projectList" v-bind:key="project.projectName">
           <b-list-group-item button @click="choose(project.projectName)">{{project.projectName}}</b-list-group-item>
-        </b-list-group>
+        </b-list-group> -->
+        <b-table
+            sticky-header
+            hover
+            borderless
+            outlined
+            head-variant="light"
+            :items="projectList"
+            :fields="projectField">
+          <template v-slot:cell(projectName)="project">
+            <b-button block variant="outline-primary" @click="selected(project.item)">{{project.value}}</b-button>
+          </template>
+        </b-table>
       </b-col>
       <b-col>
         <b-row>
@@ -65,7 +78,9 @@ export default {
   data () {
     return {
       deleting: false,
-      projectList: JSON.parse(localStorage.getItem('projectList'))
+      projectList: JSON.parse(localStorage.getItem('projectList')),
+      selectedProject: {},
+      projectField: [{key: 'projectName', sortable: true, label: 'Project List:'}]
     }
   },
   methods: {
@@ -81,6 +96,11 @@ export default {
           }
         })
       }
+    },
+    selected (project) {
+      this.selectedProject = {}
+      this.selectedProject = project
+      store.state.project = project
     },
     clear () {
       store.state.project = {}

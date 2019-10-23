@@ -39,25 +39,27 @@ export default {
   name: 'ReviewAndReportView',
   data () {
     return {
-      lecturerName: '',
-      lecturerEmail: '',
+      lecturerName: store.state.markList[0].lecturerName,
+      lecturerEmail: store.state.markList[0].lecturerEmail,
       totalMark: store.state.markList[0].totalMark,
-      criteriaList: [],
-      markList: [],
-      commentList: [],
-      markedCriteria: []
+      criteriaList: store.state.markList[0].commentList,
+      markList: store.state.markList[0].markList,
+      commentList: store.state.markList[0].commentList,
+      markedCriteria: store.state.markList[0].criteriaList
     }
   },
   created () {
     // this.populate()
     // this.integrate()
-    this.lecturerName = store.state.markList[0].lecturerName
-    this.lecturerEmail = store.state.markList[0].lecturerEmail
-    this.criteriaList = store.state.markList[0].commentList
-    this.markList = store.state.markList[0].markList
-    this.commentList = store.state.markList[0].commentList
-    this.markedCriteria = store.state.markList[0].criteriaList
+    // this.lecturerName = store.state.markList[0].lecturerName
+    // this.lecturerEmail = store.state.markList[0].lecturerEmail
+    // this.criteriaList = store.state.markList[0].commentList
+    // this.markList = store.state.markList[0].markList
+    // this.commentList = store.state.markList[0].commentList
+    // this.markedCriteria = store.state.markList[0].criteriaList
     console.log(store.state.markList)
+    this.view()
+    this.$forceUpdate()
   },
   methods: {
     populate () {
@@ -113,6 +115,13 @@ export default {
         if (res.getMark_ACK) {
           store.state.markList = JSON.parse(res.markList)
           console.log(store.state.markList)
+          this.totalMark = store.state.markList[0].totalMark
+          this.lecturerName = store.state.markList[0].lecturerName
+          this.lecturerEmail = store.state.markList[0].lecturerEmail
+          this.criteriaList = store.state.markList[0].commentList
+          this.markList = store.state.markList[0].markList
+          this.commentList = store.state.markList[0].commentList
+          this.markedCriteria = store.state.markList[0].criteriaList
           this.$forceUpdate()
           // this.$router.push('/ReviewAndReport/View')
         }

@@ -149,7 +149,7 @@
         </b-row>
         <hr></b-col>
     </b-row>
-    <b-row>
+    <!-- <b-row>
       <b-col>
         <b-button @click="populate">Populate</b-button>
         <b-row><p>Testing:</p></b-row>
@@ -163,7 +163,7 @@
             email: {{student.email}}]</p>
         </b-row>
       </b-col>
-    </b-row>
+    </b-row> -->
     <b-row align-h="between">
       <b-col cols="2"></b-col>
       <b-col cols="4">
