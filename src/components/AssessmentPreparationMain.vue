@@ -34,20 +34,44 @@
       </b-col>
       <b-col>
         <b-row>
-          <b-col @click="nextpage('/AssessmentPreparation/About')">
-            <h5>About</h5>
-            <hr>
-            <p>Project Details</p>
-            <p>Subject Name: {{subjectName}}</p>
-            <p>Subject Code: {{subjectCode}}</p>
-            <p>description: {{description}}</p>
+          <b-col>
+            <b-row>
+              <b-col cols="10">
+                <h5>About</h5>
+              </b-col>
+              <b-col cols="2">
+                <b-button @click="nextpage('/AssessmentPreparation/About')">Edit</b-button>
+              </b-col>
+            </b-row>
+            <b-row><b-col><hr></b-col></b-row>
+            <b-row>
+              <b-col>
+                <p>Project Details</p>
+                <p>Subject Name: {{subjectName}}</p>
+                <p>Subject Code: {{subjectCode}}</p>
+                <p>description: {{description}}</p>
+                <hr>
+              </b-col>
+            </b-row>
           </b-col>
         </b-row>
         <b-row>
-          <b-col @click="nextpage('/AssessmentPreparation/Criteria')">
-            <h5>Criteria</h5>
-            <hr>
-            <p>Criteria Details</p>
+          <b-col>
+            <b-row>
+              <b-col cols="10">
+                <h5>Criteria</h5>
+              </b-col>
+              <b-col cols="2">
+                <b-button @click="nextpage('/AssessmentPreparation/Criteria')">Edit</b-button>
+              </b-col>
+            </b-row>
+            <b-row><b-col><hr></b-col></b-row>
+            <b-row>
+              <b-col>
+                <p>Criteria Details</p>
+                <hr>
+              </b-col>
+            </b-row>
           </b-col>
         </b-row>
         <b-row>
@@ -58,10 +82,21 @@
           </b-col>
         </b-row>
         <b-row>
-          <b-col @click="nextpage('/AssessmentPreparation/Student')">
-            <h5>Student Management</h5>
-            <hr>
-            <p>Click the subtitle to manage students</p>
+          <b-col>
+            <b-row>
+              <b-col cols="10">
+                <h5>Student Management</h5>
+              </b-col>
+              <b-col cols="2">
+                <b-button @click="nextpage('/AssessmentPreparation/Student')">Edit</b-button>
+              </b-col>
+            </b-row>
+            <b-row><b-col><hr></b-col></b-row>
+            <b-row>
+              <b-col>
+                <p>Click the subtitle to manage students</p>
+              </b-col>
+            </b-row>
           </b-col>
         </b-row>
       </b-col>
