@@ -108,7 +108,7 @@ export default {
         token: localStorage.token,
         projectName: store.state.project.projectName,
         studentNumberList: [store.state.student.number],
-        primaryEmail: localStorage.email
+        primaryEmail: store.state.project.assistant[0]
       }
       getMark(param).then(res => {
         console.log(res)

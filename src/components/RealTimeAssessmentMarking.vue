@@ -389,7 +389,7 @@ export default {
         token: localStorage.token,
         projectName: this.selectedProject.projectName,
         studentID: this.selectedStudent.number,
-        primaryEmail: localStorage.email,
+        primaryEmail: this.selectedProject.assistant[0],
         // mark: JSON.stringify(mark)
         mark: mark
       }
