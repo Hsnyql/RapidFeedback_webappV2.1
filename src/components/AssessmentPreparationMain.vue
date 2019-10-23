@@ -98,9 +98,16 @@ export default {
       }
     },
     selected (project) {
-      this.selectedProject = {}
-      this.selectedProject = project
-      store.state.project = project
+      // this.selectedProject = {}
+      // this.selectedProject = project
+      // store.state.project = project
+      if (this.deleting) {
+        this.deletePro(project.projectName)
+      } else {
+        store.state.project = project
+        // console.log('store ' + store.projectName)
+        this.selectedProject = project
+      }
     },
     clear () {
       store.state.project = {}
