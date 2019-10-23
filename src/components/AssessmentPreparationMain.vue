@@ -78,7 +78,7 @@ export default {
   data () {
     return {
       deleting: false,
-      projectList: JSON.parse(localStorage.getItem('projectList')),
+      projectList: store.state.projectList,
       selectedProject: {},
       projectField: [{key: 'projectName', sortable: true, label: 'Project List:'}]
     }
@@ -173,12 +173,11 @@ export default {
     }
   },
   created () {
-    store.state.projectList = this.projectList
     if (store.state.projectList.length > 0) {
       store.state.project = store.state.projectList[0]
       store.state.projectName = store.state.project.projectName
     } else {
-      store.state.project = null
+      store.state.project = {}
       store.state.projectName = null
     }
   }
