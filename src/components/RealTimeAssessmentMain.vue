@@ -1,7 +1,7 @@
 <template>
   <b-container fluid>
 <!--    <b-row><br></b-row>-->
-    <b-row><b-button to="/MainMenu">Back</b-button></b-row>
+    <b-row><b-button variant="primary" to="/MainMenu">Back</b-button></b-row>
     <b-row><br></b-row>
     <b-row>
       <b-col cols="2">
