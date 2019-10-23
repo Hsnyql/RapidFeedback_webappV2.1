@@ -83,7 +83,7 @@ export default {
       //   // {id: 4, criterionName: 'Criteria 4', increments: [{id: 1, value: '1/4'}, {id: 2, value: '1/2'}, {id: 3, value: '1'}], criterionParam: [{maxMark: '', markIncre: []}]}
       //   {name: 'test', markIncrement: null, maximunMark: 0, subsectionList: [], weight: 0}
       // ] //  Sample data for display
-      criteria: store.state.criteriaList
+      criteria: []
     }
   },
   methods: {
@@ -111,6 +111,15 @@ export default {
         }
         console.log(store.state.project)
       })
+    }
+  },
+  created () {
+    console.log(store.state.project)
+    console.log(store.state.criteriaList)
+    if (store.state.criteriaList.length === 0) {
+      this.criteria = store.state.project.criteria
+    } else {
+      this.criteria = store.state.criteriaList
     }
   }
 }
