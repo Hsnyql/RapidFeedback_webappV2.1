@@ -397,6 +397,7 @@ export default {
       sendMark(param).then(res => {
         console.log(res)
         if (res.mark_ACK) {
+          store.state.markList = markList
           this.$router.push('/ReviewAndReport/View')
         }
       })
