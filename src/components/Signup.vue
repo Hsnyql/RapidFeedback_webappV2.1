@@ -7,7 +7,7 @@
         <b-alert v-model="registerFail" variant="danger" dismissible>Email is already used. Please use another email</b-alert>
       </b-row>
       <b-row align-h="center">
-        <b-col cols="6">
+        <b-col>
           <b-form>
             <b-form-group id="account" label="Email:" label-for="account-input">
               <b-form-input id="account-input" type="email" required placeholder="Enter Email" v-model="email">
@@ -31,7 +31,7 @@
             <b-form-group id="password" label="Confirm Password:" label-for="password-input-2">
               <b-form-input id="password-input-2" type="password" required placeholder="Enter Password" v-model="confirmedPassword"></b-form-input>
             </b-form-group>
-            <b-row align-h="center">
+            <b-row align-h="around">
             <b-col cols="3">
               <b-row align-h="center">
                 <b-button variant="primary" @click="signup">Submit</b-button>
