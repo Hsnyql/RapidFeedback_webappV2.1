@@ -394,8 +394,8 @@ export default {
     },
     fullName (student) {
       let fullName = null
-      if (student.middleName === '' | student.middleName === null) {
-        fullName = student.firstName + ' ' + student.lastName
+      if (student.middleName === '' | student.middleName === 'null' | student.middleName === null) {
+        fullName = student.firstName + ' ' + student.surname
       } else {
         fullName = student.firstName + ' ' + student.middleName + ' ' + student.surname
       }
