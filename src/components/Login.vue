@@ -7,7 +7,7 @@
         <b-alert v-model="wrongPassword" variant="danger" dismissible>Wrong password!</b-alert>
       </b-row>
       <b-row align-h="center">
-        <b-col cols="6">
+        <b-col>
           <b-row>
             <b-col>
               <b-form>
@@ -27,11 +27,11 @@
                       placeholder="Enter Password"
                       v-model="password"></b-form-input>
                 </b-form-group>
-                <b-row align-h="center">
+                <b-row align-h="around">
                   <b-col cols="3">
                     <b-button variant="primary" @click="login">Submit</b-button>
                   </b-col>
-                  <b-col cols="3">
+                  <b-col cols="3" align-self="end">
                     <b-button variant="danger" @click="clear">Clear</b-button>
                   </b-col>
                 </b-row>
