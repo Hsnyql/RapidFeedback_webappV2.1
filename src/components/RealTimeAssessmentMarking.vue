@@ -41,17 +41,23 @@
             v-bind:key = criterion.name>
           <b-col>
             <b-row><br></b-row>
-            <b-row><label>{{criterion.name}}</label></b-row>
             <b-row>
-              <b-input-group prepend="0" :append="criterion.maximunMark.toString()">
-                <b-form-input
-                    type="range"
-                    v-model="criterion.mark"
-                    number
-                    min="0"
-                    :max="criterion.maximunMark"
-                    :step="renderStep(criterion.markIncrement)"></b-form-input>
-              </b-input-group>
+              <b-col>
+                <label>{{criterion.name}}</label>
+              </b-col>
+            </b-row>
+            <b-row>
+              <b-col>
+                <b-input-group prepend="0" :append="criterion.maximunMark.toString()">
+                  <b-form-input
+                      type="range"
+                      v-model="criterion.mark"
+                      number
+                      min="0"
+                      :max="criterion.maximunMark"
+                      :step="renderStep(criterion.markIncrement)"></b-form-input>
+                </b-input-group>
+              </b-col>
             </b-row>
             <b-row><br></b-row>
             <b-row>
