@@ -20,7 +20,8 @@ import ReviewAndReportReport from '../components/ReviewAndReportReport'
 Vue.use(VueRouter)
 
 const routes = [
-  {path: '/', component: Login},
+  {path: '/', redirect: '/Login'},
+  {path: '/Login', component: Login},
   {path: '/Signup', component: Signup},
   // better to use children in path of AssessmentPreparation
   {path: '/AssessmentPreparation/Menu', component: AssessmentPreparationMain},
