@@ -53,6 +53,7 @@
               <br/>
             </b-col>
           </b-row>
+          <hr/>
           <b-row>
             <b-col>
               <h6>Marking Details:</h6>
