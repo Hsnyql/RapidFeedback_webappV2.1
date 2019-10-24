@@ -2,7 +2,7 @@
   <b-container fluid>
     <hr>
     <b-row>
-      <b-col cols="3">{{fullName(selectedStudent)}}</b-col>
+      <b-col cols="3"> Student: {{fullName(selectedStudent)}}</b-col>
       <b-col cols="4">
         <b-row align-h="center">
           <b-col cols="3"><b-button variant="success" @click="showTimer">Start</b-button></b-col>
@@ -34,12 +34,13 @@
       </b-alert>
     </div>
     <hr>
-    <b-row class="overflow-auto">
+    <b-row>
       <b-col>
         <b-row
             v-for="criterion in selectedProject.criteria"
             v-bind:key = criterion.name>
           <b-col>
+            <b-row><br></b-row>
             <b-row><label>{{criterion.name}}</label></b-row>
             <b-row>
               <b-input-group prepend="0" :append="criterion.maximunMark.toString()">
@@ -52,6 +53,7 @@
                     :step="renderStep(criterion.markIncrement)"></b-form-input>
               </b-input-group>
             </b-row>
+            <b-row><br></b-row>
             <b-row>
               <b-col cols="3">
                 <b-list-group
@@ -90,46 +92,11 @@
                 </b-list-group>
               </b-col>
             </b-row>
-            <!-- <div>
-              <p>Testing:</p>
-              <p>Selected Mark: {{criterion.mark}} {{typeof(criterion.mark)}}</p>
-              <p v-if="criterion.currentSubsection">Selected Subsection: {{criterion.currentSubsection.name}}</p>
-              <p v-if="criterion.currentShortText">Selected ShortText: {{criterion.currentShortText.name}}</p>
-              <p v-if="criterion.currentLongText">Selected LongText: {{criterion.currentLongText.name}}</p>
-            </div> -->
+            <hr>
           </b-col>
         </b-row>
       </b-col>
     </b-row>
-<!--    <b-row>-->
-<!--      <b-col>-->
-<!--        <div>-->
-<!--          <p>Testing:</p>-->
-<!--          <p>Marked Criteria:</p>-->
-<!--          <p>{{markedCriteria}}</p>-->
-<!--          <div v-if="markedCriteria !== []">-->
-<!--            <div v-for="criterion in markedCriteria" v-bind:key="criterion.name">-->
-<!--              <hr>-->
-<!--              <p> Criterion Name: {{criterion.criterionName}}</p>-->
-<!--              <div v-for="subsection in criterion.subsectionList" v-bind:key="subsection.name">-->
-<!--                <p>Subsection Name: {{subsection.name}}</p>-->
-<!--                <p>ShortText: {{subsection.shortTextList[0].name}}</p>-->
-<!--                <p>Long Text: {{subsection.shortTextList[0].longtext[0].name}}</p>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </b-col>-->
-<!--    </b-row>-->
-<!--    <b-row align-h="between">-->
-<!--      <b-col cols="2"></b-col>-->
-<!--      <b-col cols="4">-->
-<!--        <b-button variant="primary">Back</b-button>-->
-<!--      </b-col>-->
-<!--      <b-col cols="4">-->
-<!--        <b-button variant="primary" @click="save">Save</b-button>-->
-<!--      </b-col>-->
-<!--    </b-row>-->
   </b-container>
 </template>
 
