@@ -17,6 +17,7 @@
         </b-row>
       </b-col>
     </b-row>
+    <b-row><br/></b-row>
     <div>
       <b-alert
           :show="dismissCountDown"
