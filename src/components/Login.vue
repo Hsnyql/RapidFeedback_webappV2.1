@@ -79,7 +79,9 @@ export default {
           console.log(res.projectList)
           localStorage.setItem('email', this.email)
           store.state.token = res.token
-          store.state.firstName = res.firstName
+          var test = res.firstName.split(' ')[0]
+          store.state.firstName = test
+          console.log(store.state.firstName)
           // store.state.projectList = JSON.parse(res.projectList)
           console.log('All Info in Server Response Stored in Store.js')
           console.log('Loading Main Menu')
