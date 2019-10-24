@@ -5,15 +5,15 @@
       <b-col cols="3">{{fullName(selectedStudent)}}</b-col>
       <b-col cols="4">
         <b-row align-h="center">
-          <b-col cols="3"><b-button @click="showTimer">Start</b-button></b-col>
-          <b-col cols="3"><b-button @click="showTimer">Reset</b-button></b-col>
+          <b-col cols="3"><b-button variant="success" @click="showTimer">Start</b-button></b-col>
+          <b-col cols="3"><b-button variant="danger" @click="showTimer">Reset</b-button></b-col>
         </b-row>
       </b-col>
       <b-col cols="3">{{totalPercentage}}%</b-col>
       <b-col cols="2">
-        <b-row>
-          <b-button variant="primary" to="/RealTimeAssessment/Menu">Back</b-button>
-          <b-button variant="primary" @click="save">Finish</b-button>
+        <b-row align-h="around">
+          <b-button cols="3" variant="primary" to="/RealTimeAssessment/Menu">Back</b-button>
+          <b-button cols="3" variant="primary" @click="save">Finish</b-button>
         </b-row>
       </b-col>
     </b-row>
