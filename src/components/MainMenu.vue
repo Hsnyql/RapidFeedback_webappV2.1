@@ -5,15 +5,15 @@
       <b-row><br></b-row>
       <b-row align-h="center">
         <b-col cols="6">
-          <b-row align-h="center">
+          <b-row align-h="center" class="mainMenu">
             <b-button block pill size="lg" variant="primary" @click="jumpTo('/AssessmentPreparation/Menu')">Assessment Preparation</b-button>
           </b-row>
           <b-row><br></b-row>
-          <b-row align-h="center">
+          <b-row align-h="center" class="mainMenu">
             <b-button block pill size="lg" variant="primary" @click="jumpTo('/RealTimeAssessment/Menu')">Real-Time Assessment</b-button>
           </b-row>
           <b-row><br></b-row>
-          <b-row align-h="center">
+          <b-row align-h="center" class="mainMenu">
             <b-button block pill size="lg" variant="primary" @click="jumpTo('/ReviewAndReport/Menu')">Review and Report</b-button>
           </b-row>
         </b-col>
@@ -59,5 +59,10 @@ export default {
   background: #094183;
   color: white;
   height: 300px
+}
+
+.mainMenu {
+  margin-top:30px;
+  height: 24%;
 }
 </style>
