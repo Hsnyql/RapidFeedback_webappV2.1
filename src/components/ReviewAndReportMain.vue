@@ -31,7 +31,7 @@
             <template v-slot:cell(action)="student">
               <b-button
                   size="sm"
-                  v-if="student.item.number!==null"
+                  v-if="student.item.totalMark !== -999"
                   @click="view(student.item)">
                 View</b-button>
             </template>
