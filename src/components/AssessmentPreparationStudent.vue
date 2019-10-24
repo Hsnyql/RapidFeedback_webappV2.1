@@ -584,11 +584,14 @@ export default {
         indices.push(index)
       }
       indices.sort()
+      console.log(indices)
+      console.log(this.selectedStudents)
       for (let i = 0; i < indices.length; i++) {
+        console.log(this.selectedStudents[i])
         var param = {
           token: localStorage.token,
           projectName: store.state.projectName,
-          studentID: this.selectedStudents[indices[i]].number
+          studentID: this.selectedStudents[i].number
         }
         console.log('send: ' + param)
         deleteStudent(param).then(res => {
@@ -600,6 +603,7 @@ export default {
         })
       }
       this.selectedStudents = []
+      this.$forceUpdate()
     },
     save () {
       var hasProject = false
