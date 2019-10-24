@@ -38,12 +38,12 @@
                 </b-form-group>
               </b-col>
             </b-row>
-            <div>
-              <!-- <p>Test Only:</p> -->
-              <p><strong>{{ criterion.name}}:</strong></p>
-              <p>Maximum Mark: <strong>{{ criterion.maximunMark }}</strong></p>
-              <p>Selected: <strong>{{ criterion.markIncrement}}</strong></p>
-            </div>
+<!--            <div>-->
+<!--               <p>Test Only:</p> -->
+<!--              <p><strong>{{ criterion.name}}:</strong></p>-->
+<!--              <p>Maximum Mark: <strong>{{ criterion.maximunMark }}</strong></p>-->
+<!--              <p>Selected: <strong>{{ criterion.markIncrement}}</strong></p>-->
+<!--            </div>-->
           </b-col>
         </b-row>
       </b-col>

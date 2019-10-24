@@ -1,13 +1,5 @@
 <template>
   <b-container fluid>
-<!--    <b-row>-->
-<!--      <b-col>-->
-<!--        <b-row>-->
-<!--          <h1>{{selectedProject.projectName}}</h1>-->
-<!--           <b-button @click="populate">Populate</b-button>-->
-<!--        </b-row>-->
-<!--      </b-col>-->
-<!--    </b-row>-->
     <hr>
     <b-row>
       <b-col cols="3">{{fullName(selectedStudent)}}</b-col>
@@ -188,7 +180,9 @@ export default {
     }
   },
   created () {
+    console.log('Project Info in Store:')
     console.log(store.state.project)
+    console.log('Student Info in Store:')
     console.log(store.state.student)
     this.selectedProject = store.state.project
     this.student = store.state.student
@@ -228,39 +222,6 @@ export default {
       }
       // console.log('Complete Populate')
     },
-    // generateSubsections (criteria) {
-    //   for (let i = 0; i < 5; i++) {
-    //     let subsection = {
-    //       id: i + 1,
-    //       name: 'Criteria' + criteria.id.toString() + 'Subsection' + (i + 1).toString(),
-    //       shortTexts: []
-    //       // currentShortText: null
-    //     }
-    //     this.generateShortTexts(subsection)
-    //     criteria.subsections.push(subsection)
-    //   }
-    // },
-    // generateShortTexts (subsection) {
-    //   for (let i = 0; i < 5; i++) {
-    //     let shortText = {
-    //       id: i + 1,
-    //       name: subsection.name + 'ShortText' + (i + 1).toString(),
-    //       longTexts: []
-    //       // currentLongText: null
-    //     }
-    //     this.generateLongTexts(shortText)
-    //     subsection.shortTexts.push(shortText)
-    //   }
-    // },
-    // generateLongTexts (shortText) {
-    //   for (let i = 0; i < 5; i++) {
-    //     let longText = {
-    //       id: i + 1,
-    //       name: shortText.name + 'LongText' + (i + 1).toString()
-    //     }
-    //     shortText.longTexts.push(longText)
-    //   }
-    // },
     fullName (student) {
       let fullName = ''
       if (student.firstName !== '') {
