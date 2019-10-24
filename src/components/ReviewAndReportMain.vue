@@ -1,6 +1,10 @@
 <template>
   <b-container fluid>
-    <b-row><b-button variant="primary" to="/MainMenu">Back</b-button></b-row>
+    <b-row>
+      <b-col cols="2">
+        <b-button variant="primary" to="/MainMenu">Back</b-button>
+      </b-col>
+    </b-row>
     <b-row><br></b-row>
     <b-row>
       <b-col cols="2">
