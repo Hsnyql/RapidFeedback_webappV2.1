@@ -7,7 +7,7 @@
         <b-alert v-model="registerFail" variant="danger" dismissible>Email is already used. Please use another email</b-alert>
       </b-row>
       <b-row align-h="center">
-        <b-col>
+        <b-col cols="10">
           <b-form>
             <b-form-group id="account" label="Email:" label-for="account-input">
               <b-form-input id="account-input" type="email" required placeholder="Enter Email" v-model="email">

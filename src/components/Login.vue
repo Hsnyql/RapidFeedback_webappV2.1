@@ -7,7 +7,7 @@
         <b-alert v-model="wrongPassword" variant="danger" dismissible>Wrong password!</b-alert>
       </b-row>
       <b-row align-h="center">
-        <b-col>
+        <b-col cols="10">
           <b-row>
             <b-col>
               <b-form>

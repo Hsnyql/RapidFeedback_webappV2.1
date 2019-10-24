@@ -8,7 +8,7 @@
       <b-row id="blankRow"><br></b-row>
 <!--      <b-row align-h="center"><Navbar></Navbar></b-row>-->
       <b-row align-h="center" v-if="!loggedIn">
-        <b-col cols="6">
+        <b-col cols="4">
           <b-tabs pills>
             <b-tab title="Log In" active>
               <!-- <b-card-text>></b-card-text> -->
