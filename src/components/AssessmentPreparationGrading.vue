@@ -57,9 +57,7 @@
       </b-col>
       <b-col cols="3">
         <b-row align-h="center">
-          <!-- TODO: figure out how to solve these two buttons -->
-          <b-button variant="primary" @click="saveCriteria">Save</b-button>
-          <b-button variant="primary" to="/AssessmentPreparation/Student">Next</b-button>
+          <b-button variant="primary" @click="saveCriteria">Next</b-button>
         </b-row>
       </b-col>
     </b-row>
@@ -109,6 +107,7 @@ export default {
             }
           })
           localStorage.setItem('projectList', JSON.stringify(store.state.projectList))
+          this.$router.push('/AssessmentPreparation/Student')
         }
         console.log(store.state.project)
       })
