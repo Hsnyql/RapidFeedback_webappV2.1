@@ -1,6 +1,10 @@
 <template>
   <b-container fluid>
-    <b-row><b-button variant="primary" to="/MainMenu">Back</b-button></b-row>
+    <b-row>
+      <b-col cols="2">
+        <b-button variant="primary" to="/MainMenu">Back</b-button>
+      </b-col>
+    </b-row>
     <b-row><br></b-row>
     <b-row>
       <b-col cols="2">
@@ -27,7 +31,7 @@
             <template v-slot:cell(action)="student">
               <b-button
                   size="sm"
-                  v-if="student.item.number!==null"
+                  v-if="student.item.totalMark !== -999"
                   @click="view(student.item)">
                 View</b-button>
             </template>
