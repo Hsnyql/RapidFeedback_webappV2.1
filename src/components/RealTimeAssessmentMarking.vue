@@ -222,6 +222,9 @@ export default {
         this.selectedProject.criteria[i].currentShortText = null
         this.selectedProject.criteria[i].currentLongText = null
         // console.log('Populate Criteria ' + i + ' DONE')
+        if (!this.selectedProject.criteria[i].hasOwnProperty('mark')) {
+          this.selectedProject.criteria[i].mark = 0
+        }
       }
       // console.log('Complete Populate')
     },
