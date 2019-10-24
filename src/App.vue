@@ -9,24 +9,10 @@
 <!--      <b-row align-h="center"><Navbar></Navbar></b-row>-->
       <b-row align-h="center" v-if="!loggedIn">
         <b-col cols="6">
-          <!-- <b-nav tabs justified> -->
-            <!-- <b-nav-item to="/">Log In</b-nav-item> -->
-            <!-- <b-nav-item to="/Signup">Sign Up</b-nav-item> -->
-          <!-- </b-nav> -->
-      <b-tabs pills>
-        <b-tab title="Log In" active>
-        <!-- <b-card-text>></b-card-text> -->
-          <b-card>
-            <Login></Login>
-          </b-card>
-        </b-tab>
-        <b-tab title="Sign Up">
-          <b-card>
-            <Signup></Signup>
-          </b-card>
-          <!-- <b-card-text></b-card-text> -->
-        </b-tab>
-      </b-tabs>
+          <b-nav pills justified>
+            <b-nav-item :active="loginActive" @click="jumpTo('login')">Log In</b-nav-item>
+            <b-nav-item :active="!loginActive" @click="jumpTo('signup')">Sign Up</b-nav-item>
+          </b-nav>
         </b-col>
       </b-row>
       <b-row align-h="center">
@@ -53,6 +39,18 @@ export default {
   components: {UomHeader, Navbar, UomFooter, Login, Signup},
   data () {
     return {
+      loginActive: true
+    }
+  },
+  methods: {
+    jumpTo (component) {
+      if (component === 'login') {
+        this.loginActive = true
+        this.$router.push('/')
+      } else if (component === 'signup') {
+        this.loginActive = false
+        this.$router.push('/Signup')
+      }
     }
   },
   computed: {

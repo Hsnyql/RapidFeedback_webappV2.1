@@ -173,7 +173,9 @@ export default {
       }
       let totalMarked = 0
       for (let i = 0; i < this.selectedProject.criteria.length; i++) {
-        totalMarked = totalMarked + this.selectedProject.criteria[i].mark
+        if (this.selectedProject.criteria[i].hasOwnProperty('mark')) {
+          totalMarked = totalMarked + this.selectedProject.criteria[i].mark
+        }
       }
       let percentage = 0.00
       percentage = totalMarked / totalMax
@@ -190,9 +192,9 @@ export default {
         this.selectedProject.criteria[i].currentShortText = null
         this.selectedProject.criteria[i].currentLongText = null
         // console.log('Populate Criteria ' + i + ' DONE')
-        if (!this.selectedProject.criteria[i].hasOwnProperty('mark')) {
-          this.selectedProject.criteria[i].mark = 0
-        }
+        // if (!this.selectedProject.criteria[i].hasOwnProperty('mark')) {
+        //   this.selectedProject.criteria[i].mark = 0
+        // }
       }
       // console.log('Complete Populate')
     },

@@ -2,8 +2,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-// import Login from '../components/Login'
-// import Signup from '../components/Signup'
+import Login from '../components/Login'
+import Signup from '../components/Signup'
 
 import AssessmentPreparationMain from '../components/AssessmentPreparationMain'
 import AssessmentPreparationAbout from '../components/AssessmentPreparationAbout'
@@ -20,8 +20,9 @@ import ReviewAndReportReport from '../components/ReviewAndReportReport'
 Vue.use(VueRouter)
 
 const routes = [
-  // {path: '/', component: Login},
-  // {path: '/Signup', component: Signup},
+  {path: '/', redirect: '/Login'},
+  {path: '/Login', component: Login},
+  {path: '/Signup', component: Signup},
   // better to use children in path of AssessmentPreparation
   {path: '/AssessmentPreparation/Menu', component: AssessmentPreparationMain},
   {path: '/AssessmentPreparation/About', component: AssessmentPreparationAbout},
