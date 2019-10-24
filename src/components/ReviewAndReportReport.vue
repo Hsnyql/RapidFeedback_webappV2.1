@@ -9,30 +9,31 @@
         </b-col>
         <b-col cols="3">
           <b-button to="/RealTimeAssessment/Marking">Edit</b-button>
-          <b-button @click="sendReport(1)">Send Report</b-button>
+          <b-button variant="success" @click="sendReport(1)">Send Report</b-button>
           <!-- <b-button @click="sendReport(2)">SEND TO ME</b-button> -->
         </b-col>
       </b-row>
-      <b-row>
-        <b-col cols="3">
+      <b-row><br/></b-row>
+      <b-row align-h="center">
+        <b-col cols="4">
           <b-row align-h="center">
-            <h3>Mark: {{totalMark}}%</h3>
+            <h4>Mark: {{totalMark}}%</h4>
           </b-row>
         </b-col>
-        <b-col cols="6">
-          <b-row align-h="center">
-            <h3>Marker: {{lecturerName}}</h3>
+        <b-col cols="4">
+          <b-row align-h="start">
+            <h4>Marker: {{lecturerName}}</h4>
           </b-row>
         </b-col>
-        <b-col cols="3">
-        </b-col>
+        <!-- <b-col cols="1">
+        </b-col> -->
       </b-row>
       <hr>
       <b-row>
         <b-col>
           <b-row>
             <b-col>
-              <h5>Student Name: {{fullname(student)}}</h5>
+              <h6>Student Name: {{fullname(student)}}</h6>
               <h6>Student ID: {{student.number}}</h6>
               <h6>Student Email: {{student.email}}</h6>
               <br>
@@ -40,30 +41,31 @@
           </b-row>
           <b-row>
             <b-col>
-              <h5>Subject Name: {{project.subjectName}}</h5>
-              <h5>Subject Code: {{project.subjectCode}}</h5>
-              <br>
+              <h6>Subject Name: {{project.subjectName}}</h6>
+              <h6>Subject Code: {{project.subjectCode}}</h6>
+              <br/>
             </b-col>
           </b-row>
           <b-row>
             <b-col>
-              <h5>Project Name: {{project.projectName}}</h5>
-              <h5>Assessor: {{project.assistant[0]}}</h5>
-              <br>
+              <h6>Project Name: {{project.projectName}}</h6>
+              <h6>Assessor: {{project.assistant[0]}}</h6>
+              <br/>
             </b-col>
           </b-row>
           <b-row>
             <b-col>
-              <h5>Marking Details:</h5>
+              <h6>Marking Details:</h6>
             </b-col>
           </b-row>
           <b-row v-for="criterion in markedCriteria" v-bind:key="criterion.name">
             <b-col>
-              <h4>{{criterion.name}} - {{markList[markedCriteria.indexOf(criterion)]}}/{{criterion.maximunMark}}</h4>
-              <h5>Comments:</h5>
+              <h6>{{criterion.name}} - {{markList[markedCriteria.indexOf(criterion)]}}/{{criterion.maximunMark}}</h6>
+              <h6>Comments:</h6>
               <div v-for="subsection in criterion.subsectionList" v-bind:key="subsection.name">
                 <p>{{subsection.name}}:</p>
-                <p>{{subsection.shortTextList[0].name}} - {{subsection.shortTextList[0].longtext[0]}}</p>
+                <p><i>{{subsection.shortTextList[0].name}} - {{subsection.shortTextList[0].longtext[0]}}</i></p>
+                <br/>
               </div>
             </b-col>
           </b-row>
