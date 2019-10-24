@@ -1,6 +1,5 @@
 # RapidFeedback Webapp
 
-
 ## Build Setup
 
 ``` bash
@@ -28,7 +27,7 @@ npm test
 
 ## What's in localStorage
 
-We save all the response data from backend to the localStorage. They are token, firstName (actually, it's the full name. We have no idea why the previous students using this name) and projectList. Also we store the email to the localStorage.
+We save all the response data from backend to the localStorage. They are token, firstName (actually, it's the full name. We have no idea why the previous students using this name) and projectList. Also we store the email/username to the localStorage.
 
 ## The structure of the projectList
 
@@ -177,3 +176,19 @@ We save all the response data from backend to the localStorage. They are token, 
 ```
 
 > The default criteria list is in assets folder
+
+## Build
+
+The production will be stored in the  fold /dist. To connect the back-end server, you can set the ip/url of the server in file "api.js".
+
+```javascript
+const instance = axios.create({
+  timeout: 10000,
+  baseURL: , //set url here
+  // baseURL: 'http://localhost:8080/RapidFeedback',
+  crossDomain: true,
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8'
+  }
+})
+```
