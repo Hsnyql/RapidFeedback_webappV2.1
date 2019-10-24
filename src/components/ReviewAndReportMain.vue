@@ -3,16 +3,6 @@
     <b-row><b-button variant="primary" to="/MainMenu">Back</b-button></b-row>
     <b-row><br></b-row>
     <b-row>
-<!--      <b-col cols="2">-->
-<!--&lt;!&ndash;        <b-row><h3>{{marker.firstName}}'s Project</h3></b-row>&ndash;&gt;-->
-<!--        <b-row>-->
-<!--          <b-col>-->
-<!--            <b-list-group v-for="project in projectList" v-bind:key="project.projectName">-->
-<!--              <b-list-group-item button @click="selected(project)">{{project.projectName}}</b-list-group-item>-->
-<!--            </b-list-group>-->
-<!--          </b-col>-->
-<!--        </b-row>-->
-<!--      </b-col>-->
       <b-col cols="2">
         <b-table
             sticky-header
@@ -27,22 +17,6 @@
           </template>
         </b-table>
       </b-col>
-<!--      <b-col cols="10">-->
-<!--        <b-row>-->
-<!--          <b-col cols="1"><h6>Group No.</h6></b-col>-->
-<!--          <b-col cols="1"><h6>Student ID</h6></b-col>-->
-<!--          <b-col cols="4"><h6>Student Name</h6></b-col>-->
-<!--          <b-col cols="4"><h6>Email</h6></b-col>-->
-<!--          <b-col cols="2"></b-col>-->
-<!--        </b-row>-->
-<!--        <b-row v-for="student in selectedProject.studentInfo" v-bind:key="student.number">-->
-<!--          <b-col cols="1"><p>{{student.group}}</p></b-col>-->
-<!--          <b-col cols="1"><p>{{student.number}}</p></b-col>-->
-<!--          <b-col cols="4"><p>{{fullName(student)}}</p></b-col>-->
-<!--          <b-col cols="4"><p>{{student.email}}</p></b-col>-->
-<!--          <b-col cols="2"><b-button v-if='student.number!==null' @click="view(student)">View</b-button></b-col>-->
-<!--        </b-row>-->
-<!--      </b-col>-->
       <b-col cols="10">
         <b-row>
           <b-table
@@ -56,6 +30,9 @@
                   v-if="student.item.number!==null"
                   @click="view(student.item)">
                 View</b-button>
+            </template>
+            <template v-slot:cell(middleName)="student">
+              {{renderMiddleName(student.item.middleName)}}
             </template>
           </b-table>
         </b-row>
@@ -163,16 +140,23 @@ export default {
           group: null}]
       }
     },
-    fullName (student) {
-      let fullName = ''
-      if (student.firstName !== '') {
-        if (student.middleName === '' | student.middleName === null) {
-          fullName = student.firstName + ' ' + student.surname
-        } else {
-          fullName = student.firstName + ' ' + student.middleName + ' ' + student.surname
-        }
+    // fullName (student) {
+    //   let fullName = ''
+    //   if (student.firstName !== '') {
+    //     if (student.middleName === '' | student.middleName === null) {
+    //       fullName = student.firstName + ' ' + student.surname
+    //     } else {
+    //       fullName = student.firstName + ' ' + student.middleName + ' ' + student.surname
+    //     }
+    //   }
+    //   return fullName
+    // },
+    renderMiddleName (middleName) {
+      if (middleName === '' | middleName === 'null' | middleName === null) {
+        return ''
+      } else {
+        return middleName
       }
-      return fullName
     },
     view (student) {
       store.state.student = student
