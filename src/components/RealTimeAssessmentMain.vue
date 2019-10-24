@@ -32,6 +32,9 @@
                     @click="start(student.item)">
                   Start</b-button>
             </template>
+            <template v-slot:cell(middleName)="student">
+              {{renderMiddleName(student.item.middleName)}}
+            </template>
           </b-table>
         </b-row>
       </b-col>
@@ -73,16 +76,23 @@ export default {
       this.selectedProject = {}
       this.selectedProject = project
     },
-    fullName (student) {
-      let fullName = ''
-      if (student.firstName !== '') {
-        if (student.middleName === '' | student.middleName === null) {
-          fullName = student.firstName + ' ' + student.surname
-        } else {
-          fullName = student.firstName + ' ' + student.middleName + ' ' + student.surname
-        }
+    // fullName (student) {
+    //   let fullName = ''
+    //   if (student.firstName !== '') {
+    //     if (student.middleName === '' | student.middleName === null) {
+    //       fullName = student.firstName + ' ' + student.surname
+    //     } else {
+    //       fullName = student.firstName + ' ' + student.middleName + ' ' + student.surname
+    //     }
+    //   }
+    //   return fullName
+    // },
+    renderMiddleName (middleName) {
+      if (middleName === '' | middleName === 'null' | middleName === null) {
+        return ''
+      } else {
+        return middleName
       }
-      return fullName
     },
     start (student) {
       store.state.student = student
