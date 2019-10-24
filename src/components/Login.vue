@@ -1,46 +1,46 @@
 <template>
-    <b-container fluid>
-      <b-row><br></b-row>
+  <b-container fluid>
+    <b-row><br></b-row>
 <!--        <b-row align-h="center"><h1>Login</h1></b-row>-->
-      <b-row align-h="center">
-        <b-alert v-model="noEmail" variant="danger" dismissible>Wrong email!</b-alert>
-        <b-alert v-model="wrongPassword" variant="danger" dismissible>Wrong password!</b-alert>
-      </b-row>
-      <b-row align-h="center">
-        <b-col cols="10">
-          <b-row>
-            <b-col>
-              <b-form>
-                <b-form-group id="account" label="Account:" label-for="account-input">
-                  <b-form-input
-                      id="account-input"
-                      type="email"
-                      required
-                      placeholder="Enter Email"
-                      v-model="email"></b-form-input>
-                </b-form-group>
-                <b-form-group id="password" label="Password:" label-for="password-input">
-                  <b-form-input
-                      id="password-input"
-                      type="password"
-                      required
-                      placeholder="Enter Password"
-                      v-model="password"></b-form-input>
-                </b-form-group>
-                <b-row align-h="around">
-                  <b-col cols="3">
-                    <b-button variant="primary" @click="login">Submit</b-button>
-                  </b-col>
-                  <b-col cols="3" align-self="end">
-                    <b-button variant="danger" @click="clear">Clear</b-button>
-                  </b-col>
-                </b-row>
-              </b-form>
-            </b-col>
-          </b-row>
-        </b-col>
-      </b-row>
-    </b-container>
+    <b-row align-h="center">
+      <b-alert v-model="noEmail" variant="danger" dismissible>Wrong email!</b-alert>
+      <b-alert v-model="wrongPassword" variant="danger" dismissible>Wrong password!</b-alert>
+    </b-row>
+    <b-row align-h="center">
+      <b-col cols="6">
+        <b-row>
+          <b-col>
+            <b-form>
+              <b-form-group id="account" label="Account:" label-for="account-input">
+                <b-form-input
+                  id="account-input"
+                  type="email"
+                  required
+                  placeholder="Enter Email"
+                  v-model="email"></b-form-input>
+              </b-form-group>
+              <b-form-group id="password" label="Password:" label-for="password-input">
+                <b-form-input
+                  id="password-input"
+                  type="password"
+                  required
+                  placeholder="Enter Password"
+                  v-model="password"></b-form-input>
+              </b-form-group>
+              <b-row align-h="around">
+                <b-col cols="3">
+                <b-button variant="primary" @click="login">Submit</b-button>
+                </b-col>
+                <b-col cols="3" align-self="end">
+                <b-button variant="danger" @click="clear">Clear</b-button>
+                </b-col>
+              </b-row>
+            </b-form>
+          </b-col>
+        </b-row>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>

@@ -18,11 +18,11 @@
                 <b-form-input id="subjectcode-input" type="text" required
                               placeholder="Enter Subject Code" v-model="subjectCode"></b-form-input>
               </b-form-group>
-              <b-form-group id="Duration" label="Duration:" label-for="duration-input">
+              <b-form-group id="Duration" label="Duration (Maximum time allowed in minutes):" label-for="duration-input">
                 <b-form-input id="duration-input" type="number" required
                               placeholder="Enter Duration In Minutes" v-model="durationMin"></b-form-input>
               </b-form-group>
-              <b-form-group id="Warning" label="Warning:" label-for="warning-input">
+              <b-form-group id="Warning" label="Warning (Minutes left to reach maximun time allowed):" label-for="warning-input">
                 <b-form-input id="warning-input" type="number" required
                               placeholder="Enter Warning In Minutes" v-model="warningMin"></b-form-input>
               </b-form-group>
