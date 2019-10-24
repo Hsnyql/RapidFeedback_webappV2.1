@@ -139,9 +139,14 @@
           <b-col cols="4"><h5 v-if="addedStudents.length!==0">Student Email</h5></b-col>
         </b-row>
         <b-row v-for="student in addedStudents" v-bind:key="student.number">
-          <b-col cols="1"><b-form-checkbox
-              v-model="selectedStudents"
-              :value="student"></b-form-checkbox></b-col>
+          <b-col cols="1">
+            <b-row align-h="center">
+              <b-form-checkbox
+                  v-model="selectedStudents"
+                  :value="student">
+              </b-form-checkbox>
+            </b-row>
+          </b-col>
           <b-col cols="1"><p>{{showGroup(student)}}</p></b-col>
           <b-col cols="2"><p>{{student.number}}</p></b-col>
           <b-col cols="4"><p>{{fullName(student)}}</p></b-col>
@@ -232,7 +237,11 @@ export default {
           ws.forEach(student => {
             student.number = student.StudentID
             student.firstName = student.GivenName
-            student.middleName = student.MiddleName
+            if (student.hasOwnProperty('MiddleName')) {
+              student.middleName = student.MiddleName
+            } else {
+              student.middleName = null
+            }
             student.surname = student.FamilyName
             student.email = student.Email
             // delete student.studentID
