@@ -45,7 +45,7 @@
                 <h5>About</h5>
               </b-col>
               <b-col cols="2">
-                <b-button v-if="this.selectedProject.length !== 0" @click="nextpage('/AssessmentPreparation/About')">Edit</b-button>
+                <b-button size="sm" v-if="this.selectedProject.length !== 0" @click="nextpage('/AssessmentPreparation/About')">Edit</b-button>
               </b-col>
             </b-row>
             <b-row><b-col><hr></b-col></b-row>
@@ -67,7 +67,7 @@
                 <h5>Criteria</h5>
               </b-col>
               <b-col cols="2">
-                <b-button v-if="selectedProject.length !== 0" @click="nextpage('/AssessmentPreparation/Criteria')">Edit</b-button>
+                <b-button size="sm" v-if="selectedProject.length !== 0" @click="nextpage('/AssessmentPreparation/Criteria')">Edit</b-button>
               </b-col>
             </b-row>
             <b-row><b-col><hr></b-col></b-row>
@@ -94,7 +94,7 @@
                 <h5>Student Management</h5>
               </b-col>
               <b-col cols="2">
-                <b-button v-if="selectedProject.length !== 0" @click="nextpage('/AssessmentPreparation/Student')">Edit</b-button>
+                <b-button size="sm" v-if="selectedProject.length !== 0" @click="nextpage('/AssessmentPreparation/Student')">Edit</b-button>
               </b-col>
             </b-row>
             <b-row><b-col><hr></b-col></b-row>
