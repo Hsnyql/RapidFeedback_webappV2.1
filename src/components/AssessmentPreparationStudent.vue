@@ -232,7 +232,11 @@ export default {
           ws.forEach(student => {
             student.number = student.StudentID
             student.firstName = student.GivenName
-            student.middleName = student.MiddleName
+            if (student.hasOwnProperty('MiddleName')) {
+              student.middleName = student.MiddleName
+            } else {
+              student.middleName = null
+            }
             student.surname = student.FamilyName
             student.email = student.Email
             // delete student.studentID
