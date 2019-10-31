@@ -378,7 +378,7 @@ export default {
             token: localStorage.token,
             projectName: store.state.projectName,
             studentID: this.selectedStudents[i].number,
-            gourp: 0
+            group: 0
           }
           groupStudent(param).then(res => {
             console.log(res)
@@ -530,7 +530,7 @@ export default {
           this.addedStudents[index].firstName = this.newFirstName
           this.addedStudents[index].middleName = this.newMiddleName
           this.addedStudents[index].surname = this.newLastName
-          this.addedStudents[index].email = this.email
+          this.addedStudents[index].email = this.newEmail
           this.$nextTick(() => {
             this.$refs.modal.hide()
           })
