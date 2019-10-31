@@ -1,7 +1,6 @@
 <template>
   <div>
     <b-form-file v-model="file" ref="file-input" class="mb-2"></b-form-file>
-
     <b-button @click="clearFiles" class="mr-2">Reset via method</b-button>
     <b-button @click="file = null">Reset via v-model</b-button>
     <b-button @click="readExcel">read</b-button>

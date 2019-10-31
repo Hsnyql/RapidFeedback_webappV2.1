@@ -156,7 +156,7 @@ export default {
     //   return fullName
     // },
     renderMiddleName (middleName) {
-      if (middleName === '' | middleName === 'null' | middleName === null) {
+      if (middleName === '' || middleName === 'null' || middleName === null) {
         return ''
       } else {
         return middleName

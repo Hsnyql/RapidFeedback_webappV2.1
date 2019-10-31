@@ -699,11 +699,8 @@ export default {
         this.$refs.modal.hide()
       })
     },
-    countDownChanged (dissmissCountDown) {
-      this.dissmissCountDown = dissmissCountDown
-    },
-    showAlert () {
-      this.dissmissCountDown = this.dismissSecs
+    countDownChanged (dismissCountDown) {
+      this.dissmissCountDown = dismissCountDown
     },
     saveSelected () {
       store.state.criteriaList = this.selected
