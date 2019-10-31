@@ -1,6 +1,22 @@
 # RapidFeedback Webapp
 
+This webapp is a part of the computing project under Prof. Sterling's supervision in 2019Semester2.
+
+Web Team Members:
+
+- Zeming CHEN
+
+- Qielu YU
+
+- Peng Kuang
+
+The master branch is adapted to the [old backend](https://github.com/Hsnyql/RapidFeedback). The backend is deployed on a Google cloud vm, http://35.244.92.152:8080/RapidFeedback. If the instance is stopped, please deploy by yourself. You can change the url in api.js.
+
+The webapp is implemented under the framework of [Vuejs](https://vuejs.org). If you have no front-end experience, please have a look. It is very friendly for newbies.
+
 ## Build Setup
+
+For detailed installation, please check [vuejs documentation](https://vuejs.org/v2/guide/installation.html)
 
 ``` bash
 # install dependencies
@@ -179,13 +195,12 @@ We save all the response data from backend to the localStorage. They are token, 
 
 ## Build
 
-The production will be stored in the  fold /dist. To connect the back-end server, you can set the ip/url of the server in file "api.js".
+The production will be stored in the  fold /dist. To connect the back-end server, you can set the url of the server in file "api.js".
 
 ```javascript
 const instance = axios.create({
   timeout: 10000,
   baseURL: , //set url here
-  // baseURL: 'http://localhost:8080/RapidFeedback',
   crossDomain: true,
   headers: {
     'Content-Type': 'application/json;charset=utf-8'
