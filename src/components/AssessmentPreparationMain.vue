@@ -1,137 +1,233 @@
 <template>
-    <b-container fluid>
+  <b-container fluid>
+    <b-row>
+      <b-col cols="2">
+        <b-button variant="primary" to="/MainMenu">Back</b-button>
+      </b-col>
+    </b-row>
+    <b-row><br></b-row>
+    <b-row>
+      <b-col cols="2">
+        <b-button-group>
+          <b-button variant="primary" @click="clear">Add</b-button>
+          <b-button variant="danger" @click="deleteTrigger">Delete</b-button>
+        </b-button-group>
+      </b-col>
+      <b-col cols="10">
+        <h1>Please Select or Add a Project</h1>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col cols="2">
+        <!-- <b-row><h5>Project List:</h5></b-row>
+        <b-list-group v-for="project in projectList" v-bind:key="project.projectName">
+          <b-list-group-item button @click="choose(project.projectName)">{{project.projectName}}</b-list-group-item>
+        </b-list-group> -->
+        <b-table
+            sticky-header
+            hover
+            borderless
+            outlined
+            head-variant="light"
+            :items="projectList"
+            :fields="projectField">
+          <template v-slot:cell(projectName)="project">
+            <b-button block variant="outline-primary" @click="selected(project.item)">{{project.value}}</b-button>
+          </template>
+        </b-table>
+      </b-col>
+      <b-col>
         <b-row>
-            <b-col cols="2">
-                <b-row>
-                    <b-col>
-                        <b-nav vertical>
-                            <b-nav-item to="/AssessmentPreparation/About" @click="clear">Add Assessment</b-nav-item>
-                        </b-nav>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col>
-                        <b-list-group>
-                            <!-- <b-list-group-item>Project 1</b-list-group-item>
-                            <b-list-group-item>Project 2</b-list-group-item> -->
-                            <b-list-group-item v-for="item in projectList" v-bind:key="item.id" @click="choose(item)">
-                            <!-- <b-list-group-item v-for="item in test" :key="item"> -->
-                              {{ item.name }}
-                            </b-list-group-item>
-                        </b-list-group>
-                    </b-col>
-                </b-row>
-            </b-col>
-            <b-col>
-                <b-row align-h="center">
-                    <h1>Please Select or Add a Project</h1>
-                </b-row>
-                <b-row>
-                    <b-col @click="nextpage('/AssessmentPreparation/About')">
-                        <h5>About</h5>
-                        <hr>
-                        <p>Project Details</p>
-                        <p>Subject Name: {{project.subjectName}}</p>
-                        <p>Subject Code: {{project.subjectCode}}</p>
-                        <p>description: {{project.description}}</p>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col @click="nextpage('/AssessmentPreparation/Criteria')">
-                        <h5>Criteria</h5>
-                        <hr>
-                        <p>Criteria Details</p>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col>
-                      <!-- TODO: redirect to marker invitation page -->
-                        <h5>Marker Management</h5>
-                        <hr>
-                        <p>Click the subtitle to manage markers</p>
-                    </b-col>
-                </b-row>
-                <b-row>
-                  <!--  -->
-                    <b-col @click="nextpage('/AssessmentPreparation/Student')">
-                        <h5>Student Management</h5>
-                        <hr>
-                        <p>Click the subtitle to manage students</p>
-                    </b-col>
-                </b-row>
-            </b-col>
+          <b-col>
+            <b-row><b-col><hr></b-col></b-row>
+            <b-row>
+              <b-col cols="10">
+                <h5>About</h5>
+              </b-col>
+              <b-col cols="2">
+                <b-button size="sm" v-if="this.selectedProject.length !== 0" @click="nextpage('/AssessmentPreparation/About')">Edit</b-button>
+              </b-col>
+            </b-row>
+            <b-row><b-col><hr></b-col></b-row>
+            <b-row>
+              <b-col>
+                <p>Project Details</p>
+                <p>Subject Name: {{subjectName}}</p>
+                <p>Subject Code: {{subjectCode}}</p>
+                <p>description: {{description}}</p>
+                <hr>
+              </b-col>
+            </b-row>
+          </b-col>
         </b-row>
-    </b-container>
+        <b-row>
+          <b-col>
+            <b-row>
+              <b-col cols="10">
+                <h5>Criteria</h5>
+              </b-col>
+              <b-col cols="2">
+                <b-button size="sm" v-if="selectedProject.length !== 0" @click="nextpage('/AssessmentPreparation/Criteria')">Edit</b-button>
+              </b-col>
+            </b-row>
+            <b-row><b-col><hr></b-col></b-row>
+            <b-row>
+              <b-col>
+                <p>Criteria Details</p>
+                <hr>
+              </b-col>
+            </b-row>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <h5>Marker Management</h5>
+            <hr>
+            <p>Click the subtitle to manage markers</p>
+            <hr>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-row>
+              <b-col cols="10">
+                <h5>Student Management</h5>
+              </b-col>
+              <b-col cols="2">
+                <b-button size="sm" v-if="selectedProject.length !== 0" @click="nextpage('/AssessmentPreparation/Student')">Edit</b-button>
+              </b-col>
+            </b-row>
+            <b-row><b-col><hr></b-col></b-row>
+            <b-row>
+              <b-col>
+                <p>Click the subtitle to manage students</p>
+              </b-col>
+            </b-row>
+          </b-col>
+        </b-row>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
-// eslint-disable-next-line no-unused-vars
 import {store} from '@/store.js'
+import {deleteProject} from '@/api'
 
 export default {
   name: 'AssessmentPreparationMain',
   data () {
     return {
-      // eslint-disable-next-line no-eval
-      projectList: eval(localStorage.getItem('projectList')),
-      // projectList: localStorage.getItem('projectList')
-      clicked: false
+      deleting: false,
+      projectList: store.state.projectList,
+      selectedProject: {},
+      projectField: [{key: 'projectName', sortable: true, label: 'Project List:'}]
     }
   },
   methods: {
-    choose (project) {
-      // console.log(name)
-      this.clicked = true
-      store.project = project
-      // console.log('store ' + store.projectName)
-      // this.projectList.forEach(item => {
-      //   if (item.projectId === id) {
-      //     store.project = item
-      //   }
-      // })
-      // console.log('choose: ', id)
-      store.projectId = project.id
-      console.log('project:', store.project)
-      console.log('store.projectid: ', store.projectId)
-      // console.log(store.project)
+    choose (name) {
+      if (this.deleting) {
+        this.deletePro(name)
+      } else {
+        store.state.projectName = name
+        // console.log('store ' + store.projectName)
+        this.projectList.forEach(item => {
+          if (item.projectName === name) {
+            store.state.project = item
+          }
+        })
+      }
+    },
+    selected (project) {
+      // this.selectedProject = {}
+      // this.selectedProject = project
+      // store.state.project = project
+      if (this.deleting) {
+        this.deletePro(project.projectName)
+      } else {
+        store.state.project = project
+        // console.log('store ' + store.projectName)
+        this.selectedProject = project
+      }
     },
     clear () {
-      store.projectId = 0
-      store.project = null
-      console.log(store.project)
+      store.state.project = {}
+      store.state.projectName = null
+      this.deleting = false
+      this.$router.push('/AssessmentPreparation/About')
     },
     nextpage (path) {
       this.$router.push(path)
+    },
+    deleteTrigger () {
+      this.deleting = true
+    },
+    deletePro (projectName) {
+      var param = {
+        token: localStorage.token,
+        projectName: projectName
+      }
+      deleteProject(param).then(res => {
+        console.log(res)
+        if (res.updateProject_ACK) {
+          var temp = null
+          this.projectList.forEach(item => {
+            if (item.projectName === projectName) {
+              temp = item
+            }
+          })
+          if (store.state.project === temp) {
+            store.state.project = null
+          }
+          let i = store.state.projectList.indexOf(temp)
+          store.state.projectList.splice(i, 1)
+          localStorage.setItem('projectList', JSON.stringify(store.state.projectList))
+        } else {
+          // TODO: failure alert
+          console.log('fail')
+        }
+      })
+      this.deleting = false
     }
   },
   computed: {
     subjectName () {
-      if (store.project === null) {
+      if (store.state.project === null) {
         return ' '
       } else {
-        return store.project.subjectName
+        if (store.state.project.subjectName === 'null') {
+          return ' '
+        } else {
+          return store.state.project.subjectName
+        }
       }
     },
     subjectCode () {
-      if (store.project === null) {
+      if (store.state.project === null) {
         return ' '
       } else {
-        return store.project.subjectCode
+        if (store.state.project.subjectCode === 'null') {
+          return ' '
+        } else {
+          return store.state.project.subjectCode
+        }
       }
     },
     description () {
-      if (store.project === null) {
+      if (store.state.project === null) {
         return ' '
       } else {
-        return store.project.description
+        return store.state.project.description
       }
-    },
-    project () {
-      if (store.project === null) {
-        return ' '
-      } else {
-        return store.project
-      }
+    }
+  },
+  created () {
+    if (store.state.projectList.length > 0) {
+      store.state.project = store.state.projectList[0]
+      store.state.projectName = store.state.project.projectName
+    } else {
+      store.state.project = {}
+      store.state.projectName = null
     }
   },
   created: function () {

@@ -1,9 +1,27 @@
 import Vue from 'vue'
 
 export const store = Vue.observable({
-  projectId: null,
-  project: null
-  // eslint-disable-next-line no-eval
-  // project: eval(localStorage.getItem('projectList'))[0]
+  state: {
+    token: null,
+    firstName: null,
+    project: null,
+    projectName: null,
+    projectList: [],
+    criteriaList: [],
+    student: {},
+    markList: []
+  }
 })
-// token, id, firstName, projectList are all stored in localstorage, this store is just for data sharing bwtween components
+
+export const clear = () => {
+  store.state = {
+    token: null,
+    firstName: null,
+    project: null,
+    projectName: null,
+    projectList: [],
+    criteriaList: [],
+    student: {},
+    markList: []
+  }
+}

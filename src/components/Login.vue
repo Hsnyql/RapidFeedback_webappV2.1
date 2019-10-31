@@ -1,40 +1,51 @@
 <template>
-    <b-container fluid>
-        <b-row align-h="center"><h1>Login Page</h1></b-row>
-        <b-row align-h="center">
-          <b-alert v-model="noEmail" variant="danger" dismissible>Wrong email!</b-alert>
-          <b-alert v-model="wrongPassword" variant="danger" dismissible>Wrong password!</b-alert>
+  <b-container fluid>
+    <b-row><br></b-row>
+<!--        <b-row align-h="center"><h1>Login</h1></b-row>-->
+    <b-row align-h="center">
+      <b-alert v-model="noEmail" variant="danger" dismissible>Wrong email!</b-alert>
+      <b-alert v-model="wrongPassword" variant="danger" dismissible>Wrong password!</b-alert>
+    </b-row>
+    <b-row align-h="center">
+      <b-col cols="6">
+        <b-row>
+          <b-col>
+            <b-form>
+              <b-form-group id="account" label="Account:" label-for="account-input">
+                <b-form-input
+                  id="account-input"
+                  type="email"
+                  required
+                  placeholder="Enter Email"
+                  v-model="email"></b-form-input>
+              </b-form-group>
+              <b-form-group id="password" label="Password:" label-for="password-input">
+                <b-form-input
+                  id="password-input"
+                  type="password"
+                  required
+                  placeholder="Enter Password"
+                  v-model="password"></b-form-input>
+              </b-form-group>
+              <b-row align-h="around">
+                <b-col cols="3">
+                <b-button variant="primary" @click="login">Submit</b-button>
+                </b-col>
+                <b-col cols="3" align-self="end">
+                <b-button variant="danger" @click="clear">Clear</b-button>
+                </b-col>
+              </b-row>
+            </b-form>
+          </b-col>
         </b-row>
-        <b-row align-h="center">
-            <b-col cols="6">
-                <b-row>
-                    <b-col>
-                        <b-form @submit="login" @reset="clear">
-                            <b-form-group id="account" label="Account:" label-for="account-input">
-                                <b-form-input id="account-input" type="email" required placeholder="Enter Email" v-model="email"></b-form-input>
-                            </b-form-group>
-                            <b-form-group id="password" label="Password:" label-for="password-input">
-                                <b-form-input id="password-input" type="password" required placeholder="Enter Password" v-model="password"></b-form-input>
-                            </b-form-group>
-                            <b-row align-h="center">
-                              <b-col cols="3">
-                                <b-button type="submit" variant="primary">Submit</b-button>
-                              </b-col>
-                              <b-col cols="3">
-                                <b-button type="reset" variant="danger">Clear</b-button>
-                              </b-col>
-                            </b-row>
-                        </b-form>
-                    </b-col>
-                </b-row>
-            </b-col>
-        </b-row>
-    </b-container>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
-// import {store} from '@/store.js'
 import {loginCheck} from '@/api.js'
+import {store} from '@/store'
 
 export default {
   name: 'Login',
@@ -56,11 +67,25 @@ export default {
       }
       loginCheck(param).then(res => {
         if (res.login_ACK > 0) {
+          // check server response
+          console.log('Login Successful! Server Response Below:')
+          console.log(res)
           localStorage.setItem('token', res.token)
           localStorage.setItem('firstName', res.firstName)
-          localStorage.setItem('projectList', res.projectList)
-          localStorage.setItem('id', res.Login_ACK)
-          this.$router.push('/firstpage')
+          console.log('Welcome, ' + res.firstName)
+          // localStorage.setItem('projectList', res.projectList)
+          console.log('All Info in Server Response Stored in Local Storage')
+          console.log('Assesement Info Received Below:')
+          console.log(res.projectList)
+          localStorage.setItem('email', this.email)
+          store.state.token = res.token
+          var test = res.firstName.split(' ')[0]
+          store.state.firstName = test
+          console.log(store.state.firstName)
+          // store.state.projectList = JSON.parse(res.projectList)
+          console.log('All Info in Server Response Stored in Store.js')
+          console.log('Loading Main Menu')
+          this.$router.push('/MainMenu')
         } else if (res.login_ACK === 0) {
           this.wrongPassword = true
         } else {
@@ -74,8 +99,6 @@ export default {
       this.wrongPassword = null
       this.noEmail = null
     }
-  },
-  computed: {
   }
 }
 </script>

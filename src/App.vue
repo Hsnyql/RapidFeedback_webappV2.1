@@ -1,45 +1,41 @@
 <template>
     <b-container fluid>
-        <!-- <b-row class="header">
-            <b-col cols="2" class="headerImg text-center">
-                <img alt="uni logo" src="./assets/unimelb-logo-prefered.jpg" width="128" height="128">
-            </b-col>
-            <b-col class="headerTitle"><h1>Rapid Feedback</h1></b-col>
-        </b-row> -->
-      <b-row class="header text-center">
+      <b-row id="fixedHeader" class="header text-center">
         <b-col>
-          <UomHeader></UomHeader>
+            <UomHeader></UomHeader>
         </b-col>
       </b-row>
-        <navbar> </navbar>
-        <!-- <b-row align-h="center">
-            <b-col>
-                <b-nav pills>
-                    <b-nav-item to="/">Login</b-nav-item>
-                    <b-nav-item to="/Signup">Signup</b-nav-item>
-                    <b-nav-item to="/AssessmentPreparation/Menu">Assessment Preparation</b-nav-item>
-                    <b-nav-item >Real-Time Assessment</b-nav-item>
-                    <b-nav-item >Review</b-nav-item>
-                    <b-nav-item >Report</b-nav-item>
-                    <b-nav-item to="/file">excel read test</b-nav-item>
-                    <b-nav-item @click="signout" to="/">Logout</b-nav-item>
-                </b-nav>
-            </b-col>
-        </b-row> -->
-        <b-row align-h="center">
-            <b-col><router-view></router-view></b-col>
-        </b-row>
-        <!-- <b-row>
-          <b-col>
-            <b-button @click="test" size="lg">test</b-button>
-          </b-col>
-        </b-row> -->
-        <!-- TODO: margin -->
-        <b-row class="footer">
-          <b-col>
-            <UomFooter></UomFooter>
-          </b-col>
-        </b-row>
+      <b-row id="blankRow"><br></b-row>
+<!--      <b-row align-h="center"><Navbar></Navbar></b-row>-->
+      <b-row align-h="center" v-if="!loggedIn">
+        <b-col cols="6">
+          <!-- TODO: Fix jumping between card tabs -->
+<!--          <b-tabs pills>-->
+<!--            <b-tab title="Log In" active>-->
+<!--              <b-card>-->
+<!--                <Login></Login>-->
+<!--              </b-card>-->
+<!--            </b-tab>-->
+<!--            <b-tab title="Sign Up">-->
+<!--              <b-card>-->
+<!--                <Signup></Signup>-->
+<!--              </b-card>-->
+<!--            </b-tab>-->
+<!--          </b-tabs>-->
+          <b-nav pills justified>
+            <b-nav-item :active="loginActive" @click="jumpTo('login')">Log In</b-nav-item>
+            <b-nav-item :active="!loginActive" @click="jumpTo('signup')">Sign Up</b-nav-item>
+          </b-nav>
+        </b-col>
+      </b-row>
+      <b-row align-h="center">
+        <b-col><router-view></router-view></b-col>
+      </b-row>
+<!--        <b-row class="footer">-->
+<!--          <b-col>-->
+<!--            <UomFooter></UomFooter>-->
+<!--          </b-col>-->
+<!--        </b-row>-->
     </b-container>
 </template>
 
@@ -47,93 +43,74 @@
 import Navbar from './components/Navbar.vue'
 import UomFooter from './components/UomFooter.vue'
 import UomHeader from './components/UomHeader.vue'
+import {store} from '@/store'
+import Login from './components/Login.vue'
+import Signup from './components/Signup.vue'
+
 export default {
   name: 'app',
-  components: { UomHeader, Navbar, UomFooter
-
-  },
+  components: {UomHeader, Navbar, UomFooter, Login, Signup},
   data () {
     return {
-
+      loginActive: true
     }
   },
   methods: {
-    // changeStatus: function (status) {
-    //     this.loginStatus = status
-    // }
-    test () {
-      console.log(localStorage.getItem('projectList'))
-    },
-    signout () {
-      localStorage.clear()
+    jumpTo (component) {
+      if (component === 'login') {
+        this.loginActive = true
+        this.$router.push('/')
+      } else if (component === 'signup') {
+        this.loginActive = false
+        this.$router.push('/Signup')
+      }
+    }
+  },
+  computed: {
+    loggedIn () {
+      if (store.state.token) {
+        return true
+      } else {
+        return false
+      }
     }
   }
 }
 </script>
 
 <style lang="scss">
-@import '@/assets/custom.scss';
+@import './assets/custom.scss';
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 @import './assets/uom_master.css';
 @import './assets/uom_header.css';
 @import './assets/uom_footer.css';
 
-/*#app {*/
-/*  font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
-/*  -webkit-font-smoothing: antialiased;*/
-/*  -moz-osx-font-smoothing: grayscale;*/
-/*  text-align: center;*/
-/*  color: #2c3e50;*/
-/*  margin-top: 60px;*/
-/*  }*/
-  // .header {
-  //   background: #094183;
-  // }
-  // .headerImg {
-  //   padding-left: 20px;
-  //   align-content: center;
-  // }
-  /* .headerTitle{
-  } */
-  // .headerTitle h1{
-  //   position: absolute;
-  //   bottom: 10%;
-  //   color: white;
-  // }
   .body{
     position: relative;
   }
-  // .menuBox{
-  //   height: 100%;
-  //   width: 20%;
-  //   border: 4px solid red;
-  // }
-  // .menu{
-  //   float: left;
-  //   border: 4px solid black;
-  //   width: 100%;
-  //   list-style-type: none;
-  //   margin: 0;
-  //   padding: 0;
-  //   text-align: center;
-  //   /*height: 100%;*/
-  // }
+
   .content{
     border-left: 1px solid black;
     height: 100%;
   }
-  /*.divider{*/
-  /*  !*position: absolute;*!*/
-  /*  height: 100%;*/
-  /*  left: 25%;*/
-  /*  border-left: 1px solid black;*/
-  /*  padding-left: 10px;*/
-  /*}*/
-  /*.menu router-link {*/
-  /*  display: block;*/
-  /*}*/
 
   .footer{
     background: #094183;
   }
+
+  #fixedHeader{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 99;
+  }
+
+  #fixedHeader + #blankRow{
+    padding-top: 125px;
+  }
+
+  // #loginbtn {
+  //   background-color: #094183;
+  //   color: white;
+  // }
 </style>
