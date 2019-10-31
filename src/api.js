@@ -51,30 +51,6 @@ export const editCriteria = param => {
   })
 }
 
-export const addStudent = param => {
-  return axios.post('/AddStudentServelet', param).then(res => {
-    return res.data
-  })
-}
-
-export const deleteStudent = param => {
-  return axios.post('/DeleteStudentServlet', param).then(res => {
-    return res.data
-  })
-}
-
-export const editStudent = param => {
-  return axios.post('/EditStudentServlet', param).then(res => {
-    return res.data
-  })
-}
-
-export const editCriteria = param => {
-  return axios.post('/CriteriaListServlet', param).then(res => {
-    return res.data
-  })
-}
-
 export const assessmentAbout = param => {
   return instance.post('/UpdateProject_About_Servlet', param).then(res => {
     return res.data
