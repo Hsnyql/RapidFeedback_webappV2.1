@@ -229,21 +229,7 @@ export default {
       store.state.project = {}
       store.state.projectName = null
     }
-  },
-  created: function () {
-    console.log(localStorage.getItem('projectList'))
-    if (store.project === null) {
-      if (localStorage.getItem('projectList') != null) {
-      // eslint-disable-next-line no-eval
-        store.project = eval(localStorage.projectList)[0]
-        store.projectId = store.project.projectId
-      } else {
-        store.project = null
-      }
-    }
-    console.log(store.project)
   }
-
 }
 </script>
 
