@@ -53,7 +53,7 @@
 
 <script>
 import {store} from '@/store'
-import {assessmentAbout} from '@/api'
+import {assessmentAbout, assessmentTime} from '@/api'
 
 export default {
   name: 'AssessmentPreparationAbout',
