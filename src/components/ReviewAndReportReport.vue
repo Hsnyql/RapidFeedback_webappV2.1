@@ -170,7 +170,7 @@ export default {
     fullname (student) {
       let fullName = ''
       if (student.firstName !== '') {
-        if (student.middleName === '' | student.middleName === 'null') {
+        if (student.middleName === '' || student.middleName === 'null') {
           fullName = student.firstName + ' ' + student.surname
         } else {
           fullName = student.firstName + ' ' + student.middleName + ' ' + student.surname

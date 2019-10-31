@@ -15,7 +15,6 @@
                  @hidden="file = null"
                  @ok="readExcel">
           <b-form-file v-model="file" ref="file-input" class="mb-2"></b-form-file>
-
           <!-- <b-button @click="file = null">Clear</b-button>
           <b-button @click="readExcel">read</b-button> -->
         </b-modal>
@@ -211,18 +210,18 @@ export default {
   computed: {
   },
   methods: {
-    populate () {
-      this.addedStudents = []
-      for (let i = 0; i < 10; i++) {
-        let newStudent = {number: i + 1,
-          firstName: 'firstName' + (i + 1).toString(),
-          middleName: 'middleName' + (i + 1).toString(),
-          surname: 'lastName' + (i + 1).toString(),
-          email: 'firstName' + (i + 1).toString() + '@email.com',
-          group: 0}
-        this.addedStudents.push(newStudent)
-      }
-    },
+    // populate () {
+    //   this.addedStudents = []
+    //   for (let i = 0; i < 10; i++) {
+    //     let newStudent = {number: i + 1,
+    //       firstName: 'firstName' + (i + 1).toString(),
+    //       middleName: 'middleName' + (i + 1).toString(),
+    //       surname: 'lastName' + (i + 1).toString(),
+    //       email: 'firstName' + (i + 1).toString() + '@email.com',
+    //       group: 0}
+    //     this.addedStudents.push(newStudent)
+    //   }
+    // },
     readExcel () {
       const fileReader = new FileReader()
       fileReader.onload = (ev) => {

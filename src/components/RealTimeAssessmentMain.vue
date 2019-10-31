@@ -92,7 +92,7 @@ export default {
     //   return fullName
     // },
     renderMiddleName (middleName) {
-      if (middleName === '' | middleName === 'null' | middleName === null) {
+      if (middleName === '' || middleName === 'null' || middleName === null) {
         return ''
       } else {
         return middleName
@@ -107,7 +107,7 @@ export default {
   mounted () {
     store.state.projectList.forEach(project => {
       project.studentInfo.forEach(student => {
-        if (student.group === -999 | student.group === 0) {
+        if (student.group === -999 || student.group === 0) {
           student.group = null
         }
       })
